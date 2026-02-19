@@ -1,0 +1,1409 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EarnZone - Leçon 9: Passer à l'échelle</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== VARIABLES GLOBALES ===== */
+    :root {
+      --primary: #00ffcc;
+      --primary-dark: #00cca3;
+      --secondary: #ff4d94;
+      --accent: #9d4edd;
+      --bg-dark: #000000;
+      --bg-medium: #0a0a0a;
+      --bg-light: #1a1a1a;
+      --text-light: #ffffff;
+      --text-dim: #94a3b8;
+      --card-bg: rgba(20, 20, 20, 0.8);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --success: #4cff4c;
+      --warning: #ffcc00;
+      --danger: #ff4757;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 30px rgba(0, 255, 204, 0.2);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.03);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: var(--text-light);
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      padding-bottom: 100px;
+    }
+
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 255, 204, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 40% 80%, rgba(255, 215, 0, 0.05) 0%, transparent 40%);
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 5%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      color: var(--primary);
+    }
+
+    .course-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .course-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .progress-badge {
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 30px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--primary);
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    .lesson-banner {
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(157, 78, 221, 0.1));
+      border-radius: 24px;
+      padding: 25px 20px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lesson-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .module-path {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      font-size: 12px;
+    }
+
+    .module-name {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .lesson-number {
+      color: var(--text-dim);
+    }
+
+    .lesson-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .lesson-meta {
+      display: flex;
+      gap: 20px;
+      color: var(--text-dim);
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    .lesson-meta i {
+      color: var(--primary);
+      margin-right: 5px;
+    }
+
+    .content-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      padding-bottom: 10px;
+    }
+
+    .section-title i {
+      font-size: 24px;
+    }
+
+    .content-text {
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    .content-text h3 {
+      color: var(--text-light);
+      font-size: 18px;
+      font-weight: 600;
+      margin: 25px 0 15px;
+    }
+
+    .content-text h3:first-child {
+      margin-top: 0;
+    }
+
+    .content-text p {
+      margin-bottom: 15px;
+    }
+
+    .content-text ul, .content-text ol {
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .content-text li {
+      margin-bottom: 10px;
+    }
+
+    .content-text strong {
+      color: var(--primary);
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(255, 215, 0, 0.1));
+      border-left: 4px solid var(--warning);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-style: italic;
+      color: var(--text-light);
+    }
+
+    .strategy-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .strategy-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--warning);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .strategy-title i {
+      font-size: 24px;
+    }
+
+    .stats-mini {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-mini {
+      background: rgba(255, 215, 0, 0.05);
+      border: 1px solid rgba(255, 215, 0, 0.1);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat-mini-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--warning);
+      margin-bottom: 5px;
+    }
+
+    .stat-mini-label {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .milestone-timeline {
+      margin: 30px 0;
+    }
+
+    .milestone-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .milestone-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: black;
+    }
+
+    .milestone-content h4 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-bottom: 5px;
+    }
+
+    .milestone-content p {
+      color: var(--text-dim);
+      font-size: 13px;
+    }
+
+    .case-study {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+
+    .case-study-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .case-study-content {
+      color: var(--text-dim);
+      font-style: italic;
+    }
+
+    .action-plan {
+      background: rgba(76, 255, 76, 0.05);
+      border: 1px solid rgba(76, 255, 76, 0.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+
+    .action-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--success);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .action-list {
+      list-style: none;
+    }
+
+    .action-list li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .action-list li:last-child {
+      border-bottom: none;
+    }
+
+    .action-list li i {
+      color: var(--success);
+    }
+
+    .warning-box {
+      background: rgba(255, 71, 87, 0.05);
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      border-radius: 12px;
+      padding: 15px;
+      margin: 20px 0;
+      color: var(--danger);
+    }
+
+    .quiz-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .quiz-question {
+      margin-bottom: 20px;
+    }
+
+    .quiz-question p {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .quiz-option:hover {
+      background: rgba(0, 255, 204, 0.05);
+      border-color: var(--primary);
+    }
+
+    .quiz-option input[type="radio"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+
+    .quiz-option input[type="radio"]:checked {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    .quiz-feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .quiz-feedback.correct {
+      background: rgba(76, 255, 76, 0.1);
+      border: 1px solid rgba(76, 255, 76, 0.2);
+      color: var(--success);
+      display: block;
+    }
+
+    .quiz-feedback.incorrect {
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      color: var(--danger);
+      display: block;
+    }
+
+    .quiz-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .complete-section {
+      margin: 25px 0;
+    }
+
+    .complete-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--success), #00cc44);
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .lesson-nav {
+      display: flex;
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .nav-btn.prev {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+    }
+
+    .nav-btn.next {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .certificate-badge {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.1), rgba(0, 255, 204, 0.1));
+      border-radius: 30px;
+      padding: 30px 20px;
+      margin: 30px 0;
+      text-align: center;
+      border: 1px solid var(--warning);
+    }
+
+    .certificate-icon {
+      font-size: 48px;
+      color: var(--warning);
+      margin-bottom: 15px;
+    }
+
+    .certificate-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--warning);
+    }
+
+    .back-home {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      padding: 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+      z-index: 99;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+      transform: translateY(200px);
+      transition: transform 0.5s;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .notification.show {
+      transform: translateY(0);
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+    }
+
+    .notification-content h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .notification-content p {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gradient-bg"></div>
+  <div class="noise"></div>
+
+  <div class="notification" id="notification">
+    <div class="notification-icon">
+      <i class="fas fa-gift"></i>
+    </div>
+    <div class="notification-content">
+      <h4 id="notificationTitle">Leçon 9</h4>
+      <p id="notificationMessage">Passer à l'échelle</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
+    <div class="course-info">
+      <span class="course-title">Leçon 9/10</span>
+      <span class="progress-badge" id="progressBadge">80%</span>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- BANNIÈRE -->
+    <div class="lesson-banner">
+      <div class="module-path">
+        <span class="module-name">Comment lancer son business</span>
+        <span class="lesson-number">Leçon 9/10</span>
+      </div>
+      <h1 class="lesson-title">Passer à l'échelle</h1>
+      <div class="lesson-meta">
+        <span><i class="fas fa-clock"></i> 40 min</span>
+        <span><i class="fas fa-chart-line"></i> Stratégies de croissance</span>
+        <span><i class="fas fa-trophy"></i> Certification</span>
+      </div>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-rocket"></i>
+        Introduction
+      </h2>
+      
+      <div class="content-text">
+        <p>
+          Félicitations ! Vous avez survécu aux premières étapes de la création d'entreprise. 
+          Vous avez une idée validée, une offre solide, une marque, une présence en ligne, 
+          et vous commencez à vendre. Mais maintenant, comment passer de "petit business" 
+          à "entreprise qui compte vraiment" ?
+        </p>
+        
+        <div class="highlight-box">
+          <p>
+            💡 <strong>Le saviez-vous ?</strong> 90% des startups échouent parce qu'elles ne parviennent pas 
+            à passer à l'échelle. La croissance n'est pas une question de chance, mais de stratégie.
+          </p>
+        </div>
+        
+        <div class="stats-mini">
+          <div class="stat-mini">
+            <div class="stat-mini-value">90%</div>
+            <div class="stat-mini-label">Échouent à scaler</div>
+          </div>
+          <div class="stat-mini">
+            <div class="stat-mini-value">10x</div>
+            <div class="stat-mini-label">Croissance possible</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 1: LES FONDAMENTAUX DU SCALING -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-cubes"></i>
+        1. Les fondamentaux du scaling
+      </h2>
+      
+      <div class="content-text">
+        <h3>Qu'est-ce que "passer à l'échelle" vraiment ?</h3>
+        <p>
+          Passer à l'échelle, ce n'est pas juste "faire plus de ventes". C'est <strong>augmenter vos revenus 
+          de façon exponentielle sans augmenter vos coûts de la même manière</strong>. C'est créer des systèmes 
+          qui travaillent pour vous pendant que vous dormez.
+        </p>
+        
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-chart-line"></i>
+            La formule du scaling
+          </div>
+          <p style="text-align: center; font-size: 20px; color: var(--warning); margin: 15px 0;">
+            Revenus ÷ Coûts = Rentabilité × Scalabilité
+          </p>
+          <p style="color: var(--text-dim);">
+            Plus ce ratio est élevé, plus votre business est scalable.
+          </p>
+        </div>
+
+        <h3>Les 3 piliers du scaling réussi</h3>
+        <div class="milestone-timeline">
+          <div class="milestone-item">
+            <div class="milestone-icon"><i class="fas fa-robot"></i></div>
+            <div class="milestone-content">
+              <h4>1. Automatisation</h4>
+              <p>Remplacer le travail manuel par des systèmes automatisés</p>
+            </div>
+          </div>
+          <div class="milestone-item">
+            <div class="milestone-icon"><i class="fas fa-users"></i></div>
+            <div class="milestone-content">
+              <h4>2. Délégation</h4>
+              <p>Embaucher les bonnes personnes et leur faire confiance</p>
+            </div>
+          </div>
+          <div class="milestone-item">
+            <div class="milestone-icon"><i class="fas fa-copy"></i></div>
+            <div class="milestone-content">
+              <h4>3. Standardisation</h4>
+              <p>Créer des processus reproductibles</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 2: STRATÉGIE #1 - AUTOMATISATION -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-robot"></i>
+        2. Stratégie #1 : L'automatisation intelligente
+      </h2>
+      
+      <div class="content-text">
+        <h3>Automatisez ce qui est répétitif, pas ce qui est stratégique</h3>
+        <p>
+          L'erreur la plus courante est de vouloir tout automatiser. La clé est d'identifier 
+          les tâches à faible valeur ajoutée qui peuvent être automatisées.
+        </p>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+            À automatiser en priorité
+          </div>
+          <ul style="color: var(--text-dim); margin-left: 20px;">
+            <li>✅ Réponses aux questions fréquentes (chatbots, FAQ)</li>
+            <li>✅ Relances clients par email/SMS</li>
+                <li>✅ Facturation et relances de paiement</li>
+            <li>✅ Publication sur les réseaux sociaux</li>
+            <li>✅ Reporting et tableaux de bord</li>
+          </ul>
+        </div>
+
+        <div class="warning-box">
+          <i class="fas fa-exclamation-triangle"></i>
+          <strong>Attention :</strong> N'automatisez jamais le contact humain personnalisé 
+          (service client complexe, négociations importantes).
+        </div>
+
+        <h3>Outils recommandés pour l'automatisation</h3>
+        <ul>
+          <li><strong>Zapier / Make (Integromat)</strong> - Connecter toutes vos apps</li>
+          <li><strong>HubSpot / ActiveCampaign</strong> - Marketing automation</li>
+          <li><strong>ManyChat / Chatfuel</strong> - Chatbots Facebook/Instagram</li>
+          <li><strong>Calendly / YouCanBook.me</strong> - Prise de rendez-vous auto</li>
+          <li><strong>QuickBooks / Wave</strong> - Comptabilité automatisée</li>
+        </ul>
+
+        <div class="case-study">
+          <div class="case-study-title">📊 Cas concret : Sarah, consultante RH</div>
+          <div class="case-study-content">
+            <p>Sarah passait 15h par semaine à répondre aux mêmes questions et à gérer ses rendez-vous. 
+            Elle a mis en place :</p>
+            <ul style="margin-top: 10px;">
+              <li>Un chatbot sur son site (FAQ automatique) → -5h/semaine</li>
+              <li>Calendly pour les prises de rendez-vous → -3h/semaine</li>
+              <li>Des emails automatiques de suivi → -4h/semaine</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Résultat :</strong> 12h libérées par semaine, 
+            soit 50% de temps en plus pour se concentrer sur ses clients et développer son activité.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 3: STRATÉGIE #2 - DÉLÉGATION ET ÉQUIPE -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-users"></i>
+        3. Stratégie #2 : Déléguer pour multiplier
+      </h2>
+      
+      <div class="content-text">
+        <h3>Pourquoi vous ne pouvez pas tout faire seul</h3>
+        <p>
+          Vous êtes bon dans certaines choses, moins dans d'autres. En essayant de tout faire, 
+          vous faites du travail médiocre dans des domaines où vous n'êtes pas expert, 
+          et vous n'avez pas le temps de faire ce que vous faites de mieux.
+        </p>
+
+        <div class="stats-mini">
+          <div class="stat-mini">
+            <div class="stat-mini-value">50%</div>
+            <div class="stat-mini-label">De temps perdu</div>
+          </div>
+          <div class="stat-mini">
+            <div class="stat-mini-value">3x</div>
+            <div class="stat-mini-label">Plus de croissance</div>
+          </div>
+        </div>
+
+        <h3>La matrice de délégation</h3>
+        <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 20px; margin: 20px 0;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center;">
+            <div style="background: rgba(0, 255, 204, 0.1); padding: 15px; border-radius: 10px;">
+              <strong style="color: var(--primary);">À GARDER</strong>
+              <p style="font-size: 11px;">Ce que vous faites le mieux</p>
+            </div>
+            <div style="background: rgba(255, 204, 0, 0.1); padding: 15px; border-radius: 10px;">
+              <strong style="color: var(--warning);">À FORMER</strong>
+              <p style="font-size: 11px;">Important mais pas votre fort</p>
+            </div>
+            <div style="background: rgba(255, 71, 87, 0.1); padding: 15px; border-radius: 10px;">
+              <strong style="color: var(--danger);">À SOUS-TRAITER</strong>
+              <p style="font-size: 11px;">Pas important, pas votre fort</p>
+            </div>
+            <div style="background: rgba(76, 255, 76, 0.1); padding: 15px; border-radius: 10px;">
+              <strong style="color: var(--success);">À AUTOMATISER</strong>
+              <p style="font-size: 11px;">Répétitif et chronophage</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>Où trouver les bonnes personnes</h3>
+        <ul>
+          <li><strong>Upwork / Fiverr / Malt</strong> - Freelances pour missions ponctuelles</li>
+          <li><strong>LinkedIn</strong> - Pour des recrutements plus stratégiques</li>
+          <li><strong>Écoles et universités</strong> - Stagiaires motivés</li>
+          <li><strong>Communautés entrepreneuriales</strong> - Recommandations</li>
+        </ul>
+
+        <div class="case-study">
+          <div class="case-study-title">📊 Cas concret : Marc, e-commerçant</div>
+          <div class="case-study-content">
+            <p>Marc vendait des produits sur sa boutique en ligne et passait ses soirées à gérer 
+            le service client, les expéditions et la compta. Il a embauché :</p>
+            <ul style="margin-top: 10px;">
+              <li>Un étudiant pour la gestion des colis (150 000 FCFA/mois)</li>
+              <li>Un freelance pour la compta (50 000 FCFA/mois)</li>
+              <li>Un community manager (100 000 FCFA/mois)</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Résultat :</strong> Son chiffre d'affaires a triplé 
+            en 6 mois car il pouvait enfin se concentrer sur le développement de nouveaux produits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 4: STRATÉGIE #3 - STANDARDISATION -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-copy"></i>
+        4. Stratégie #3 : Standardiser pour reproduire
+      </h2>
+      
+      <div class="content-text">
+        <h3>Le pouvoir des procédures</h3>
+        <p>
+          McDonald's ne vend pas des hamburgers, il vend un <strong>système</strong> pour produire 
+          des hamburgers identiques partout dans le monde. C'est ça, la standardisation.
+        </p>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-clipboard-list"></i>
+            Ce qu'il faut standardiser
+          </div>
+          <ul style="color: var(--text-dim); margin-left: 20px;">
+            <li>✅ Processus d'accueil client</li>
+            <li>✅ Procédure de vente</li>
+            <li>✅ Onboarding des nouveaux employés</li>
+            <li>✅ Processus de création de produit</li>
+            <li>✅ Gestion des réclamations</li>
+          </ul>
+        </div>
+
+        <h3>Créer votre "Playbook" d'entreprise</h3>
+        <p>
+          Un playbook est un document qui décrit TOUS les processus de votre entreprise, 
+          pour que n'importe qui puisse les exécuter correctement.
+        </p>
+
+        <div style="background: rgba(0,0,0,0.3); border-radius: 12px; padding: 15px; margin: 15px 0;">
+          <p style="color: var(--primary); font-weight: 600;">📘 Structure type d'un playbook :</p>
+          <ol style="margin-top: 10px; color: var(--text-dim);">
+            <li>Vision et valeurs de l'entreprise</li>
+            <li>Organigramme et rôles</li>
+            <li>Processus de vente (étape par étape)</li>
+            <li>Processus marketing</li>
+            <li>Processus de production/livraison</li>
+            <li>Processus de service client</li>
+            <li>Processus administratifs</li>
+          </ol>
+        </div>
+
+        <div class="case-study">
+          <div class="case-study-title">📊 Cas concret : Sophie, coach en ligne</div>
+          <div class="case-study-content">
+            <p>Sophie avait du mal à déléguer car elle passait son temps à expliquer comment faire. 
+            Elle a créé un playbook de 50 pages avec :</p>
+            <ul style="margin-top: 10px;">
+              <li>Des scripts d'appels</li>
+              <li>Des templates d'emails</li>
+              <li>Des checklists pour chaque tâche</li>
+              <li>Des vidéos tutorielles</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Résultat :</strong> Elle a pu embaucher 3 assistants 
+            sans perdre en qualité, et son temps de travail est passé de 60h à 35h par semaine.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 5: STRATÉGIE #4 - CROISSANCE EXTERNE -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-handshake"></i>
+        5. Stratégie #4 : Partenariats et croissance externe
+      </h2>
+      
+      <div class="content-text">
+        <h3>Multipliez par 10 avec les partenariats</h3>
+        <p>
+          Pourquoi construire quand on peut s'associer ? Les partenariats sont le moyen 
+          le plus rapide de toucher de nouveaux clients.
+        </p>
+
+        <div class="stats-mini">
+          <div class="stat-mini">
+            <div class="stat-mini-value">3x</div>
+            <div class="stat-mini-label">Croissance plus rapide</div>
+          </div>
+          <div class="stat-mini">
+            <div class="stat-mini-value">70%</div>
+            <div class="stat-mini-label">Moins de coûts</div>
+          </div>
+        </div>
+
+        <h3>Types de partenariats gagnants</h3>
+        <ul>
+          <li><strong>Affiliation</strong> - Payez une commission à des partenaires qui vous envoient des clients</li>
+          <li><strong>Co-marketing</strong> - Faites la promotion croisée avec des entreprises complémentaires</li>
+          <li><strong>Intégration technique</strong> - Intégrez votre service à d'autres plateformes</li>
+          <li><strong>Distribution</strong> - Vendez via les réseaux de distribution existants</li>
+        </ul>
+
+        <div class="case-study">
+          <div class="case-study-title">📊 Cas concret : Paul, créateur de formations</div>
+          <div class="case-study-content">
+            <p>Paul avait du mal à trouver des étudiants. Il a contacté 50 influenceurs dans son domaine 
+            et leur a proposé 30% de commission sur les ventes. Résultat :</p>
+            <ul style="margin-top: 10px;">
+              <li>12 influenceurs ont accepté</li>
+              <li>Son nombre d'étudiants a été multiplié par 8 en 3 mois</li>
+              <li>Il ne paie que quand il vend (pas de coûts fixes)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="highlight-box">
+          <p>
+            🚀 <strong>Challenge :</strong> Identifiez 5 entreprises ou influenceurs avec qui vous pourriez 
+            créer un partenariat gagnant-gagnant. Contactez-les cette semaine.
+          </p>
+        </div>
+      </div>
+    </div>
+
+     <!-- PARTIE 6: STRATÉGIE #5 - INTERNATIONALISATION -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-globe"></i>
+        6. Stratégie #5 : L'internationalisation
+      </h2>
+      
+      <div class="content-text">
+        <h3>Quand et comment passer les frontières</h3>
+        <p>
+          Une fois que votre marché local est saturé, l'international est la prochaine étape. 
+          Mais attention, ce n'est pas aussi simple que de traduire votre site.
+        </p>
+
+        <div class="warning-box">
+          <i class="fas fa-exclamation-triangle"></i>
+          <strong>Piège à éviter :</strong> Ne pas adapter votre offre à la culture locale.
+        </div>
+
+        <h3>Les étapes pour une internationalisation réussie</h3>
+        <ol style="margin: 15px 0;">
+          <li><strong>Étude de marché</strong> - Le produit est-il adapté ?</li>
+          <li><strong>Adaptation culturelle</strong> - Traduction, monnaie, prix, marketing</li>
+          <li><strong>Logistique</strong> - Livraison, support client dans la langue</li>
+          <li><strong>Légal</strong> - Fiscalité, statut juridique, réglementations</li>
+          <li><strong>Partenaires locaux</strong> - S'associer avec des acteurs locaux</li>
+        </ol>
+
+        <div class="case-study">
+          <div class="case-study-title">📊 Cas concret : Marie, créatrice de bijoux</div>
+          <div class="case-study-content">
+            <p>Marie vendait ses bijoux uniquement en France. Elle a décidé de s'étendre :</p>
+            <ul style="margin-top: 10px;">
+              <li>Étape 1 : Belgique et Suisse (proches culturellement) → +30% de CA</li>
+              <li>Étape 2 : Canada (même langue) → +50% de CA</li>
+              <li>Étape 3 : Partenariat avec des influenceuses locales dans chaque pays</li>
+            </ul>
+            <p style="margin-top: 10px;"><strong>Résultat :</strong> 3 ans plus tard, 40% de ses ventes 
+            viennent de l'international.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 7: INDICATEURS DE CROISSANCE -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-chart-pie"></i>
+        7. Les indicateurs à surveiller
+      </h2>
+      
+      <div class="content-text">
+        <p>
+          Pour scaler, il faut mesurer. Voici les KPIs essentiels à suivre :
+        </p>
+
+        <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 20px; margin: 20px 0;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+            <div>
+              <h4 style="color: var(--primary);">💰 Financiers</h4>
+              <ul style="color: var(--text-dim); font-size: 12px;">
+                <li>CA mensuel</li>
+                <li>Marge brute</li>
+                <li>Coût d'acquisition (CAC)</li>
+                <li>Valeur vie client (LTV)</li>
+                <li>Cash flow</li>
+              </ul>
+            </div>
+            <div>
+              <h4 style="color: var(--primary);">📊 Opérationnels</h4>
+              <ul style="color: var(--text-dim); font-size: 12px;">
+                <li>Nombre de clients</li>
+                <li>Taux de conversion</li>
+                <li>Taux de churn</li>
+                <li>Productivité par employé</li>
+                <li>Temps de traitement</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-calculator"></i>
+            La règle d'or : LTV > 3 × CAC
+          </div>
+          <p style="color: var(--text-dim);">
+            Si votre valeur vie client n'est pas au moins 3 fois supérieure à votre coût d'acquisition, 
+            votre modèle n'est pas scalable.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 8: PIÈGES À ÉVITER -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-exclamation-triangle" style="color: var(--danger);"></i>
+        8. Les 7 pièges mortels du scaling
+      </h2>
+      
+      <div class="content-text">
+        <ol style="margin: 15px 0;">
+          <li><strong>Scaler trop tôt</strong> - Avant d'avoir un produit/marché fit solide</li>
+          <li><strong>Perdre la qualité</strong> - La croissance au détriment de l'expérience client</li>
+          <li><strong>Négliger la culture d'entreprise</strong> - Avec les nouvelles embauches</li>
+          <li><strong>Manquer de cash</strong> - La croissance coûte cher avant de rapporter</li>
+          <li><strong>S'éparpiller</strong> - Vouloir tout faire à la fois</li>
+          <li><strong>Ignorer les données</strong> - Prendre des décisions à l'instinct</li>
+          <li><strong>Brûler ses équipes</strong> - Rythme infernal, burn-out</li>
+        </ol>
+
+        <div class="warning-box">
+          <i class="fas fa-skull-crosswind"></i>
+          <strong>Statistique :</strong> 74% des startups qui échouent le font à cause d'une croissance trop rapide 
+          et mal gérée. La croissance tue plus d'entreprises que la stagnation.
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 9: PLAN D'ACTION -->
+    <div class="action-plan">
+      <div class="action-title">
+        <i class="fas fa-clipboard-check"></i>
+        Votre plan d'action sur 90 jours
+      </div>
+      
+      <div style="margin: 20px 0;">
+        <h4 style="color: var(--text-light); margin-bottom: 10px;">📅 Jours 1-30 : Audit et préparation</h4>
+        <ul class="action-list">
+          <li><i class="fas fa-check-circle"></i> Analyser vos processus actuels</li>
+          <li><i class="fas fa-check-circle"></i> Identifier ce qui peut être automatisé</li>
+          <li><i class="fas fa-check-circle"></i> Commencer à documenter votre playbook</li>
+          <li><i class="fas fa-check-circle"></i> Définir vos indicateurs clés (KPIs)</li>
+        </ul>
+      </div>
+
+      <div style="margin: 20px 0;">
+        <h4 style="color: var(--text-light); margin-bottom: 10px;">📅 Jours 31-60 : Premiers recrutements</h4>
+        <ul class="action-list">
+          <li><i class="fas fa-check-circle"></i> Embaucher un premier assistant ou freelance</li>
+          <li><i class="fas fa-check-circle"></i> Mettre en place les premiers outils d'automatisation</li>
+          <li><i class="fas fa-check-circle"></i> Contacter 10 partenaires potentiels</li>
+          <li><i class="fas fa-check-circle"></i> Former votre première recrue avec le playbook</li>
+        </ul>
+      </div>
+
+      <div style="margin: 20px 0;">
+        <h4 style="color: var(--text-light); margin-bottom: 10px;">📅 Jours 61-90 : Accélération</h4>
+        <ul class="action-list">
+          <li><i class="fas fa-check-circle"></i> Lancer vos premiers partenariats</li>
+          <li><i class="fas fa-check-circle"></i> Analyser les résultats et ajuster</li>
+          <li><i class="fas fa-check-circle"></i> Recruter une deuxième personne si les résultats sont là</li>
+          <li><i class="fas fa-check-circle"></i> Préparer l'étape suivante (international, nouveaux produits)</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <h2 class="section-title">
+        <i class="fas fa-question-circle"></i>
+        Quiz de validation
+      </h2>
+      
+      <div class="quiz-question">
+        <p>Quel est le ratio minimum recommandé entre la valeur vie client (LTV) et le coût d'acquisition (CAC) pour un business scalable ?</p>
+        <div class="quiz-options">
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="a"> LTV > CAC
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="b"> LTV > 2 × CAC
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="c"> LTV > 3 × CAC
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="d"> LTV > 5 × CAC
+          </label>
+        </div>
+      </div>
+      
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      
+      <button class="quiz-btn" onclick="checkQuiz()">Vérifier ma réponse</button>
+    </div>
+
+    <!-- CERTIFICAT (visible après avoir terminé) -->
+    <div class="certificate-badge" id="certificateBadge" style="display: none;">
+      <div class="certificate-icon">
+        <i class="fas fa-certificate"></i>
+      </div>
+      <div class="certificate-title">Félicitations !</div>
+      <p style="color: var(--text-dim); margin-bottom: 10px;">
+        Vous avez terminé la Leçon 9
+      </p>
+      <p style="font-size: 12px; color: var(--warning);">
+        Plus qu'une leçon avant la certification finale !
+      </p>
+    </div>
+
+    <!-- BOUTON TERMINER -->
+    <div class="complete-section">
+      <button class="complete-btn" id="completeBtn" onclick="markAsCompleted()">
+        <i class="fas fa-check-circle"></i>
+        Marquer comme terminé
+      </button>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="lesson-nav">
+      <a href="lecon8.html" class="nav-btn prev">
+        <i class="fas fa-arrow-left"></i>
+        Leçon 8
+      </a>
+      <a href="lecon10.html" class="nav-btn next" id="nextLesson">
+        Leçon 10
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <a href="formations.html" class="back-home">
+    <i class="fas fa-home"></i>
+    Retour a la formation
+  </a>
+
+  <script>
+    // ============================================
+    // VARIABLES
+    // ============================================
+    let userData = null;
+    let userId = null;
+    const COURSE_ID = 'business';
+    const LESSON_ID = 'lecon9';
+
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    function init() {
+      loadUserData();
+      loadProgress();
+      loadNotes();
+    }
+
+    // ============================================
+    // CHARGER LES DONNÉES UTILISATEUR
+    // ============================================
+    function loadUserData() {
+      userId = localStorage.getItem('earnzone_current_user');
+      
+      if (!userId) {
+        window.location.href = '../../../login.html';
+        return;
+      }
+      
+      const userDataStr = localStorage.getItem(`earnzone_user_${userId}`);
+      if (userDataStr) {
+        userData = JSON.parse(userDataStr);
+        updateProgress();
+      }
+    }
+
+    // ============================================
+    // PROGRESSION
+    // ============================================
+    function loadProgress() {
+      if (!userData.courseProgress) userData.courseProgress = {};
+      if (!userData.courseProgress[COURSE_ID]) {
+        userData.courseProgress[COURSE_ID] = {
+          started: true,
+          startDate: new Date().toISOString(),
+          completedLessons: [],
+          currentLesson: LESSON_ID
+        };
+      }
+      
+      const progress = userData.courseProgress[COURSE_ID];
+      const totalLessons = 10;
+      const completed = progress.completedLessons.length;
+      const percent = Math.round((completed / totalLessons) * 100);
+      
+      document.getElementById('progressBadge').textContent = percent + '%';
+      
+      if (progress.completedLessons.includes(LESSON_ID)) {
+        document.getElementById('completeBtn').innerHTML = '<i class="fas fa-check-circle"></i> Déjà terminé';
+        document.getElementById('completeBtn').disabled = true;
+        document.getElementById('completeBtn').style.opacity = '0.5';
+        document.getElementById('certificateBadge').style.display = 'block';
+      }
+    }
+
+    function updateProgress() {
+      const progress = userData.courseProgress[COURSE_ID];
+      const totalLessons = 10;
+      const completed = progress?.completedLessons.length || 0;
+      const percent = Math.round((completed / totalLessons) * 100);
+      document.getElementById('progressBadge').textContent = percent + '%';
+    }
+
+    // ============================================
+    // NOTES
+    // ============================================
+    function loadNotes() {
+      const savedNotes = localStorage.getItem(`notes_${userId}_${COURSE_ID}_${LESSON_ID}`);
+      if (savedNotes) {
+        document.getElementById('lessonNotes').value = savedNotes;
+      }
+    }
+
+    function saveNotes() {
+      const notes = document.getElementById('lessonNotes').value;
+      localStorage.setItem(`notes_${userId}_${COURSE_ID}_${LESSON_ID}`, notes);
+    }
+
+    // ============================================
+    // QUIZ
+    // ============================================
+    function checkQuiz() {
+      const selected = document.querySelector('input[name="quiz"]:checked');
+      
+      if (!selected) {
+        alert('Veuillez sélectionner une réponse');
+        return;
+      }
+      
+      const feedback = document.getElementById('quizFeedback');
+      const quizBtn = document.querySelector('.quiz-btn');
+      
+      if (selected.value === 'c') {
+        feedback.className = 'quiz-feedback correct';
+        feedback.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Correct ! LTV doit être au moins 3 fois supérieur au CAC pour être scalable.';
+        quizBtn.disabled = true;
+        quizBtn.style.opacity = '0.5';
+        showNotification('✅ Bonne réponse !', 'Vous pouvez passer à la suite', 'success');
+      } else {
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.innerHTML = '<i class="fas fa-times-circle"></i> ❌ Ce n\'est pas la bonne réponse. La réponse correcte est LTV > 3 × CAC.';
+      }
+    }
+
+    // ============================================
+    // MARQUER COMME TERMINÉ
+    // ============================================
+    function markAsCompleted() {
+      if (!userData.courseProgress[COURSE_ID].completedLessons.includes(LESSON_ID)) {
+        userData.courseProgress[COURSE_ID].completedLessons.push(LESSON_ID);
+        userData.courseProgress[COURSE_ID].currentLesson = 'lecon10';
+        
+        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        
+        document.getElementById('completeBtn').innerHTML = '<i class="fas fa-check-circle"></i> Terminé ✓';
+        document.getElementById('completeBtn').disabled = true;
+        document.getElementById('completeBtn').style.opacity = '0.5';
+        document.getElementById('certificateBadge').style.display = 'block';
+        
+        updateProgress();
+        showNotification('✅ Félicitations !', 'Leçon 9 terminée', 'success');
+      }
+    }
+
+    // ============================================
+    // NOTIFICATION
+    // ============================================
+    function showNotification(title, message, type = 'success') {
+      const notification = document.getElementById('notification');
+      document.getElementById('notificationTitle').textContent = title;
+      document.getElementById('notificationMessage').textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    // ============================================
+    // DÉMARRER
+    // ============================================
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body>
+</html>

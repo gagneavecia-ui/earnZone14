@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EarnZone - Retirer mes gains</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== VARIABLES GLOBALES ===== */
+    :root {
+      --primary: #00ffcc;
+      --primary-dark: #00cca3;
+      --secondary: #ff4d94;
+      --accent: #9d4edd;
+      --bg-dark: #000000;
+      --bg-medium: #0a0a0a;
+      --bg-light: #1a1a1a;
+      --text-light: #ffffff;
+      --text-dim: #94a3b8;
+      --card-bg: rgba(20, 20, 20, 0.8);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --success: #4cff4c;
+      --warning: #ffcc00;
+      --danger: #ff4757;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 30px rgba(0, 255, 204, 0.2);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.03);
+    }
+
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: var(--text-light);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      padding-bottom: 100px;
+    }
+
+    /* ===== BACKGROUND ===== */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 255, 204, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.05) 0%, transparent 40%);
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 5%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      color: var(--primary);
+    }
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .page-title i {
+      color: var(--primary);
+    }
+
+    .balance-display {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(0, 255, 204, 0.05);
+      border: 1px solid rgba(0, 255, 204, 0.1);
+      border-radius: 30px;
+      padding: 8px 16px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    /* ===== CONTENEUR PRINCIPAL ===== */
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    /* ===== CARTE SOLDE ===== */
+    .balance-card {
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(157, 78, 221, 0.1));
+      border-radius: 24px;
+      padding: 30px 20px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .balance-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .balance-icon {
+      font-size: 40px;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .balance-label {
+      font-size: 14px;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+    }
+
+    .balance-amount {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      text-shadow: 0 0 20px rgba(0, 255, 204, 0.3);
+    }
+
+    .balance-minimum {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .balance-minimum span {
+      color: var(--warning);
+      font-weight: 600;
+    }
+
+    /* ===== BLOCAGE RETRAIT ===== */
+    .block-card {
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .block-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 71, 87, 0.2);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: var(--danger);
+    }
+
+    .block-content {
+      flex: 1;
+    }
+
+    .block-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--danger);
+      margin-bottom: 5px;
+    }
+
+    .block-text {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .block-progress {
+      margin-top: 10px;
+    }
+
+    .progress-bar-small {
+      height: 6px;
+      background: rgba(255, 71, 87, 0.1);
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 5px 0;
+    }
+
+    .progress-fill-small {
+      height: 100%;
+      background: linear-gradient(90deg, var(--danger), #ff0000);
+      width: 0%;
+    }
+
+    /* ===== MÉTHODES DE RETRAIT ===== */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .methods-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 25px;
+    }
+
+    .method-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .method-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .method-card.selected {
+      border-color: var(--primary);
+      background: rgba(0, 255, 204, 0.05);
+      box-shadow: 0 5px 15px rgba(0, 255, 204, 0.1);
+    }
+
+    .method-icon {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .orange .method-icon { color: #ff6600; }
+    .moov .method-icon { color: #00aaff; }
+    .airtel .method-icon { color: #ff0000; }
+    .wave .method-icon { color: #0066ff; }
+
+    .method-name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .method-fee {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    /* ===== MONTANT À RETIRER ===== */
+    .amount-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .amount-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .amount-input-wrapper {
+      position: relative;
+      margin-bottom: 15px;
+    }
+
+    .amount-input {
+      width: 100%;
+      padding: 18px 50px 18px 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      color: var(--text-light);
+      font-size: 20px;
+      font-weight: 600;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .amount-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      background: rgba(0, 255, 204, 0.05);
+    }
+
+    .currency-symbol {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .quick-amounts {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .quick-amount {
+      padding: 12px 5px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      color: var(--text-light);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .quick-amount:hover {
+      background: rgba(0, 255, 204, 0.1);
+      border-color: var(--primary);
+    }
+
+    .quick-amount.active {
+      background: rgba(0, 255, 204, 0.2);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ===== RÉCAPITULATIF ===== */
+    .summary-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .summary-item:last-child {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      color: var(--text-dim);
+      font-size: 14px;
+    }
+
+    .summary-value {
+      font-weight: 600;
+    }
+
+    .fee-amount {
+      color: var(--danger);
+    }
+
+    .net-amount {
+      color: var(--success);
+    }
+
+    /* ===== BOUTON DE RETRAIT ===== */
+    .withdraw-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+    }
+
+    .withdraw-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(0, 255, 204, 0.5);
+    }
+
+    .withdraw-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .withdraw-btn.blocked {
+      background: linear-gradient(135deg, #666, #888);
+      box-shadow: none;
+    }
+
+    /* ===== LISTE DES INVESTISSEMENTS ACTIFS ===== */
+    .investments-preview {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .investment-item-mini {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .investment-item-mini:last-child {
+      margin-bottom: 0;
+    }
+
+    .investment-info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .investment-info p {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .investment-days {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--warning);
+    }
+
+    /* ===== HISTORIQUE ===== */
+    .history-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .history-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .clear-btn {
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      color: var(--danger);
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .clear-btn:hover {
+      background: rgba(255, 71, 87, 0.2);
+    }
+
+    .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+    }
+
+    .history-info {
+      flex: 1;
+    }
+
+    .history-date {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 3px;
+    }
+
+    .history-method {
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .history-amount {
+      font-weight: 700;
+    }
+
+    .history-amount.requested {
+      color: var(--warning);
+    }
+
+    .history-amount.received {
+      color: var(--success);
+    }
+
+    .history-status {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+      margin-left: 10px;
+    }
+
+    .status-pending {
+      background: rgba(255, 204, 0, 0.1);
+      color: var(--warning);
+      border: 1px solid rgba(255, 204, 0, 0.2);
+    }
+
+    .status-completed {
+      background: rgba(76, 255, 76, 0.1);
+      color: var(--success);
+      border: 1px solid rgba(76, 255, 76, 0.2);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 30px;
+      color: var(--text-dim);
+    }
+
+    .empty-state i {
+      font-size: 48px;
+      margin-bottom: 10px;
+      opacity: 0.3;
+    }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1999;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.9);
+      background: rgba(10, 10, 10, 0.98);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--primary);
+      border-radius: 24px;
+      padding: 25px;
+      width: 90%;
+      max-width: 350px;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s;
+    }
+
+    .modal.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .modal-icon {
+      width: 50px;
+      height: 50px;
+      background: linear-gradient(135deg, var(--warning), #ff9900);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      color: black;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .modal-content {
+      margin-bottom: 25px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .modal-details {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 4px solid var(--primary);
+    }
+
+    .modal-details p {
+      margin: 5px 0;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+    }
+
+    .modal-btn.cancel {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-light);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .modal-btn.confirm {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+    }
+
+    /* ===== BOUTON RETOUR ===== */
+    .back-home {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      padding: 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+      z-index: 99;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ===== NOTIFICATION ===== */
+    .notification {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+      transform: translateY(200px);
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .notification.show {
+      transform: translateY(0);
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+    }
+
+    .notification-content h4 {
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .notification-content p {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND ===== -->
+  <div class="gradient-bg"></div>
+  <div class="noise"></div>
+
+  <!-- ===== NOTIFICATION ===== -->
+  <div class="notification" id="notification">
+    <div class="notification-icon">
+      <i class="fas fa-gift"></i>
+    </div>
+    <div class="notification-content">
+      <h4 id="notificationTitle">Retrait</h4>
+      <p id="notificationMessage">Gérez vos retraits</p>
+    </div>
+  </div>
+
+  <!-- ===== MODAL ===== -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal" id="confirmModal">
+    <div class="modal-header">
+      <div class="modal-icon">
+        <i class="fas fa-question"></i>
+      </div>
+      <div class="modal-title">Confirmer le retrait</div>
+    </div>
+    <div class="modal-content" id="modalMessage">
+      Voulez-vous vraiment effectuer ce retrait ?
+    </div>
+    <div class="modal-details" id="modalDetails">
+      <p>Montant: 0 FCFA</p>
+      <p>Frais: 0 FCFA</p>
+      <p>Net: 0 FCFA</p>
+    </div>
+    <div class="modal-buttons">
+      <button class="modal-btn cancel" id="modalCancel">Annuler</button>
+      <button class="modal-btn confirm" id="modalConfirm">Confirmer</button>
+    </div>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      Retour
+    </a>
+    <div class="page-title">
+      <i class="fas fa-money-check-alt"></i>
+      Retrait
+    </div>
+    <div class="balance-display">
+      <i class="fas fa-coins"></i>
+      <span id="currentBalance">0 FCFA</span>
+    </div>
+  </header>
+
+    <!-- ===== CONTENU PRINCIPAL ===== -->
+  <div class="container">
+    
+    <!-- ===== CARTE SOLDE ===== -->
+    <div class="balance-card">
+      <div class="balance-icon">
+        <i class="fas fa-wallet"></i>
+      </div>
+      <div class="balance-label">Solde disponible</div>
+      <div class="balance-amount" id="availableBalance">0 FCFA</div>
+      <div class="balance-minimum">
+        Minimum de retrait: <span>5 000 FCFA</span>
+      </div>
+    </div>
+
+    <!-- ===== SECTION DE BLOCAGE ===== -->
+    <div id="blockSection"></div>
+
+    <!-- ===== INVESTISSEMENTS ACTIFS ===== -->
+    <div id="activeInvestmentsList"></div>
+
+    <!-- ===== MÉTHODES DE RETRAIT ===== -->
+    <h3 class="section-title">
+      <i class="fas fa-mobile-alt"></i>
+      Méthode de retrait
+    </h3>
+
+    <div class="methods-grid" id="methodsGrid">
+      <div class="method-card orange selected" data-method="orange" id="methodOrange">
+        <div class="method-icon orange">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div class="method-name">Orange Money</div>
+        <div class="method-fee">Frais: 100 FCFA</div>
+      </div>
+
+      <div class="method-card moov" data-method="moov" id="methodMoov">
+        <div class="method-icon moov">
+          <i class="fas fa-mobile-alt"></i>
+        </div>
+        <div class="method-name">Moov Money</div>
+        <div class="method-fee">Frais: 100 FCFA</div>
+      </div>
+
+      <div class="method-card airtel" data-method="airtel" id="methodAirtel">
+        <div class="method-icon airtel">
+          <i class="fas fa-sim-card"></i>
+        </div>
+        <div class="method-name">Airtel Money</div>
+        <div class="method-fee">Frais: 100 FCFA</div>
+      </div>
+
+      <div class="method-card wave" data-method="wave" id="methodWave">
+        <div class="method-icon wave">
+          <i class="fas fa-wave-square"></i>
+        </div>
+        <div class="method-name">Wave</div>
+        <div class="method-fee">Frais: 50 FCFA</div>
+      </div>
+    </div>
+
+    <!-- ===== MONTANT À RETIRER ===== -->
+    <h3 class="section-title">
+      <i class="fas fa-edit"></i>
+      Montant à retirer
+    </h3>
+
+    <div class="amount-section">
+      <label class="amount-label">Entrez le montant (min 1 000 FCFA)</label>
+      <div class="amount-input-wrapper">
+        <input type="number" id="amountInput" class="amount-input" 
+               placeholder="0" min="5000" step="1000" value="5000">
+        <div class="currency-symbol">FCFA</div>
+      </div>
+
+      <div class="quick-amounts">
+        <div class="quick-amount" data-amount="5000">5 000</div>
+        <div class="quick-amount" data-amount="6000">6 000</div>
+        <div class="quick-amount" data-amount="10000">10 000</div>
+        <div class="quick-amount" data-amount="20000">20 000</div>
+      </div>
+    </div>
+
+    <!-- ===== RÉCAPITULATIF ===== -->
+    <div class="summary-section">
+      <div class="summary-item">
+        <span class="summary-label">Montant demandé</span>
+        <span class="summary-value" id="requestedAmount">0 FCFA</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Frais de service</span>
+        <span class="summary-value fee-amount" id="serviceFee">0 FCFA</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Montant reçu</span>
+        <span class="summary-value net-amount" id="netAmount">0 FCFA</span>
+      </div>
+    </div>
+
+    <!-- ===== BOUTON DE RETRAIT ===== -->
+    <button class="withdraw-btn" id="withdrawBtn" disabled>
+      <i class="fas fa-paper-plane"></i>
+      DEMANDER LE RETRAIT
+    </button>
+
+    <!-- ===== HISTORIQUE DES RETRAITS ===== -->
+    <div class="history-section">
+      <div class="history-header">
+        <div class="history-title">
+          <i class="fas fa-history"></i>
+          Historique des retraits
+        </div>
+        <button class="clear-btn" id="clearHistoryBtn">
+          <i class="fas fa-trash-alt"></i>
+          Effacer
+        </button>
+      </div>
+
+      <div class="history-list" id="historyList">
+        <div class="empty-state">
+          <i class="fas fa-history"></i>
+          <p>Aucun retrait effectué</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===== BOUTON RETOUR ===== -->
+  <a href="index.html" class="back-home">
+    <i class="fas fa-home"></i>
+    Retour à l'accueil
+  </a>
+
+  <script>
+    // ============================================
+    // DONNÉES UTILISATEUR
+    // ============================================
+    let userData = null;
+    let userId = null;
+    let withdrawalHistory = [];
+    
+    // Méthodes de retrait
+    const methods = {
+      orange: { name: 'Orange Money', fee: 100 },
+      moov: { name: 'Moov Money', fee: 100 },
+      airtel: { name: 'Airtel Money', fee: 100 },
+      wave: { name: 'Wave', fee: 50 }
+    };
+    
+    let selectedMethod = 'orange';
+
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    function init() {
+      loadUserData();
+      loadHistory();
+      setupEventListeners();
+      updateSummary();
+    }
+
+    // ============================================
+    // CHARGER LES DONNÉES UTILISATEUR
+    // ============================================
+    function loadUserData() {
+      userId = localStorage.getItem('earnzone_current_user');
+      
+      if (!userId) {
+        window.location.href = 'login.html';
+        return;
+      }
+      
+      const userDataStr = localStorage.getItem(`earnzone_user_${userId}`);
+      
+      if (userDataStr) {
+        userData = JSON.parse(userDataStr);
+        updateBalance();
+        checkWithdrawBlock();
+      } else {
+        window.location.href = 'login.html';
+      }
+    }
+
+    // ============================================
+    // METTRE À JOUR LE SOLDE
+    // ============================================
+    function updateBalance() {
+      if (!userData) return;
+      
+      const balance = userData.balance || 0;
+      document.getElementById('currentBalance').textContent = formatCurrency(balance) + ' FCFA';
+      document.getElementById('availableBalance').textContent = formatCurrency(balance) + ' FCFA';
+    }
+
+    // ============================================
+    // VÉRIFICATION DU BLOCAGE RETRAIT
+    // ============================================
+    function checkWithdrawBlock() {
+      const investments = userData.investments || [];
+      const activeInvestments = investments.filter(inv => inv.status === 'active');
+      
+      const blockSection = document.getElementById('blockSection');
+      const activeInvestmentsList = document.getElementById('activeInvestmentsList');
+      const withdrawBtn = document.getElementById('withdrawBtn');
+      const methodsGrid = document.getElementById('methodsGrid');
+      const amountInput = document.getElementById('amountInput');
+      
+      if (activeInvestments.length === 0) {
+        // AUCUN INVESTISSEMENT ACTIF - Retrait autorisé
+        blockSection.innerHTML = '';
+        activeInvestmentsList.innerHTML = '';
+        methodsGrid.style.opacity = '1';
+        amountInput.disabled = false;
+        checkWithdrawButton();
+        return;
+      }
+      
+      // IL Y A DES INVESTISSEMENTS ACTIFS - Retrait bloqué
+      methodsGrid.style.opacity = '0.5';
+      amountInput.disabled = true;
+      
+      // Calculer la date de fin la plus lointaine
+      const endDates = activeInvestments.map(inv => new Date(inv.endDate).getTime());
+      const longestEndDate = Math.max(...endDates);
+      const now = Date.now();
+      const daysLeft = Math.ceil((longestEndDate - now) / (1000 * 60 * 60 * 24));
+      const totalDays = activeInvestments.reduce((sum, inv) => sum + inv.totalDays, 0);
+      
+      // Afficher le blocage
+      blockSection.innerHTML = `
+        <div class="block-card">
+          <div class="block-icon">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="block-content">
+            <div class="block-title">⛔ RETRAIT BLOQUÉ</div>
+            <div class="block-text">
+              Vous avez ${activeInvestments.length} investissement(s) en cours.
+              Le retrait sera possible après la fin de tous vos investissements.
+            </div>
+            <div class="block-progress">
+              <div class="progress-bar-small">
+                <div class="progress-fill-small" style="width: ${Math.min(100, ((totalDays - daysLeft) / totalDays) * 100)}%;"></div>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 11px; color: var(--text-dim); margin-top: 5px;">
+                <span>En cours</span>
+                <span>${daysLeft} jours restants</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      // Afficher la liste des investissements actifs
+      let investmentsHtml = '<div class="investments-preview"><h3 class="section-title" style="margin-bottom: 15px;"><i class="fas fa-chart-line"></i> Investissements en cours</h3>';
+      
+      activeInvestments.forEach(inv => {
+        const endDate = new Date(inv.endDate);
+        const daysRemaining = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+        
+        investmentsHtml += `
+          <div class="investment-item-mini">
+            <div class="investment-info">
+              <h4>Pack ${inv.packName}</h4>
+              <p>Fin le ${endDate.toLocaleDateString('fr-FR')}</p>
+            </div>
+            <div class="investment-days">${daysRemaining}j</div>
+          </div>
+        `;
+      });
+      
+      investmentsHtml += '</div>';
+      activeInvestmentsList.innerHTML = investmentsHtml;
+      
+      // Désactiver le bouton
+      withdrawBtn.disabled = true;
+      withdrawBtn.classList.add('blocked');
+      withdrawBtn.innerHTML = '<i class="fas fa-lock"></i> RETRAIT BLOQUÉ';
+    }
+
+    // ============================================
+    // VÉRIFICATION BOUTON RETRAIT
+    // ============================================
+    function checkWithdrawButton() {
+      const withdrawBtn = document.getElementById('withdrawBtn');
+      const amount = parseInt(document.getElementById('amountInput').value) || 0;
+      const balance = userData?.balance || 0;
+      
+      if (amount >= 5000 && amount <= balance) {
+        withdrawBtn.disabled = false;
+        withdrawBtn.classList.remove('blocked');
+        withdrawBtn.innerHTML = '<i class="fas fa-paper-plane"></i> DEMANDER LE RETRAIT';
+      } else {
+        withdrawBtn.disabled = true;
+      }
+    }
+
+    // ============================================
+    // CONFIGURER LES ÉVÉNEMENTS
+    // ============================================
+    function setupEventListeners() {
+      // Sélection des méthodes
+      document.querySelectorAll('.method-card').forEach(card => {
+        card.addEventListener('click', function() {
+          document.querySelectorAll('.method-card').forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedMethod = this.dataset.method;
+          updateSummary();
+        });
+      });
+
+      // Montant personnalisé
+      document.getElementById('amountInput').addEventListener('input', function() {
+        const amount = parseInt(this.value) || 0;
+        setAmount(amount);
+        checkWithdrawButton();
+      });
+
+      // Montants rapides
+      document.querySelectorAll('.quick-amount').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const amount = parseInt(this.dataset.amount);
+          document.getElementById('amountInput').value = amount;
+          setAmount(amount);
+          checkWithdrawButton();
+        });
+      });
+
+      // Bouton de retrait
+      document.getElementById('withdrawBtn').addEventListener('click', openConfirmModal);
+
+      // Bouton effacer historique
+      document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
+    }
+
+    // ============================================
+    // DÉFINIR LE MONTANT
+    // ============================================
+    function setAmount(amount) {
+      document.querySelectorAll('.quick-amount').forEach(btn => {
+        btn.classList.remove('active');
+        if (parseInt(btn.dataset.amount) === amount) {
+          btn.classList.add('active');
+        }
+      });
+      
+      updateSummary();
+    }
+
+    // ============================================
+    // METTRE À JOUR LE RÉCAPITULATIF
+    // ============================================
+    function updateSummary() {
+      const amount = parseInt(document.getElementById('amountInput').value) || 0;
+      const fee = methods[selectedMethod].fee;
+      const net = Math.max(0, amount - fee);
+      
+      document.getElementById('requestedAmount').textContent = formatCurrency(amount) + ' FCFA';
+      document.getElementById('serviceFee').textContent = formatCurrency(fee) + ' FCFA';
+      document.getElementById('netAmount').textContent = formatCurrency(net) + ' FCFA';
+    }
+
+    // ============================================
+    // OUVRIR LA MODALE DE CONFIRMATION
+    // ============================================
+    function openConfirmModal() {
+      const amount = parseInt(document.getElementById('amountInput').value) || 0;
+      const fee = methods[selectedMethod].fee;
+      const net = amount - fee;
+      const methodName = methods[selectedMethod].name;
+      
+      document.getElementById('modalDetails').innerHTML = `
+        <p><strong>Méthode:</strong> ${methodName}</p>
+        <p><strong>Montant demandé:</strong> ${formatCurrency(amount)} FCFA</p>
+        <p><strong>Frais:</strong> ${formatCurrency(fee)} FCFA</p>
+        <p><strong>Vous recevrez:</strong> ${formatCurrency(net)} FCFA</p>
+        <p><strong>Délai:</strong> 24-48 heures</p>
+      `;
+      
+      document.getElementById('modalOverlay').classList.add('show');
+      document.getElementById('confirmModal').classList.add('show');
+      
+      document.getElementById('modalCancel').onclick = closeModal;
+      document.getElementById('modalConfirm').onclick = processWithdrawal;
+    }
+
+    // ============================================
+    // FERMER LA MODALE
+    // ============================================
+    function closeModal() {
+      document.getElementById('modalOverlay').classList.remove('show');
+      document.getElementById('confirmModal').classList.remove('show');
+    }
+
+    // ============================================
+    // TRAITER LE RETRAIT
+    // ============================================
+    function processWithdrawal() {
+      const amount = parseInt(document.getElementById('amountInput').value) || 0;
+      const fee = methods[selectedMethod].fee;
+      const net = amount - fee;
+      
+      // Vérifier une dernière fois que le retrait est autorisé
+      const investments = userData.investments || [];
+      const activeInvestments = investments.filter(inv => inv.status === 'active');
+      
+      if (activeInvestments.length > 0) {
+        showNotification('❌ Bloqué', 'Vous avez encore des investissements actifs', 'error');
+        closeModal();
+        return;
+      }
+      
+      // Mettre à jour le solde
+      userData.balance -= amount;
+      userData.totalWithdrawn = (userData.totalWithdrawn || 0) + amount;
+      
+      // Créer l'historique
+      const now = new Date();
+      const withdrawal = {
+        id: 'wd_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5),
+        date: now.toLocaleDateString('fr-FR'),
+        time: now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }),
+        amount: amount,
+        net: net,
+        fee: fee,
+        method: methods[selectedMethod].name,
+        status: 'pending',
+        timestamp: now.getTime()
+      };
+      
+      withdrawalHistory.unshift(withdrawal);
+      
+      // Sauvegarder
+      localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+      saveHistory();
+      
+      // Mettre à jour l'interface
+      updateBalance();
+      updateSummary();
+      displayHistory();
+      
+      // Fermer la modale
+      closeModal();
+      
+      // Notification
+      showNotification('✅ Retrait demandé', `Vous recevrez ${formatCurrency(net)} FCFA dans 24-48h`, 'success');
+      
+      // Réinitialiser
+      document.getElementById('amountInput').value = 1000;
+      setAmount(1000);
+      checkWithdrawButton();
+    }
+
+    // ============================================
+    // CHARGER L'HISTORIQUE
+    // ============================================
+    function loadHistory() {
+      const historyStr = localStorage.getItem(`withdrawal_history_${userId}`);
+      if (historyStr) {
+        withdrawalHistory = JSON.parse(historyStr);
+      }
+      displayHistory();
+      checkPendingStatus();
+    }
+
+    // ============================================
+    // SAUVEGARDER L'HISTORIQUE
+    // ============================================
+    function saveHistory() {
+      localStorage.setItem(`withdrawal_history_${userId}`, JSON.stringify(withdrawalHistory));
+    }
+
+    // ============================================
+    // AFFICHER L'HISTORIQUE
+    // ============================================
+    function displayHistory() {
+      const container = document.getElementById('historyList');
+      
+      if (withdrawalHistory.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-history"></i>
+            <p>Aucun retrait effectué</p>
+          </div>
+        `;
+        return;
+      }
+      
+      let html = '';
+      withdrawalHistory.forEach(item => {
+        let statusClass = 'status-pending';
+        let statusText = 'En attente';
+        
+        if (item.status === 'completed') {
+          statusClass = 'status-completed';
+          statusText = 'Validé';
+        }
+        
+        html += `
+          <div class="history-item">
+            <div class="history-info">
+              <div class="history-date">${item.date} ${item.time}</div>
+              <div class="history-method">${item.method}</div>
+            </div>
+            <div style="display: flex; align-items: center;">
+              <div>
+                <div class="history-amount requested">-${formatCurrency(item.amount)}</div>
+                <div class="history-amount received">+${formatCurrency(item.net)}</div>
+              </div>
+              <div class="history-status ${statusClass}">${statusText}</div>
+            </div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
+    }
+
+    // ============================================
+    // VÉRIFIER LES STATUTS EN ATTENTE
+    // ============================================
+    function checkPendingStatus() {
+      const now = Date.now();
+      let updated = false;
+      
+      withdrawalHistory.forEach(item => {
+        if (item.status === 'pending' && now - item.timestamp > 5 * 60 * 1000) {
+          item.status = 'completed';
+          updated = true;
+        }
+      });
+      
+      if (updated) {
+        saveHistory();
+        displayHistory();
+      }
+      
+      setTimeout(checkPendingStatus, 60000);
+    }
+
+    // ============================================
+    // EFFACER L'HISTORIQUE
+    // ============================================
+    function clearHistory() {
+      if (withdrawalHistory.length === 0) {
+        showNotification('ℹ️ Info', 'Aucun historique à effacer', 'info');
+        return;
+      }
+      
+      if (confirm('Voulez-vous vraiment effacer tout l\'historique ?')) {
+        withdrawalHistory = [];
+        saveHistory();
+        displayHistory();
+        showNotification('✅ Historique effacé', 'Tous les retraits ont été supprimés', 'success');
+      }
+    }
+
+    // ============================================
+    // NOTIFICATION
+    // ============================================
+    function showNotification(title, message, type = 'success') {
+      const notification = document.getElementById('notification');
+      document.getElementById('notificationTitle').textContent = title;
+      document.getElementById('notificationMessage').textContent = message;
+      
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 3000);
+    }
+
+    // ============================================
+    // FORMATER UNE VALEUR MONÉTAIRE
+    // ============================================
+    function formatCurrency(amount) {
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    }
+
+    // ============================================
+    // SYNCHRONISATION
+    // ============================================
+    setInterval(function() {
+      const savedData = localStorage.getItem(`earnzone_user_${userId}`);
+      if (savedData) {
+        const freshData = JSON.parse(savedData);
+        if (freshData.balance !== userData?.balance) {
+          userData = freshData;
+          updateBalance();
+          checkWithdrawBlock();
+        }
+      }
+    }, 3000);
+
+    // ============================================
+    // DÉMARRER L'APPLICATION
+    // ============================================
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body>
+</html>

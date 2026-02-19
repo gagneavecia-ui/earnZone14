@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EarnZone - Leçon 1: Trouver une idée de business</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== VARIABLES GLOBALES ===== */
+    :root {
+      --primary: #00ffcc;
+      --primary-dark: #00cca3;
+      --secondary: #ff4d94;
+      --accent: #9d4edd;
+      --bg-dark: #000000;
+      --bg-medium: #0a0a0a;
+      --bg-light: #1a1a1a;
+      --text-light: #ffffff;
+      --text-dim: #94a3b8;
+      --card-bg: rgba(20, 20, 20, 0.8);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --success: #4cff4c;
+      --warning: #ffcc00;
+      --danger: #ff4757;
+      --info: #00a8ff;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 30px rgba(0, 255, 204, 0.2);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.03);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: var(--text-light);
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      padding-bottom: 100px;
+    }
+
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 255, 204, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.05) 0%, transparent 40%);
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 5%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      color: var(--primary);
+    }
+
+    .course-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .course-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .progress-badge {
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 30px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--primary);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    .lesson-banner {
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(157, 78, 221, 0.1));
+      border-radius: 24px;
+      padding: 30px 20px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lesson-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .module-path {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      font-size: 12px;
+    }
+
+    .module-name {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .separator {
+      color: var(--text-dim);
+    }
+
+    .lesson-number {
+      color: var(--text-dim);
+    }
+
+    .lesson-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .lesson-meta {
+      display: flex;
+      gap: 20px;
+      color: var(--text-dim);
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    .lesson-meta i {
+      color: var(--primary);
+      margin-right: 5px;
+    }
+
+    .content-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .section-title i {
+      font-size: 24px;
+    }
+
+    .content-text {
+      color: var(--text-dim);
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .content-text h3 {
+      color: var(--text-light);
+      font-size: 20px;
+      font-weight: 600;
+      margin: 30px 0 15px;
+    }
+
+    .content-text h3:first-child {
+      margin-top: 0;
+    }
+
+    .content-text h4 {
+      color: var(--primary);
+      font-size: 18px;
+      font-weight: 600;
+      margin: 20px 0 10px;
+    }
+
+    .content-text p {
+      margin-bottom: 15px;
+    }
+
+    .content-text ul {
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .content-text li {
+      margin-bottom: 10px;
+    }
+
+    .content-text strong {
+      color: var(--primary);
+    }
+
+    .highlight-box {
+      background: rgba(0, 255, 204, 0.05);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-style: italic;
+    }
+
+    .strategy-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .strategy-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stats-mini {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .stat-mini {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat-mini-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .stat-mini-label {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .exercise-box {
+      background: rgba(0, 255, 204, 0.02);
+      border: 1px solid rgba(0, 255, 204, 0.1);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 25px 0;
+    }
+
+    .exercise-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .exercise-input {
+      width: 100%;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      color: var(--text-light);
+      font-size: 15px;
+      margin: 10px 0;
+    }
+
+    .exercise-btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .exercise-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 255, 204, 0.3);
+    }
+
+    .ideas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .idea-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .idea-icon {
+      font-size: 28px;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .idea-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .idea-desc {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 10px;
+    }
+
+    .idea-badge {
+      display: inline-block;
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 20px;
+      padding: 3px 8px;
+      font-size: 10px;
+      color: var(--primary);
+    }
+
+    .resources-list {
+      margin: 20px 0;
+    }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .resource-icon {
+      width: 40px;
+      height: 40px;
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .resource-content {
+      flex: 1;
+    }
+
+    .resource-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .resource-desc {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .download-btn {
+      padding: 6px 12px;
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 8px;
+      color: var(--primary);
+      font-size: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .download-btn:hover {
+      background: rgba(0, 255, 204, 0.2);
+    }
+
+    .quiz-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 25px;
+    }
+
+    .quiz-question {
+      margin-bottom: 20px;
+    }
+
+    .quiz-question p {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .quiz-option:hover {
+      background: rgba(0, 255, 204, 0.05);
+      border-color: var(--primary);
+    }
+
+    .quiz-option input[type="radio"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+
+    .quiz-option input[type="radio"]:checked {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    .quiz-feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .quiz-feedback.correct {
+      background: rgba(76, 255, 76, 0.1);
+      border: 1px solid rgba(76, 255, 76, 0.2);
+      color: var(--success);
+      display: block;
+    }
+
+    .quiz-feedback.incorrect {
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      color: var(--danger);
+      display: block;
+    }
+
+    .quiz-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .quiz-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 255, 204, 0.3);
+    }
+
+    .complete-section {
+      margin: 30px 0;
+    }
+
+    .complete-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--success), #00cc44);
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .complete-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(76, 255, 76, 0.3);
+    }
+
+    .complete-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .lesson-nav {
+      display: flex;
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .nav-btn.prev {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+    }
+
+    .nav-btn.next {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .back-home {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      padding: 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+      z-index: 99;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      z-index: 1000;
+      transform: translateY(200px);
+      transition: transform 0.5s;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .notification.show {
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gradient-bg"></div>
+  <div class="noise"></div>
+
+  <div class="notification" id="notification">
+    <div class="notification-icon">
+      <i class="fas fa-gift"></i>
+    </div>
+    <div class="notification-content">
+      <h4 id="notificationTitle">Leçon 1</h4>
+      <p id="notificationMessage">Trouver une idée de business</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
+    <div class="course-info">
+      <span class="course-title">Lancer son business</span>
+      <span class="progress-badge" id="progressBadge">0%</span>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- BANNIÈRE -->
+    <div class="lesson-banner">
+      <div class="module-path">
+        <span class="module-name">Leçon 1/10</span>
+      </div>
+      <h1 class="lesson-title">Trouver une idée de business</h1>
+      <div class="lesson-meta">
+        <span><i class="fas fa-clock"></i> 35 min</span>
+        <span><i class="fas fa-lightbulb"></i> Idéation</span>
+        <span><i class="fas fa-rocket"></i> Stratégies certifiées</span>
+      </div>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-quote-left"></i>
+        Introduction
+      </h2>
+      
+      <div class="content-text">
+        <p>
+          <strong>Bienvenue dans cette première leçon !</strong> Vous êtes sur le point de découvrir comment 
+          les plus grands entrepreneurs du monde ont trouvé leurs idées de business. Contrairement à ce qu'on 
+          pourrait croire, les meilleures idées ne viennent pas d'un éclair de génie soudain, mais d'une 
+          méthode rigoureuse et éprouvée.
+        </p>
+        
+        <div class="highlight-box">
+          <p>
+            💡 <strong>Le saviez-vous ?</strong> 80% des entreprises qui réussissent ne sont pas basées sur 
+            une idée révolutionnaire, mais sur une exécution parfaite d'une idée existante.
+          </p>
+        </div>
+        
+        <div class="stats-mini">
+          <div class="stat-mini">
+            <div class="stat-mini-value">47%</div>
+            <div class="stat-mini-label">Échec par manque de marché</div>
+          </div>
+          <div class="stat-mini">
+            <div class="stat-mini-value">82%</div>
+            <div class="stat-mini-label">Réussite avec validation préalable</div>
+          </div>
+          <div class="stat-mini">
+            <div class="stat-mini-value">3x</div>
+            <div class="stat-mini-label">Plus de chances de succès</div>
+          </div>
+        </div>
+        
+        <p>
+          Dans cette leçon, nous allons explorer <strong>7 stratégies certifiées</strong> pour générer des idées 
+          de business rentables, des méthodes utilisées par les entrepreneurs à succès, et vous repartirez 
+          avec non pas une, mais plusieurs idées concrètes à développer.
+        </p>
+      </div>
+    </div>
+
+    <!-- STRATÉGIE 1 -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-1-circle"></i>
+        Stratégie 1 : Résoudre un problème personnel
+      </h2>
+      
+      <div class="content-text">
+        <h3>La méthode la plus simple et la plus efficace</h3>
+        
+        <p>
+          Regardez autour de vous. Quels sont les problèmes que vous rencontrez quotidiennement ? 
+          Qu'est-ce qui vous énerve, vous frustre, vous fait perdre du temps ?
+        </p>
+        
+        <div class="strategy-box">
+          <div class="strategy-title">
+            <i class="fas fa-quote-right"></i>
+            L'histoire de Sara Blakely (Spanx)
+          </div>
+          <p>
+            Sara Blakely, milliardaire et fondatrice de Spanx, a eu son idée en coupant les pieds de ses collants 
+            pour pouvoir porter des pantalons blancs. Elle a résolu SON problème personnel et a créé une entreprise 
+            valant plus d'un milliard de dollars.
+          </p>
+        </div>
+        
+        <h4>Exercice pratique :</h4>
+        <p>Prenez 5 minutes et listez 10 problèmes que vous rencontrez dans votre vie quotidienne :</p>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">📝 Mes problèmes personnels</div>
+          <textarea class="exercise-input" rows="5" placeholder="Ex: Je perds du temps à chercher mes clés, je n'arrive pas à trouver de bons vêtements adaptés à ma morphologie, etc."></textarea>
+        </div>
+        
+        <div class="highlight-box">
+          <p>
+            <strong>💡 Règle d'or :</strong> Si vous avez un problème, 1 000 autres personnes l'ont aussi.
+            Si vous trouvez une solution, vous avez un business.
+          </p>
+        </div>
+      </div>
+    </div>
+
+      <!-- STRATÉGIE 2 -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-2-circle"></i>
+        Stratégie 2 : Observer les tendances émergentes
+      </h2>
+      
+      <div class="content-text">
+        <h3>Être au bon endroit au bon moment</h3>
+        
+        <p>
+          Les plus grandes fortunes de notre époque ont été créées en surfant sur les vagues de tendances 
+          émergentes : internet, mobile, cryptomonnaies, intelligence artificielle...
+        </p>
+        
+        <h4>Les grandes tendances actuelles :</h4>
+        
+        <div class="ideas-grid">
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-robot"></i>
+            </div>
+            <div class="idea-title">Intelligence Artificielle</div>
+            <div class="idea-desc">Outils, formations, services basés sur l'IA</div>
+            <span class="idea-badge">🔥 Tendance forte</span>
+          </div>
+          
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-leaf"></i>
+            </div>
+            <div class="idea-title">Écologie & Durable</div>
+            <div class="idea-desc">Produits éco-responsables, zéro déchet</div>
+            <span class="idea-badge">🌱 Croissance</span>
+          </div>
+          
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-brain"></i>
+            </div>
+            <div class="idea-title">Bien-être & Santé</div>
+            <div class="idea-desc">Méditation, coaching, nutrition</div>
+            <span class="idea-badge">📈 +200%</span>
+          </div>
+          
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-laptop"></i>
+            </div>
+            <div class="idea-title">Travail à distance</div>
+            <div class="idea-desc">Outils, services pour télétravailleurs</div>
+            <span class="idea-badge">💼 Permanent</span>
+          </div>
+        </div>
+        
+        <h4>Comment identifier les tendances :</h4>
+        <ul>
+          <li><strong>Google Trends</strong> - Voir ce que les gens recherchent</li>
+          <li><strong>Amazon Best Sellers</strong> - Ce que les gens achètent</li>
+          <li><strong>Kickstarter/Indiegogo</strong> - Les projets qui cartonnent</li>
+          <li><strong>Réseaux sociaux</strong> - Hashtags viraux, influenceurs</li>
+          <li><strong>Forums spécialisés</strong> - Reddit, Quora, groupes Facebook</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STRATÉGIE 3 -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-3-circle"></i>
+        Stratégie 3 : Améliorer un produit existant
+      </h2>
+      
+      <div class="content-text">
+        <h3>Innover par l'amélioration</h3>
+        
+        <p>
+          Vous n'avez pas besoin d'inventer quelque chose de complètement nouveau. Parfois, la meilleure idée 
+          est simplement de prendre un produit/service existant et de le rendre meilleur, moins cher, ou plus pratique.
+        </p>
+        
+        <div class="strategy-box">
+          <div class="strategy-title">
+            <i class="fas fa-quote-right"></i>
+            L'histoire d'Airbnb
+          </div>
+          <p>
+            Airbnb n'a pas inventé la location de logements. Les hôtels existaient déjà. Mais ils ont amélioré 
+            l'expérience en proposant des logements chez l'habitant, moins chers et plus authentiques.
+          </p>
+        </div>
+        
+        <h4>Les angles d'amélioration :</h4>
+        <ul>
+          <li><strong>Prix</strong> - Proposer la même chose moins cher</li>
+          <li><strong>Qualité</strong> - Mieux que la concurrence</li>
+          <li><strong>Service</strong> - Meilleur accompagnement</li>
+          <li><strong>Expérience</strong> - Plus agréable à utiliser</li>
+          <li><strong>Accessibilité</strong> - Plus simple, plus rapide</li>
+        </ul>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">🔍 Trouvez un produit à améliorer</div>
+          <p>Choisissez un produit ou service que vous utilisez régulièrement et listez 3 améliorations possibles :</p>
+          <textarea class="exercise-input" rows="3" placeholder="Ex: Uber a amélioré les taxis en rendant la réservation plus simple et le paiement automatique"></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATÉGIE 4 -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-4-circle"></i>
+        Stratégie 4 : Exporter un concept qui marche ailleurs
+      </h2>
+      
+      <div class="content-text">
+        <h3>Le pouvoir de l'adaptation</h3>
+        
+        <p>
+          Un concept qui fonctionne dans un pays ou une région peut souvent être adapté avec succès ailleurs.
+          C'est ce qu'on appelle le "copycat business model".
+        </p>
+        
+        <div class="stats-mini">
+          <div class="stat-mini">
+            <div class="stat-mini-value">70%</div>
+            <div class="stat-mini-label">Des réussites sont des adaptations</div>
+          </div>
+          <div class="stat-mini">
+            <div class="stat-mini-value">3x</div>
+            <div class="stat-mini-label">Moins de risques</div>
+          </div>
+        </div>
+        
+        <h4>Exemples célèbres :</h4>
+        <ul>
+          <li><strong>McDonald's</strong> - Venu des États-Unis, adapté partout</li>
+          <li><strong>Netflix</strong> - Modèle américain adapté mondialement</li>
+          <li><strong>Alibaba</strong> - L'Amazon chinois</li>
+          <li><strong>Jumia</strong> - L'Amazon africain</li>
+        </ul>
+        
+        <div class="highlight-box">
+          <p>
+            💡 <strong>Idée :</strong> Regardez ce qui marche aux États-Unis, en Europe ou en Asie, 
+            et demandez-vous : "Pourquoi ça n'existe pas encore chez nous ?"
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATÉGIE 5 -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-5-circle"></i>
+        Stratégie 5 : Monétiser une passion ou une compétence
+      </h2>
+      
+      <div class="content-text">
+        <h3>Faire de sa passion un métier</h3>
+        
+        <p>
+          Vous avez des hobbies, des talents, des connaissances que les autres n'ont pas ? 
+          Il y a probablement des gens prêts à payer pour ça.
+        </p>
+        
+        <h4>Les domaines porteurs :</h4>
+        <div class="ideas-grid">
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-music"></i>
+            </div>
+            <div class="idea-title">Musique</div>
+            <div class="idea-desc">Cours, production, coaching</div>
+          </div>
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-camera"></i>
+            </div>
+            <div class="idea-title">Photographie</div>
+            <div class="idea-desc">Shooting, formations, retouches</div>
+          </div>
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-utensils"></i>
+            </div>
+            <div class="idea-title">Cuisine</div>
+            <div class="idea-desc">Catering, cours, recettes</div>
+          </div>
+          <div class="idea-card">
+            <div class="idea-icon">
+              <i class="fas fa-futbol"></i>
+            </div>
+            <div class="idea-title">Sport</div>
+            <div class="idea-desc">Coaching, programmes, conseils</div>
+          </div>
+        </div>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">🎯 Mes passions et compétences</div>
+          <p>Listez 3 choses que vous adorez faire et 3 compétences que vous maîtrisez :</p>
+          <textarea class="exercise-input" rows="4" placeholder="Passions: cuisine, jardinage, lecture... Compétences: organisation, communication, design..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- STRATÉGIE 6 -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-6-circle"></i>
+        Stratégie 6 : Créer pour un marché de niche
+      </h2>
+      
+      <div class="content-text">
+        <h3>Le paradoxe du petit marché</h3>
+        
+        <p>
+          "Plus le marché est petit, mieux c'est." C'est ce qu'on appelle le "richesse dans la niche".
+          Un petit marché passionné est souvent plus rentable qu'un grand marché concurrentiel.
+        </p>
+        
+        <div class="strategy-box">
+          <div class="strategy-title">
+            <i class="fas fa-quote-right"></i>
+            Exemple de niche
+          </div>
+          <p>
+            Vendre des accessoires pour propriétaires de chiens de traîneau en Alaska peut sembler minuscule,
+            mais si vous êtes le seul à le faire et que tous les propriétaires de chiens de traîneau vous connaissent,
+            vous pouvez très bien gagner votre vie.
+          </p>
+        </div>
+        
+        <h4>Exemples de niches rentables :</h4>
+        <ul>
+          <li>Vêtements pour personnes de grande taille</li>
+          <li>Accessoires pour instruments de musique rares</li>
+          <li>Formation pour développeurs sur un langage spécifique</li>
+          <li>Conseil pour entreprises dans un secteur très précis</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- STRATÉGIE 7 -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-7-circle"></i>
+        Stratégie 7 : La méthode des 100 idées
+      </h2>
+      
+      <div class="content-text">
+        <h3>La technique des entrepreneurs à succès</h3>
+        
+        <p>
+          James Altucher, entrepreneur et auteur à succès, recommande d'écrire 10 idées par jour.
+          Au bout d'un mois, vous avez 300 idées. Parmi elles, certaines seront excellentes.
+        </p>
+        
+        <div class="stats-mini">
+          <div class="stat-mini">
+            <div class="stat-mini-value">100</div>
+            <div class="stat-mini-label">Idées = 1 bonne</div>
+          </div>
+          <div class="stat-mini">
+            <div class="stat-mini-value">30j</div>
+            <div class="stat-mini-label">Pour 300 idées</div>
+          </div>
+        </div>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">📋 Challenge des 10 idées</div>
+          <p>Prenez 10 minutes et écrivez 10 idées de business, même les plus farfelues :</p>
+          <textarea class="exercise-input" rows="6" placeholder="1. Service de livraison de plats bio
+2. Application pour trouver des places de parking
+3. Cours de cuisine en ligne
+4. ..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- OUTILS ET RESSOURCES -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-tools"></i>
+        Outils et ressources
+      </h2>
+      
+      <div class="resources-list">
+        <div class="resource-item">
+          <div class="resource-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="resource-content">
+            <div class="resource-title">Google Trends</div>
+            <div class="resource-desc">Voir les tendances de recherche</div>
+          </div>
+          <button class="download-btn" onclick="openLink('https://trends.google.com')">
+            <i class="fas fa-external-link-alt"></i> Ouvrir
+          </button>
+        </div>
+        
+        <div class="resource-item">
+          <div class="resource-icon">
+            <i class="fas fa-amazon"></i>
+          </div>
+          <div class="resource-content">
+            <div class="resource-title">Amazon Best Sellers</div>
+            <div class="resource-desc">Voir ce que les gens achètent</div>
+          </div>
+          <button class="download-btn" onclick="openLink('https://www.amazon.fr/gp/bestsellers')">
+            <i class="fas fa-external-link-alt"></i> Ouvrir
+          </button>
+        </div>
+        
+        <div class="resource-item">
+          <div class="resource-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="resource-content">
+            <div class="resource-title">Reddit</div>
+            <div class="resource-desc">Forums de discussion par thème</div>
+          </div>
+          <button class="download-btn" onclick="openLink('https://www.reddit.com')">
+            <i class="fas fa-external-link-alt"></i> Ouvrir
+          </button>
+        </div>
+        
+        <div class="resource-item">
+          <div class="resource-icon">
+            <i class="fas fa-file-pdf"></i>
+          </div>
+          <div class="resource-content">
+            <div class="resource-title">Fiche d'exercices PDF</div>
+            <div class="resource-desc">10 pages d'exercices pratiques</div>
+          </div>
+          <button class="download-btn" onclick="downloadPDF()">
+            <i class="fas fa-download"></i> Télécharger
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <h2 class="section-title">
+        <i class="fas fa-question-circle"></i>
+        Quiz de validation
+      </h2>
+      
+      <div class="quiz-question">
+        <p>Quelle est la méthode recommandée pour générer des idées de business ?</p>
+        <div class="quiz-options">
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="a">
+            <span>Attendre l'inspiration divine</span>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="b">
+            <span>Écrire 10 idées par jour (méthode Altucher)</span>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="c">
+            <span>Copier ce que fait la concurrence</span>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="d">
+            <span>Demander à ChatGPT</span>
+          </label>
+        </div>
+      </div>
+      
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      
+      <button class="quiz-btn" id="quizBtn" onclick="checkQuiz()">Vérifier ma réponse</button>
+    </div>
+
+    <!-- EXERCICE FINAL -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-star"></i>
+        Exercice final : Votre première idée
+      </h2>
+      
+      <div class="content-text">
+        <p>
+          Maintenant que vous avez découvert les 7 stratégies, il est temps de passer à l'action.
+          Choisissez la stratégie qui vous parle le plus et développez une idée complète.
+        </p>
+        
+        <div class="exercise-box">
+          <div class="exercise-title">🚀 Mon idée de business</div>
+          
+          <p style="margin-top: 15px;"><strong>1. Quelle stratégie j'utilise ?</strong></p>
+          <select class="exercise-input">
+            <option>Résoudre un problème personnel</option>
+            <option>Observer les tendances</option>
+            <option>Améliorer un produit existant</option>
+            <option>Exporter un concept</option>
+            <option>Monétiser une passion</option>
+            <option>Marché de niche</option>
+            <option>Méthode des 100 idées</option>
+          </select>
+          
+          <p style="margin-top: 15px;"><strong>2. Description de mon idée</strong></p>
+          <textarea class="exercise-input" rows="4" placeholder="Décrivez votre idée en détail..."></textarea>
+          
+          <p style="margin-top: 15px;"><strong>3. Quel problème cela résout-il ?</strong></p>
+          <textarea class="exercise-input" rows="3" placeholder="Pourquoi les gens auraient besoin de ce produit/service ?"></textarea>
+          
+          <p style="margin-top: 15px;"><strong>4. Qui sont mes clients ?</strong></p>
+          <textarea class="exercise-input" rows="3" placeholder="Décrivez votre client idéal..."></textarea>
+          
+          <button class="exercise-btn" style="margin-top: 20px;" onclick="saveIdea()">
+            <i class="fas fa-save"></i> Sauvegarder mon idée
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOTIVATION -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-fire"></i>
+        Message de motivation
+      </h2>
+      
+      <div class="content-text" style="text-align: center;">
+        <p style="font-size: 18px; line-height: 1.8; color: var(--text-light); font-style: italic;">
+          "Le meilleur moment pour planter un arbre était il y a 20 ans. 
+          Le deuxième meilleur moment est maintenant."
+        </p>
+        
+        <div class="highlight-box" style="margin-top: 20px;">
+          <p>
+            <strong>Vous avez maintenant toutes les clés pour trouver votre idée.</strong><br>
+            La différence entre ceux qui réussissent et ceux qui échouent n'est pas l'idée, 
+            mais le passage à l'action. Alors, quelle sera votre première action ?
+          </p>
+        </div>
+        
+        <div style="margin: 30px 0;">
+          <i class="fas fa-rocket" style="font-size: 48px; color: var(--primary);"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOUTON TERMINER -->
+    <div class="complete-section">
+      <button class="complete-btn" id="completeBtn" onclick="markAsCompleted()">
+        <i class="fas fa-check-circle"></i>
+        J'ai terminé cette leçon
+      </button>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="lesson-nav">
+      <a href="#" class="nav-btn prev disabled">
+        <i class="fas fa-arrow-left"></i>
+        Leçon précédente
+      </a>
+      <a href="lecon2.html" class="nav-btn next" id="nextLesson">
+        Leçon 2 
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <a href="formations.html" class="back-home">
+    <i class="fas fa-home"></i>
+    Retour aux formations
+  </a>
+
+  <script>
+    // ============================================
+    // VARIABLES
+    // ============================================
+    let userData = null;
+    let userId = null;
+    const COURSE_ID = 'business';
+    const LESSON_ID = 'lecon1';
+
+    // ============================================
+    // INITIALISATION
+    // ============================================
+    function init() {
+      loadUserData();
+      loadProgress();
+    }
+
+    // ============================================
+    // CHARGER LES DONNÉES UTILISATEUR
+    // ============================================
+    function loadUserData() {
+      userId = localStorage.getItem('earnzone_current_user');
+      
+      if (!userId) {
+        window.location.href = '../../../login.html';
+        return;
+      }
+      
+      const userDataStr = localStorage.getItem(`earnzone_user_${userId}`);
+      if (userDataStr) {
+        userData = JSON.parse(userDataStr);
+      }
+    }
+
+     // ============================================
+    // PROGRESSION
+    // ============================================
+    function loadProgress() {
+      if (!userData.courseProgress) userData.courseProgress = {};
+      if (!userData.courseProgress[COURSE_ID]) {
+        userData.courseProgress[COURSE_ID] = {
+          started: true,
+          startDate: new Date().toISOString(),
+          completedLessons: [],
+          currentLesson: LESSON_ID
+        };
+      }
+      
+      const progress = userData.courseProgress[COURSE_ID];
+      const totalLessons = 10;
+      const completed = progress.completedLessons.length;
+      const percent = Math.round((completed / totalLessons) * 100);
+      
+      document.getElementById('progressBadge').textContent = percent + '%';
+      
+      if (progress.completedLessons.includes(LESSON_ID)) {
+        document.getElementById('completeBtn').innerHTML = '<i class="fas fa-check-circle"></i> Déjà terminé';
+        document.getElementById('completeBtn').disabled = true;
+        document.getElementById('completeBtn').style.opacity = '0.5';
+      }
+    }
+
+    // ============================================
+    // QUIZ
+    // ============================================
+    function checkQuiz() {
+      const selected = document.querySelector('input[name="quiz"]:checked');
+      
+      if (!selected) {
+        showNotification('❌ Erreur', 'Veuillez sélectionner une réponse', 'error');
+        return;
+      }
+      
+      const feedback = document.getElementById('quizFeedback');
+      const quizBtn = document.getElementById('quizBtn');
+      
+      if (selected.value === 'b') {
+        feedback.className = 'quiz-feedback correct';
+        feedback.innerHTML = '<i class="fas fa-check-circle"></i> ✅ Correct ! La méthode des 10 idées par jour est recommandée par James Altucher.';
+        quizBtn.disabled = true;
+        quizBtn.style.opacity = '0.5';
+        showNotification('✅ Bonne réponse !', 'Vous pouvez passer à la suite', 'success');
+      } else {
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.innerHTML = '<i class="fas fa-times-circle"></i> ❌ Ce n\'est pas la bonne réponse. La bonne réponse est "Écrire 10 idées par jour".';
+      }
+    }
+
+    // ============================================
+    // MARQUER COMME TERMINÉ
+    // ============================================
+    function markAsCompleted() {
+      if (!userData.courseProgress[COURSE_ID].completedLessons.includes(LESSON_ID)) {
+        userData.courseProgress[COURSE_ID].completedLessons.push(LESSON_ID);
+        userData.courseProgress[COURSE_ID].currentLesson = 'lecon2';
+        
+        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        
+        document.getElementById('completeBtn').innerHTML = '<i class="fas fa-check-circle"></i> Terminé ✓';
+        document.getElementById('completeBtn').disabled = true;
+        document.getElementById('completeBtn').style.opacity = '0.5';
+        
+        loadProgress();
+        showNotification('✅ Félicitations !', 'Leçon 1 terminée', 'success');
+      }
+    }
+
+    // ============================================
+    // SAUVEGARDER L'IDÉE
+    // ============================================
+    function saveIdea() {
+      showNotification('✅ Idée sauvegardée', 'Votre idée a été enregistrée localement', 'success');
+    }
+
+    // ============================================
+    // OUVRIR UN LIEN
+    // ============================================
+    function openLink(url) {
+      window.open(url, '_blank');
+    }
+
+    // ============================================
+    // TÉLÉCHARGER PDF (simulé)
+    // ============================================
+    function downloadPDF() {
+      showNotification('📥 Téléchargement', 'Fiche d\'exercices (simulation)', 'info');
+    }
+
+    // ============================================
+    // NOTIFICATION
+    // ============================================
+    function showNotification(title, message, type = 'success') {
+      const notification = document.getElementById('notification');
+      document.getElementById('notificationTitle').textContent = title;
+      document.getElementById('notificationMessage').textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    // ============================================
+    // DÉMARRER
+    // ============================================
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EarnZone - Leçon 4: Créer sa marque</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== VARIABLES GLOBALES ===== */
+    :root {
+      --primary: #00ffcc;
+      --primary-dark: #00cca3;
+      --secondary: #ff4d94;
+      --accent: #9d4edd;
+      --bg-dark: #000000;
+      --bg-medium: #0a0a0a;
+      --bg-light: #1a1a1a;
+      --text-light: #ffffff;
+      --text-dim: #94a3b8;
+      --card-bg: rgba(20, 20, 20, 0.8);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --success: #4cff4c;
+      --warning: #ffcc00;
+      --danger: #ff4757;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --shadow-glow: 0 0 30px rgba(0, 255, 204, 0.2);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      --glass-bg: rgba(255, 255, 255, 0.02);
+      --glass-border: rgba(255, 255, 255, 0.03);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: var(--text-light);
+      position: relative;
+      font-size: 14px;
+      line-height: 1.5;
+      padding-bottom: 100px;
+    }
+
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 255, 204, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.05) 0%, transparent 40%);
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 5%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 14px;
+      transition: var(--transition);
+    }
+
+    .back-btn:hover {
+      color: var(--primary);
+    }
+
+    .course-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .course-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .progress-badge {
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 30px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: var(--primary);
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+
+    .lesson-banner {
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(157, 78, 221, 0.1));
+      border-radius: 24px;
+      padding: 25px 20px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .lesson-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+    }
+
+    .module-path {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 15px;
+      font-size: 12px;
+    }
+
+    .module-name {
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    .separator {
+      color: var(--text-dim);
+    }
+
+    .lesson-number {
+      color: var(--text-dim);
+    }
+
+    .lesson-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      line-height: 1.3;
+    }
+
+    .lesson-meta {
+      display: flex;
+      gap: 20px;
+      color: var(--text-dim);
+      font-size: 13px;
+      flex-wrap: wrap;
+    }
+
+    .lesson-meta i {
+      color: var(--primary);
+      margin-right: 5px;
+    }
+
+    /* ===== CONTENU ===== */
+    .content-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+
+    .content-text {
+      color: var(--text-dim);
+      line-height: 1.8;
+    }
+
+    .content-text h3 {
+      color: var(--text-light);
+      font-size: 20px;
+      font-weight: 700;
+      margin: 30px 0 15px;
+    }
+
+    .content-text h3:first-of-type {
+      margin-top: 0;
+    }
+
+    .content-text h4 {
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: 600;
+      margin: 20px 0 10px;
+    }
+
+    .content-text p {
+      margin-bottom: 15px;
+    }
+
+    .content-text ul, .content-text ol {
+      padding-left: 20px;
+      margin: 15px 0;
+    }
+
+    .content-text li {
+      margin-bottom: 8px;
+    }
+
+    .content-text strong {
+      color: var(--primary);
+    }
+
+    .highlight-box {
+      background: rgba(0, 255, 204, 0.05);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+      font-style: italic;
+    }
+
+    .quote-box {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      padding: 25px;
+      margin: 25px 0;
+      font-size: 16px;
+      font-style: italic;
+      text-align: center;
+      border: 1px dashed var(--primary);
+    }
+
+    .quote-author {
+      margin-top: 15px;
+      color: var(--primary);
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    .strategy-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 20px 0;
+    }
+
+    .strategy-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .strategy-title i {
+      font-size: 24px;
+    }
+
+    .stats-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 25px 0;
+    }
+
+    .stat-mini-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-mini-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 5px;
+    }
+
+    .stat-mini-label {
+      font-size: 12px;
+      color: var(--text-dim);
+    }
+
+    .case-study {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 25px 0;
+      border-left: 4px solid var(--warning);
+    }
+
+    .case-study-title {
+      color: var(--warning);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .exercise-box {
+      background: rgba(0, 255, 204, 0.05);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 16px;
+      padding: 20px;
+      margin: 25px 0;
+    }
+
+    .exercise-box h4 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .exercise-input {
+      width: 100%;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .exercise-btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .exercise-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+    }
+
+    .resources-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .resources-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+      margin-bottom: 10px;
+    }
+
+    .resources-list li i {
+      color: var(--primary);
+      font-size: 20px;
+    }
+
+    .download-btn {
+      margin-left: auto;
+      padding: 6px 12px;
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 8px;
+      color: var(--primary);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .quiz-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+
+    .quiz-question p {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 15px 0;
+    }
+
+    .quiz-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .quiz-option:hover {
+      background: rgba(0, 255, 204, 0.05);
+      border-color: var(--primary);
+    }
+
+    .quiz-option input[type="radio"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+    }
+
+    .quiz-option input[type="radio"]:checked {
+      border-color: var(--primary);
+      background: var(--primary);
+    }
+
+    .quiz-feedback {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 12px;
+      display: none;
+    }
+
+    .quiz-feedback.correct {
+      background: rgba(76, 255, 76, 0.1);
+      border: 1px solid rgba(76, 255, 76, 0.2);
+      color: var(--success);
+      display: block;
+    }
+
+    .quiz-feedback.incorrect {
+      background: rgba(255, 71, 87, 0.1);
+      border: 1px solid rgba(255, 71, 87, 0.2);
+      color: var(--danger);
+      display: block;
+    }
+
+    .quiz-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .notes-section {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .notes-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .save-btn {
+      background: rgba(0, 255, 204, 0.1);
+      border: 1px solid rgba(0, 255, 204, 0.2);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .notes-textarea {
+      width: 100%;
+      min-height: 120px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      color: var(--text-light);
+      font-size: 14px;
+    }
+
+    .complete-section {
+      margin: 25px 0;
+    }
+
+    .complete-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, var(--success), #00cc44);
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .lesson-nav {
+      display: flex;
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .nav-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .nav-btn.prev {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-light);
+    }
+
+    .nav-btn.next {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .back-home {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: black;
+      padding: 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+      z-index: 99;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .notification {
+      position: fixed;
+      bottom: 80px;
+      left: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.95);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--primary);
+      border-radius: 16px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      transform: translateY(200px);
+      transition: transform 0.5s;
+      max-width: 400px;
+      margin: 0 auto;
+      z-index: 1000;
+    }
+
+    .notification.show {
+      transform: translateY(0);
+    }
+
+    .notification-icon {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: black;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gradient-bg"></div>
+  <div class="noise"></div>
+
+  <div class="notification" id="notification">
+    <div class="notification-icon">
+      <i class="fas fa-gift"></i>
+    </div>
+    <div class="notification-content">
+      <h4 id="notificationTitle">Leçon 4</h4>
+      <p id="notificationMessage">Créer sa marque</p>
+    </div>
+  </div>
+
+  <header class="header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
+    <div class="course-info">
+      <span class="course-title">Leçon 4/10</span>
+      <span class="progress-badge" id="progressBadge">30%</span>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <!-- BANNIÈRE -->
+    <div class="lesson-banner">
+      <div class="module-path">
+        <span class="lesson-number">Leçon 4 sur 10</span>
+      </div>
+      <h1 class="lesson-title">Créer sa marque</h1>
+      <div class="lesson-meta">
+        <span><i class="fas fa-clock"></i> 40 min</span>
+        <span><i class="fas fa-paint-brush"></i> Branding stratégique</span>
+        <span><i class="fas fa-download"></i> Ressources incluses</span>
+      </div>
+    </div>
+
+    <!-- INTRODUCTION -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-rocket"></i>
+        Pourquoi votre marque est votre actif le plus précieux
+      </h2>
+      
+      <div class="content-text">
+        <p>
+          Bienvenue dans la leçon la plus importante de cette formation. Votre marque n'est pas juste un logo 
+          ou un nom. C'est <strong>l'âme de votre entreprise</strong>. C'est ce qui fait que des clients 
+          vous choisissent plutôt que vos concurrents, paient plus cher, et reviennent encore et encore.
+        </p>
+
+        <div class="quote-box">
+          <i class="fas fa-quote-left" style="color: var(--primary); font-size: 24px; margin-bottom: 10px; display: block;"></i>
+          <p>"Votre marque est ce que les gens disent de vous quand vous n'êtes pas dans la pièce."</p>
+          <div class="quote-author">— Jeff Bezos, fondateur d'Amazon</div>
+        </div>
+
+        <div class="stats-mini-grid">
+          <div class="stat-mini-card">
+            <div class="stat-mini-value">77%</div>
+            <div class="stat-mini-label">des consommateurs achètent auprès de marques qu'ils suivent</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-value">3.5x</div>
+            <div class="stat-mini-label">plus de chances d'être recommandé</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 1: FONDATIONS -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-cube"></i>
+        1. Les fondations de votre marque
+      </h2>
+      
+      <div class="content-text">
+        <h3>La pyramide de l'identité de marque</h3>
+        
+        <div style="background: rgba(0,0,0,0.3); border-radius: 16px; padding: 20px; margin: 20px 0;">
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 15px; border-radius: 8px; color: black; font-weight: 600;">🔷 Niveau 1: L'ESSENCE (Pourquoi vous existez)</div>
+            <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 15px; border-radius: 8px; color: black; font-weight: 600; opacity: 0.9;">🔷 Niveau 2: LA PERSONNALITÉ (Comment vous êtes)</div>
+            <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 15px; border-radius: 8px; color: black; font-weight: 600; opacity: 0.8;">🔷 Niveau 3: LA CULTURE (Vos valeurs)</div>
+            <div style="background: linear-gradient(135deg, var(--primary), var(--accent)); padding: 15px; border-radius: 8px; color: black; font-weight: 600; opacity: 0.7;">🔷 Niveau 4: L'IMAGE (Ce qu'on voit)</div>
+          </div>
+        </div>
+
+        <h4>🔹 L'essence : votre pourquoi</h4>
+        <p>
+          Avant même de penser à votre logo, vous devez répondre à la question fondamentale : 
+          <strong>POURQUOI votre entreprise existe-t-elle ?</strong>
+        </p>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-compass"></i>
+            Exercice : Le Cercle d'Or de Simon Sinek
+          </div>
+          <p style="margin-bottom: 10px;">Remplissez ces 3 cercles :</p>
+          <ul>
+            <li><strong>POURQUOI</strong> : Votre mission, votre cause, votre croyance</li>
+            <li><strong>COMMENT</strong> : Ce qui vous rend unique, votre approche</li>
+            <li><strong>QUOI</strong> : Vos produits/services</li>
+          </ul>
+        </div>
+
+            <h4>🔹 La personnalité : les traits de caractère</h4>
+        <p>Votre marque a une personnalité. Est-elle :</p>
+        <ul>
+          <li><strong>Sincère</strong> (honnête, chaleureuse, familiale) → ex: Nestlé, Danone</li>
+          <li><strong>Excitante</strong> (audacieuse, dynamique, jeune) → ex: Red Bull, Nike</li>
+          <li><strong>Compétente</strong> (fiable, intelligente, leader) → ex: Microsoft, IBM</li>
+          <li><strong>Sophistiquée</strong> (élégante, prestigieuse) → ex: Rolex, Mercedes</li>
+          <li><strong>Robuste</strong> (durable, authentique) → ex: Jeep, Levi's</li>
+        </ul>
+
+        <div class="highlight-box">
+          <p>
+            💡 <strong>Exemple concret :</strong> Apple ne vend pas des téléphones. Apple vend l'innovation, 
+            la créativité et le statut social. Leur POURQUOI : "Penser différemment".
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 2: STRATÉGIES DE POSITIONNEMENT -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-bullseye"></i>
+        2. Stratégies de positionnement certifiées
+      </h2>
+      
+      <div class="content-text">
+        <h3>Les 5 stratégies de positionnement qui fonctionnent (études Harvard)</h3>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-trophy"></i>
+            Stratégie #1: Le leadership par le prix
+          </div>
+          <p><strong>Principe :</strong> Être le moins cher du marché</p>
+          <p><strong>Exemples :</strong> Lidl, Air Arabia</p>
+          <p><strong>Quand l'utiliser :</strong> Si vous pouvez avoir les coûts les plus bas</p>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-crown"></i>
+            Stratégie #2: La différenciation premium
+          </div>
+          <p><strong>Principe :</strong> Être le meilleur, justifier un prix élevé</p>
+          <p><strong>Exemples :</strong> Apple, Mercedes, Dior</p>
+          <p><strong>Quand l'utiliser :</strong> Si vous avez une qualité supérieure reconnue</p>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-puzzle-piece"></i>
+            Stratégie #3: La niche spécialisée
+          </div>
+          <p><strong>Principe :</strong> Devenir le leader d'un petit segment</p>
+          <p><strong>Exemples :</strong> Dr. Martens (chaussures), Meetic (rencontres)</p>
+          <p><strong>Quand l'utiliser :</strong> Si vous pouvez dominer une catégorie spécifique</p>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-heart"></i>
+            Stratégie #4: Le positionnement émotionnel
+          </div>
+          <p><strong>Principe :</strong> Créer un lien affectif fort</p>
+          <p><strong>Exemples :</strong> Disney, Coca-Cola</p>
+          <p><strong>Quand l'utiliser :</strong> Si votre produit touche à l'affectif</p>
+        </div>
+
+        <div class="strategy-card">
+          <div class="strategy-title">
+            <i class="fas fa-leaf"></i>
+            Stratégie #5: L'engagement sociétal
+          </div>
+          <p><strong>Principe :</strong> Défendre une cause, des valeurs</p>
+          <p><strong>Exemples :</strong> Patagonia, The Body Shop</p>
+          <p><strong>Quand l'utiliser :</strong> Si vous pouvez incarner authentiquement une cause</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 3: IDENTITÉ VISUELLE -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-palette"></i>
+        3. Créer son identité visuelle
+      </h2>
+      
+      <div class="content-text">
+        <h3>Les 5 éléments essentiels de l'identité visuelle</h3>
+
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+          <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; text-align: center;">
+            <i class="fas fa-pen" style="color: var(--primary); font-size: 24px; margin-bottom: 8px; display: block;"></i>
+            <h4 style="color: var(--primary);">Logo</h4>
+            <p style="font-size: 12px;">Le symbole de votre marque</p>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; text-align: center;">
+            <i class="fas fa-palette" style="color: var(--primary); font-size: 24px; margin-bottom: 8px; display: block;"></i>
+            <h4 style="color: var(--primary);">Couleurs</h4>
+            <p style="font-size: 12px;">3-5 couleurs maximum</p>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; text-align: center;">
+            <i class="fas fa-font" style="color: var(--primary); font-size: 24px; margin-bottom: 8px; display: block;"></i>
+            <h4 style="color: var(--primary);">Typographie</h4>
+            <p style="font-size: 12px;">2 polices maximum</p>
+          </div>
+          <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; text-align: center;">
+            <i class="fas fa-camera" style="color: var(--primary); font-size: 24px; margin-bottom: 8px; display: block;"></i>
+            <h4 style="color: var(--primary);">Imagerie</h4>
+            <p style="font-size: 12px;">Style de photos cohérent</p>
+          </div>
+        </div>
+
+        <h4>La psychologie des couleurs</h4>
+        <ul>
+          <li><span style="color: #ff0000;">🔴 Rouge</span> : Urgence, passion, excitation (Coca-Cola, Netflix)</li>
+          <li><span style="color: #0000ff;">🔵 Bleu</span> : Confiance, sécurité, professionnalisme (Facebook, PayPal)</li>
+          <li><span style="color: #00ff00;">🟢 Vert</span> : Nature, santé, croissance (Starbucks, Whole Foods)</li>
+          <li><span style="color: #ffa500;">🟠 Orange</span> : Énergie, fun, abordable (Amazon, Fanta)</li>
+          <li><span style="color: #800080;">🟣 Violet</span> : Luxe, sagesse, créativité (Cadbury, Twitch)</li>
+          <li>⚫ Noir : Luxe, élégance, puissance (Chanel, Dior)</li>
+        </ul>
+
+        <div class="case-study">
+          <div class="case-study-title">📊 Étude de cas : Comment Nike a construit sa marque</div>
+          <p><strong>Leur POURQUOI :</strong> "Apporter inspiration et innovation à chaque athlète du monde"</p>
+          <p><strong>Leur positionnement :</strong> Premium accessible, performance</p>
+          <p><strong>Leur logo :</strong> Le swoosh représente le mouvement et la vitesse</p>
+          <p><strong>Leur slogan :</strong> "Just Do It" - 30 ans de succès</p>
+          <p><strong>Résultat :</strong> Marque valorisée à plus de 30 milliards de dollars</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 4: STRATÉGIES AVANCÉES -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-chart-line"></i>
+        4. Stratégies de marque avancées
+      </h2>
+      
+      <div class="content-text">
+        <h3>Le Branding Émotionnel</h3>
+        <p>
+          Les recherches en neurosciences montrent que <strong>95% de nos décisions d'achat sont inconscientes</strong> 
+          et basées sur les émotions. Votre marque doit créer une connexion émotionnelle.
+        </p>
+
+        <div class="stats-mini-grid">
+          <div class="stat-mini-card">
+            <div class="stat-mini-value">5x</div>
+            <div class="stat-mini-label">plus de fidélité quand on crée un lien émotionnel</div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-value">52%</div>
+            <div class="stat-mini-label">des clients paient plus cher pour une marque qu'ils aiment</div>
+          </div>
+        </div>
+
+        <h4>Les 7 déclencheurs émotionnels :</h4>
+        <ol>
+          <li><strong>L'appartenance</strong> (faire partie d'une communauté)</li>
+          <li><strong>La sécurité</strong> (se sentir protégé)</li>
+          <li><strong>Le statut</strong> (se sentir important)</li>
+          <li><strong>La nostalgie</strong> (revenir en enfance)</li>
+          <li><strong>L'accomplissement</strong> (atteindre ses objectifs)</li>
+          <li><strong>La surprise</strong> (être agréablement surpris)</li>
+          <li><strong>La confiance</strong> (croire en la marque)</li>
+        </ol>
+
+        <h3>Le Storytelling de marque</h3>
+        <p>
+          Toute grande marque raconte une histoire. La vôtre doit suivre cette structure :
+        </p>
+        <ul>
+          <li><strong>Le héros</strong> : Votre client</li>
+          <li><strong>Le problème</strong> : Ce qui le tourmente</li>
+          <li><strong>Le guide</strong> : Votre marque</li>
+          <li><strong>La solution</strong> : Votre offre</li>
+          <li><strong>La transformation</strong> : La vie après</li>
+        </ul>
+
+        <div class="highlight-box">
+          <p>
+            🎯 <strong>Exercice :</strong> Écrivez l'histoire de votre marque en 5 phrases selon cette structure.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PARTIE 5: BOÎTE À OUTILS -->
+    <div class="content-section">
+      <h2 class="section-title">
+        <i class="fas fa-toolbox"></i>
+        5. Boîte à outils et ressources
+      </h2>
+      
+      <div class="content-text">
+        <h3>Outils gratuits pour créer votre identité visuelle</h3>
+
+        <ul class="resources-list">
+          <li>
+            <i class="fas fa-paint-brush"></i>
+            <span><strong>Canva</strong> - Créer votre logo et vos visuels</span>
+            <a href="#" class="download-btn" onclick="showNotification('Canva', 'Ouvrez Canva.com pour commencer')">Accéder</a>
+          </li>
+          <li>
+            <i class="fas fa-font"></i>
+            <span><strong>Google Fonts</strong> - Des centaines de polices gratuites</span>
+            <a href="#" class="download-btn" onclick="showNotification('Google Fonts', 'Des polices professionnelles gratuites')">Accéder</a>
+          </li>
+          <li>
+            <i class="fas fa-palette"></i>
+            <span><strong>Coolors.co</strong> - Générateur de palettes de couleurs</span>
+            <a href="#" class="download-btn" onclick="showNotification('Coolors', 'Créez votre palette en 1 clic')">Accéder</a>
+          </li>
+          <li>
+            <i class="fas fa-image"></i>
+            <span><strong>Unsplash</strong> - Photos libres de droits</span>
+            <a href="#" class="download-btn" onclick="showNotification('Unsplash', 'Des photos gratuites pour votre marque')">Accéder</a>
+          </li>
+        </ul>
+
+        <h3 style="margin-top: 25px;">📥 Ressources téléchargeables</h3>
+        <ul class="resources-list">
+          <li>
+            <i class="fas fa-file-pdf"></i>
+            <span><strong>Guide du branding en 10 étapes (PDF)</strong></span>
+            <a href="#" class="download-btn" onclick="showNotification('PDF', 'Guide téléchargé (simulation)')"><i class="fas fa-download"></i> Télécharger</a>
+          </li>
+          <li>
+            <i class="fas fa-table"></i>
+            <span><strong>Checklist création de marque (Excel)</strong></span>
+            <a href="#" class="download-btn" onclick="showNotification('Checklist', 'Fichier téléchargé (simulation)')"><i class="fas fa-download"></i> Télécharger</a>
+          </li>
+          <li>
+            <i class="fas fa-file-word"></i>
+            <span><strong>Template de brief créatif (Word)</strong></span>
+            <a href="#" class="download-btn" onclick="showNotification('Template', 'Fichier téléchargé (simulation)')"><i class="fas fa-download"></i> Télécharger</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- EXERCICE PRATIQUE -->
+    <div class="exercise-box">
+      <h4>✏️ Exercice pratique : Créez votre marque</h4>
+      <p style="margin-bottom: 15px;">Répondez à ces questions pour définir votre marque :</p>
+      
+      <input type="text" class="exercise-input" id="ex1" placeholder="Quel est le POURQUOI de votre marque ?">
+      <input type="text" class="exercise-input" id="ex2" placeholder="Quels sont vos 3 traits de personnalité ?">
+      <input type="text" class="exercise-input" id="ex3" placeholder="Quelle émotion voulez-vous susciter ?">
+      
+      <button class="exercise-btn" onclick="validateExercise()">Valider mes réponses</button>
+      <div id="exerciseFeedback" style="margin-top: 15px; color: var(--success); display: none;">✅ Exercice enregistré !</div>
+    </div>
+
+    <!-- NOTES PERSONNELLES -->
+    <div class="notes-section">
+      <div class="notes-header">
+        <div class="notes-title">
+          <i class="fas fa-pen"></i>
+          Mes notes
+        </div>
+        <button class="save-btn" onclick="saveNotes()">
+          <i class="fas fa-save"></i> Sauvegarder
+        </button>
+      </div>
+      <textarea class="notes-textarea" id="lessonNotes" placeholder="Prenez vos notes ici..."></textarea>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section">
+      <h2 class="section-title">
+        <i class="fas fa-question-circle"></i>
+        Quiz de validation
+      </h2>
+      
+      <div class="quiz-question">
+        <p>Selon la psychologie des couleurs, quelle couleur est associée à la confiance ?</p>
+        <div class="quiz-options">
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="a"> 🔴 Rouge
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="b"> 🔵 Bleu
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="c"> 🟢 Vert
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="quiz" value="d"> 🟠 Orange
+          </label>
+        </div>
+      </div>
+      
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <button class="quiz-btn" onclick="checkQuiz()">Vérifier ma réponse</button>
+    </div>
+
+    <!-- BOUTON TERMINER -->
+    <div class="complete-section">
+      <button class="complete-btn" onclick="markAsCompleted()">
+        <i class="fas fa-check-circle"></i>
+        Marquer comme terminé
+      </button>
+    </div>
+
+    <!-- NAVIGATION -->
+    <div class="lesson-nav">
+      <a href="lecon3.html" class="nav-btn prev">
+        <i class="fas fa-arrow-left"></i>
+        Leçon 3
+      </a>
+      <a href="lecon5.html" class="nav-btn next" id="nextLesson">
+        Leçon 5
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <a href="formations.html" class="back-home">
+    <i class="fas fa-home"></i>
+    Retour au sommaire
+  </a>
+
+  <script>
+    let userData = null;
+    let userId = null;
+    const COURSE_ID = 'business';
+    const LESSON_ID = 'lecon4';
+
+    function loadUserData() {
+      userId = localStorage.getItem('earnzone_current_user');
+      if (!userId) {
+        window.location.href = '../../login.html';
+        return;
+      }
+      
+      const userDataStr = localStorage.getItem(`earnzone_user_${userId}`);
+      if (userDataStr) {
+        userData = JSON.parse(userDataStr);
+        loadProgress();
+        loadNotes();
+      }
+    }
+
+    function loadProgress() {
+      if (!userData.courseProgress) userData.courseProgress = {};
+      if (!userData.courseProgress[COURSE_ID]) {
+        userData.courseProgress[COURSE_ID] = {
+          started: true,
+          completedLessons: []
+        };
+      }
+      
+      const completed = userData.courseProgress[COURSE_ID].completedLessons || [];
+      const progress = Math.round((completed.length / 10) * 100);
+      document.getElementById('progressBadge').textContent = progress + '%';
+      
+      if (completed.includes(LESSON_ID)) {
+        document.querySelector('.complete-btn').innerHTML = '<i class="fas fa-check-circle"></i> Déjà terminé';
+        document.querySelector('.complete-btn').disabled = true;
+      }
+    }
+
+    function loadNotes() {
+      const notes = localStorage.getItem(`notes_${userId}_${COURSE_ID}_${LESSON_ID}`);
+      if (notes) {
+        document.getElementById('lessonNotes').value = notes;
+      }
+    }
+
+    function saveNotes() {
+      const notes = document.getElementById('lessonNotes').value;
+      localStorage.setItem(`notes_${userId}_${COURSE_ID}_${LESSON_ID}`, notes);
+      showNotification('✅ Notes sauvegardées', '', 'success');
+    }
+
+    function showNotification(title, message) {
+      const notification = document.getElementById('notification');
+      document.getElementById('notificationTitle').textContent = title;
+      document.getElementById('notificationMessage').textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 3000);
+    }
+
+    function validateExercise() {
+      document.getElementById('exerciseFeedback').style.display = 'block';
+      showNotification('✅ Exercice validé', 'Vous pouvez passer à la suite', 'success');
+    }
+
+    function checkQuiz() {
+      const selected = document.querySelector('input[name="quiz"]:checked');
+      if (!selected) {
+        showNotification('❌ Choisissez une réponse', '', 'error');
+        return;
+      }
+      
+      const feedback = document.getElementById('quizFeedback');
+      if (selected.value === 'b') {
+        feedback.className = 'quiz-feedback correct';
+        feedback.innerHTML = '✅ Correct ! Le bleu inspire confiance et professionnalisme.';
+      } else {
+        feedback.className = 'quiz-feedback incorrect';
+        feedback.innerHTML = '❌ Faux. La bonne réponse est le bleu.';
+      }
+    }
+
+    function markAsCompleted() {
+      if (!userData.courseProgress[COURSE_ID].completedLessons.includes(LESSON_ID)) {
+        userData.courseProgress[COURSE_ID].completedLessons.push(LESSON_ID);
+        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        
+        document.querySelector('.complete-btn').innerHTML = '<i class="fas fa-check-circle"></i> Terminé ✓';
+        document.querySelector('.complete-btn').disabled = true;
+        
+        showNotification('✅ Félicitations !', 'Leçon 4 terminée', 'success');
+        loadProgress();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadUserData);
+  </script>
+
+</body>
+</html>
