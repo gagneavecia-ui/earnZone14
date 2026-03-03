@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EarnZone - Leçon 9 : Créer un entonnoir de vente (funnel)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== VARIABLES ===== */
+    :root {
+      --primary: #00ffcc;
+      --primary-dark: #00cca3;
+      --secondary: #ff4d94;
+      --accent: #9d4edd;
+      --bg-dark: #000000;
+      --bg-medium: #0a0a0a;
+      --bg-light: #1a1a1a;
+      --text-light: #ffffff;
+      --text-dim: #94a3b8;
+      --text-soft: #cbd5e0;
+      --card-bg: rgba(20, 20, 20, 0.8);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --success: #4cff4c;
+      --warning: #ffcc00;
+      --danger: #ff4757;
+      --info: #3399ff;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: var(--text-light);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ===== BACKGROUND ===== */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(255, 77, 148, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.05) 0%, transparent 40%);
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 8px 12px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .back-btn:hover {
+      color: var(--secondary);
+      background: rgba(255, 77, 148, 0.05);
+    }
+
+    .back-btn i {
+      font-size: 14px;
+    }
+
+    .lesson-info {
+      color: var(--text-dim);
+      font-size: 14px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .lesson-info span {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* ===== CONTENEUR PRINCIPAL ===== */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px 20px 100px;
+    }
+
+    /* ===== EN-TÊTE DE LEÇON ===== */
+    .lesson-header {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .lesson-tag {
+      display: inline-block;
+      background: rgba(255, 77, 148, 0.1);
+      border: 1px solid rgba(255, 77, 148, 0.2);
+      color: var(--secondary);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .lesson-title {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #ffffff, var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lesson-duration {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 15px;
+    }
+
+    .lesson-duration i {
+      color: var(--secondary);
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      border-radius: 3px;
+    }
+
+    .section-subtitle {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 30px 0 15px;
+      color: var(--text-soft);
+    }
+
+    /* ===== TEXTE ===== */
+    .lead-text {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      color: var(--text-soft);
+      border-left: 4px solid var(--secondary);
+      padding-left: 20px;
+      background: rgba(255, 77, 148, 0.02);
+      padding: 20px;
+      border-radius: 0 16px 16px 0;
+    }
+
+    .paragraph {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      color: var(--text-dim);
+    }
+
+    .paragraph strong {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* ===== CARTES SPÉCIALES ===== */
+    .highlight-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 77, 148, 0.2);
+      border-radius: 24px;
+      padding: 30px 25px;
+      margin: 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+    }
+
+    .highlight-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .highlight-title i {
+      font-size: 28px;
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--text-soft);
+      text-align: center;
+      margin: 40px 0;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .quote::before {
+      content: '"';
+      font-size: 60px;
+      color: var(--secondary);
+      opacity: 0.3;
+      position: absolute;
+      top: -20px;
+      left: 0;
+    }
+
+    .quote::after {
+      content: '"';
+      font-size: 60px;
+      color: var(--secondary);
+      opacity: 0.3;
+      position: absolute;
+      bottom: -40px;
+      right: 0;
+    }
+
+    .fact-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+
+    .fact-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--info);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ===== LISTES ===== */
+    .list-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .list-number {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: black;
+      flex-shrink: 0;
+    }
+
+    .list-content {
+      flex: 1;
+    }
+
+    .list-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-light);
+    }
+
+    .list-text {
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ===== REPRÉSENTATION DU FUNNEL ===== */
+    .funnel-container {
+      margin: 40px 0;
+    }
+
+    .funnel-step {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      position: relative;
+    }
+
+    .funnel-step:not(:last-child)::after {
+      content: '↓';
+      position: absolute;
+      bottom: -20px;
+      left: 30px;
+      color: var(--secondary);
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .funnel-step-icon {
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 77, 148, 0.1);
+      border: 2px solid var(--secondary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      font-size: 20px;
+      color: var(--secondary);
+      flex-shrink: 0;
+    }
+
+    .funnel-step-content {
+      flex: 1;
+    }
+
+    .funnel-step-title {
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 4px;
+      color: var(--text-light);
+    }
+
+    .funnel-step-desc {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    .funnel-bar {
+      height: 40px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      border-radius: 8px;
+      margin: 5px 0 15px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 15px;
+      font-weight: 600;
+      color: black;
+    }
+
+    .funnel-bar.tow {
+      width: 100%;
+    }
+
+    .funnel-bar.middle {
+      width: 60%;
+    }
+
+    .funnel-bar.bottom {
+      width: 20%;
+    }
+
+    /* ===== COMPARAISON ===== */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .comparison-item {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 25px 15px;
+      text-align: center;
+    }
+
+    .comparison-item.tof {
+      border: 1px solid rgba(255, 77, 148, 0.3);
+    }
+
+    .comparison-item.bof {
+      border: 1px solid rgba(76, 255, 76, 0.3);
+    }
+
+    .comparison-icon {
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
+
+    .tof .comparison-icon {
+      color: var(--secondary);
+    }
+
+    .bof .comparison-icon {
+      color: var(--success);
+    }
+
+    .comparison-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .comparison-text {
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+
+    /* ===== STATISTIQUES ===== */
+    .stats-mini {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .stat-mini {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-mini-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 5px;
+    }
+
+    .stat-mini-label {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* ===== TABLEAU ===== */
+    .table-container {
+      overflow-x: auto;
+      margin: 30px 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    th {
+      background: rgba(255, 77, 148, 0.2);
+      padding: 15px;
+      text-align: left;
+      font-weight: 600;
+      color: var(--secondary);
+    }
+
+    td {
+      padding: 12px 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-dim);
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* ===== SÉPARATEUR ===== */
+    .separator {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+      margin: 50px 0;
+      opacity: 0.3;
+    }
+
+    /* ===== BOUTONS DE NAVIGATION ===== */
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 60px;
+      gap: 15px;
+    }
+
+    .prev-btn, .next-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 25px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      color: var(--text-light);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: var(--transition);
+      flex: 1;
+      justify-content: center;
+    }
+
+    .prev-btn:hover {
+      border-color: var(--secondary);
+      background: rgba(255, 77, 148, 0.05);
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      color: black;
+      border: none;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 77, 148, 0.5);
+    }
+
+    .next-btn i {
+      transition: transform 0.3s;
+    }
+
+    .next-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .lesson-title {
+        font-size: 32px;
+      }
+      
+      .lead-text {
+        font-size: 18px;
+      }
+      
+      .paragraph {
+        font-size: 16px;
+      }
+      
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-mini {
+        grid-template-columns: 1fr;
+      }
+      
+      .navigation-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND ===== -->
+  <div class="gradient-bg"></div>
+  <div class="noise"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      Retour
+    </a>
+    <div class="lesson-info">
+      Leçon <span>9</span>/10
+    </div>
+  </header>
+
+  <!-- ===== CONTENU PRINCIPAL ===== -->
+  <div class="container">
+    
+    <!-- ===== EN-TÊTE ===== -->
+    <div class="lesson-header">
+      <span class="lesson-tag">FUNNEL DE VENTE</span>
+      <h1 class="lesson-title">Créer un entonnoir de vente (funnel)</h1>
+      <div class="lesson-duration">
+        <i class="fas fa-clock"></i>
+        <span>19 minutes de lecture</span>
+      </div>
+    </div>
+
+    <!-- ===== INTRODUCTION ===== -->
+    <div class="section">
+      <h2 class="section-title">Introduction</h2>
+      
+      <p class="lead-text">
+        L'entonnoir de vente (ou funnel) est le modèle qui décrit le parcours de vos prospects, de la découverte de votre marque jusqu'à l'achat et au-delà.
+      </p>
+      
+      <p class="paragraph">
+        Dans cette leçon, vous allez comprendre comment structurer un funnel efficace pour transformer des visiteurs anonymes en clients fidèles. Le funnel est la colonne vertébrale de toute stratégie marketing performante.
+      </p>
+    </div>
+
+    <!-- ===== STATISTIQUES ===== -->
+    <div class="stats-mini">
+      <div class="stat-mini">
+        <div class="stat-mini-value">3-5%</div>
+        <div class="stat-mini-label">Taux de conversion moyen d'un site</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-mini-value">+300%</div>
+        <div class="stat-mini-label">Amélioration avec un funnel optimisé</div>
+      </div>
+    </div>
+
+    <!-- ===== QU'EST-CE QU'UN FUNNEL ===== -->
+    <div class="section">
+      <h2 class="section-title">Qu'est-ce qu'un entonnoir de vente ?</h2>
+      
+      <p class="paragraph">
+        Un entonnoir de vente représente les étapes par lesquelles passent vos prospects. On l'appelle "entonnoir" car à chaque étape, vous perdez naturellement des personnes, pour ne garder que les plus qualifiées.
+      </p>
+
+      <div class="funnel-container">
+        <div class="funnel-step">
+          <div class="funnel-step-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="funnel-step-content">
+            <div class="funnel-step-title">1. TOFU - Haut de l'entonnoir</div>
+            <div class="funnel-step-desc">Notoriété et découverte</div>
+          </div>
+        </div>
+        <div class="funnel-bar tow">100%</div>
+
+        <div class="funnel-step">
+          <div class="funnel-step-icon">
+            <i class="fas fa-user-check"></i>
+          </div>
+          <div class="funnel-step-content">
+            <div class="funnel-step-title">2. MOFU - Milieu de l'entonnoir</div>
+            <div class="funnel-step-desc">Considération et engagement</div>
+          </div>
+        </div>
+        <div class="funnel-bar middle">30-50%</div>
+
+        <div class="funnel-step">
+          <div class="funnel-step-icon">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <div class="funnel-step-content">
+            <div class="funnel-step-title">3. BOFU - Bas de l'entonnoir</div>
+            <div class="funnel-step-desc">Conversion et achat</div>
+          </div>
+        </div>
+        <div class="funnel-bar bottom">5-20%</div>
+      </div>
+
+      <div class="fact-box">
+        <div class="fact-title">
+          <i class="fas fa-lightbulb"></i>
+          À retenir
+        </div>
+        <p class="paragraph" style="margin-bottom: 0;">
+          Un funnel bien conçu peut multiplier par 3 à 5 votre taux de conversion. L'objectif n'est pas d'avoir plus de monde en haut, mais de mieux convertir à chaque étape.
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== LES 3 ÉTAGES DU FUNNEL ===== -->
+    <div class="section">
+      <h2 class="section-title">Les 3 étages du funnel</h2>
+
+      <h3 class="section-subtitle">🔹 TOFU (Haut de l'entonnoir) - Attirer</h3>
+      <p class="paragraph">
+        Objectif : <strong>Générer du trafic et faire connaître votre marque</strong>. Les gens ne savent pas encore qu'ils ont un problème ou ne connaissent pas votre solution.
+      </p>
+      <div class="list-item">
+        <div class="list-number">1</div>
+        <div class="list-content">
+          <div class="list-title">Canaux typiques</div>
+          <div class="list-text">Blog, SEO, réseaux sociaux, publicités de notoriété, vidéos virales, podcasts.</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-number">2</div>
+        <div class="list-content">
+          <div class="list-title">Contenus adaptés</div>
+          <div class="list-text">Articles éducatifs, guides gratuits, infographies, posts inspirants.</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-number">3</div>
+        <div class="list-content">
+          <div class="list-title">Objectif</div>
+          <div class="list-text">Capturer l'attention et obtenir un premier contact (email, abonné).</div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle" style="margin-top: 40px;">🔹 MOFU (Milieu) - Engager</h3>
+      <p class="paragraph">
+        Objectif : <strong>Éduquer et établir la confiance</strong>. Le prospect sait qu'il a un problème et cherche la meilleure solution.
+      </p>
+      <div class="list-item">
+        <div class="list-number">1</div>
+        <div class="list-content">
+          <div class="list-title">Canaux typiques</div>
+          <div class="list-text">Email marketing, webinaires, études de cas, comparatifs.</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-number">2</div>
+        <div class="list-content">
+          <div class="list-title">Contenus adaptés</div>
+          <div class="list-text">Newsletters, livres blancs, démonstrations, témoignages.</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-number">3</div>
+        <div class="list-content">
+          <div class="list-title">Objectif</div>
+          <div class="list-text">Qualifier le lead et le préparer à l'achat.</div>
+        </div>
+      </div>
+
+      <h3 class="section-subtitle" style="margin-top: 40px;">🔹 BOFU (Bas) - Convertir</h3>
+      <p class="paragraph">
+        Objectif : <strong>Transformer le prospect en client</strong>. Il est prêt à acheter, il a juste besoin d'une dernière poussée.
+      </p>
+      <div class="list-item">
+        <div class="list-number">1</div>
+        <div class="list-content">
+          <div class="list-title">Canaux typiques</div>
+          <div class="list-text">Pages de vente, offres limitées, démos personnalisées.</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-number">2</div>
+        <div class="list-content">
+          <div class="list-title">Contenus adaptés</div>
+          <div class="list-text">Essais gratuits, consultations, codes promo, garanties.</div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="list-number">3</div>
+        <div class="list-content">
+          <div class="list-title">Objectif</div>
+          <div class="list-text">Finaliser la vente et fidéliser.</div>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <div class="highlight-title">
+          <i class="fas fa-chart-line"></i>
+          Les chiffres clés
+        </div>
+        <p class="paragraph" style="margin-bottom: 0;">
+          En moyenne :<br>
+          • 100% en TOFU<br>
+          • 30-50% passent en MOFU<br>
+          • 5-20% achètent (BOFU)<br>
+          Améliorer chaque étape de 10% peut doubler vos ventes.
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <div class="separator"></div>
+
+    <!-- ===== EXEMPLE CONCRET ===== -->
+    <div class="section">
+      <h2 class="section-title">Exemple concret : Formation en ligne</h2>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Étape</th>
+              <th>Action</th>
+              <th>Objectif</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>TOFU</strong></td>
+              <td>Article blog "Comment apprendre le marketing en 2025"</td>
+              <td>Attirer 1000 visiteurs</td>
+            </tr>
+            <tr>
+              <td><strong>MOFU</strong></td>
+              <td>Newsletter + Guide PDF gratuit "Les 5 étapes clés"</td>
+              <td>Obtenir 300 emails</td>
+            </tr>
+            <tr>
+              <td><strong>BOFU</strong></td>
+              <td>Offre de formation avec réduction</td>
+              <td>30 ventes</td>
+            </tr>
+            <tr>
+              <td><strong>Post-vente</strong></td>
+              <td>Email de suivi, programme de parrainage</td>
+              <td>Fidélisation et recommandations</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="paragraph">
+        Dans cet exemple, le taux de conversion global est de 3% (30 ventes pour 1000 visiteurs). En optimisant chaque étape, on peut atteindre 5-7%.
+      </p>
+    </div>
+
+    <!-- ===== COMPARAISON ===== -->
+    <div class="comparison-grid">
+      <div class="comparison-item tof">
+        <div class="comparison-icon">
+          <i class="fas fa-bullhorn"></i>
+        </div>
+        <div class="comparison-title">Sans funnel</div>
+        <div class="comparison-text">
+          Publier du contenu au hasard, espérer des ventes, aucun suivi.
+        </div>
+      </div>
+      <div class="comparison-item bof">
+        <div class="comparison-icon">
+          <i class="fas fa-funnel-dollar"></i>
+        </div>
+        <div class="comparison-title">Avec funnel</div>
+        <div class="comparison-text">
+          Stratégie étape par étape, taux de conversion optimisé, clients fidèles.
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== COMMENT CONSTRUIRE SON FUNNEL ===== -->
+    <div class="section">
+      <h2 class="section-title">Comment construire votre premier funnel</h2>
+
+      <div class="list-item">
+        <div class="list-number">1</div>
+        <div class="list-content">
+          <div class="list-title">Définissez votre offre</div>
+          <div class="list-text">Que vendez-vous ? À qui ? À quel prix ?</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">2</div>
+        <div class="list-content">
+          <div class="list-title">Créez un aimant à leads (lead magnet)</div>
+          <div class="list-text">Un contenu gratuit de valeur pour obtenir l'email : ebook, checklist, vidéo.</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">3</div>
+        <div class="list-content">
+          <div class="list-title">Mettez en place une page d'atterrissage</div>
+          <div class="list-text">Une page simple avec un formulaire pour télécharger l'aimant.</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">4</div>
+        <div class="list-content">
+          <div class="list-title">Drivez du trafic</div>
+          <div class="list-text">Utilisez les réseaux sociaux, le SEO ou les publicités.</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">5</div>
+        <div class="list-content">
+          <div class="list-title">Séquence d'emails</div>
+          <div class="list-text">Automatisez 3-5 emails pour présenter votre offre et vendre.</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">6</div>
+        <div class="list-content">
+          <div class="list-title">Analysez et optimisez</div>
+          <div class="list-text">Regardez les taux d'ouverture, de clic, de conversion et ajustez.</div>
+        </div>
+      </div>
+
+      <div class="fact-box">
+        <div class="fact-title">
+          <i class="fas fa-rocket"></i>
+          Outils recommandés
+        </div>
+        <p class="paragraph" style="margin-bottom: 0;">
+          • Pages de capture : System.io, GetResponse<br>
+          • Email marketing : Mailchimp, ConvertKit<br>
+          • Analytics : Google Analytics, Hotjar
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <div class="separator"></div>
+
+    <!-- ===== ERREURS FRÉQUENTES ===== -->
+    <div class="section">
+      <h2 class="section-title">Erreurs à éviter</h2>
+
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Ignorer le MOFU</div>
+          <div class="list-text">Beaucoup passent directement de la pub à la vente, mais sans nurturing, le taux de conversion est faible.</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Aimant à leads peu attractif</div>
+          <div class="list-text">Un simple PDF sans valeur ne convaincra personne de donner son email.</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Trop d'étapes</div>
+          <div class="list-text">Un funnel trop complexue perd des prospects. Restez simple.</div>
+        </div>
+      </div>
+
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Ne pas mesurer</div>
+          <div class="list-text">Si vous ne suivez pas les chiffres, vous ne pouvez pas améliorer.</div>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <div class="highlight-title">
+          <i class="fas fa-check-circle" style="color: var(--success);"></i>
+          À retenir
+        </div>
+        <p class="paragraph" style="margin-bottom: 0;">
+          Un funnel n'est jamais figé. Testez différentes offres, emails et pages. L'optimisation continue est la clé du succès.
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== CONCLUSION ===== -->
+    <div class="section">
+      <h2 class="section-title">Prêt à créer votre funnel ?</h2>
+      
+      <p class="paragraph">
+        Vous avez maintenant toutes les bases pour construire votre premier entonnoir de vente. Commencez simple : un aimant, une page, une séquence d'emails. Mesurez, apprenez, améliorez.
+      </p>
+      
+      <p class="paragraph">
+        <strong>Rappelez-vous :</strong> Le funnel transforme le hasard en stratégie. Chaque visiteur est une opportunité de créer une relation.
+      </p>
+    </div>
+
+    <!-- ===== BOUTONS DE NAVIGATION ===== -->
+    <div class="navigation-buttons">
+      <a href="marketing-lecon10.html" class="next-btn">
+        Leçon 10
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    // ============================================
+    // MARQUER LA LEÇON COMME TERMINÉE
+    // ============================================
+    const COURSE_ID = 'marketing-debutant';
+    const LESSON_ID = 'marketing9';
+    let userData, userId;
+
+    function loadUserData() {
+      userId = localStorage.getItem('earnzone_current_user');
+      if (!userId) {
+        window.location.href = '../../login.html';
+        return;
+      }
+      
+      const userDataStr = localStorage.getItem(`earnzone_user_${userId}`);
+      if (userDataStr) {
+        userData = JSON.parse(userDataStr);
+      }
+    }
+
+    function markLessonAsCompleted() {
+      if (!userData) return;
+      if (!userData.courseProgress) userData.courseProgress = {};
+      if (!userData.courseProgress[COURSE_ID]) {
+        userData.courseProgress[COURSE_ID] = { completedLessons: [] };
+      }
+      
+      const completed = userData.courseProgress[COURSE_ID].completedLessons;
+      if (!completed.includes(LESSON_ID)) {
+        completed.push(LESSON_ID);
+        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        console.log('✅ Leçon 9 marquée comme terminée');
+      }
+    }
+
+    // Marquer automatiquement quand on quitte la page
+    window.addEventListener('beforeunload', function() {
+      markLessonAsCompleted();
+    });
+
+    // Charger les données
+    document.addEventListener('DOMContentLoaded', loadUserData);
+  </script>
+
+</body>
+</html>

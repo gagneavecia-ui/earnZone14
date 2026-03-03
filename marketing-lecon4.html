@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EarnZone - Leçon 4: Réseaux sociaux pour débutants</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ===== VARIABLES ===== */
+    :root {
+      --primary: #00ffcc;
+      --primary-dark: #00cca3;
+      --secondary: #ff4d94;
+      --accent: #9d4edd;
+      --bg-dark: #000000;
+      --bg-medium: #0a0a0a;
+      --bg-light: #1a1a1a;
+      --text-light: #ffffff;
+      --text-dim: #94a3b8;
+      --text-soft: #cbd5e0;
+      --card-bg: rgba(20, 20, 20, 0.8);
+      --card-border: rgba(255, 255, 255, 0.05);
+      --success: #4cff4c;
+      --warning: #ffcc00;
+      --danger: #ff4757;
+      --info: #3399ff;
+      --facebook: #1877f2;
+      --instagram: #e4405f;
+      --twitter: #1da1f2;
+      --linkedin: #0a66c2;
+      --tiktok: #000000;
+      --youtube: #ff0000;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+
+    /* ===== RESET ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: var(--text-light);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* ===== BACKGROUND ===== */
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(255, 77, 148, 0.05) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.05) 0%, transparent 40%);
+    }
+
+    .noise {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      opacity: 0.15;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJmIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc0IiBudW1PY3RhdmVzPSIzIiAvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNmKSIgb3BhY2l0eT0iMC4xIiAvPjwvc3ZnPg==');
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 5%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      transition: var(--transition);
+      padding: 8px 12px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .back-btn:hover {
+      color: var(--secondary);
+      background: rgba(255, 77, 148, 0.05);
+    }
+
+    .back-btn i {
+      font-size: 14px;
+    }
+
+    .lesson-info {
+      color: var(--text-dim);
+      font-size: 14px;
+      font-weight: 500;
+      background: rgba(255, 255, 255, 0.02);
+      padding: 6px 14px;
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .lesson-info span {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* ===== CONTENEUR PRINCIPAL ===== */
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px 20px 100px;
+    }
+
+    /* ===== EN-TÊTE DE LEÇON ===== */
+    .lesson-header {
+      margin-bottom: 40px;
+      text-align: left;
+    }
+
+    .lesson-tag {
+      display: inline-block;
+      background: rgba(255, 77, 148, 0.1);
+      border: 1px solid rgba(255, 77, 148, 0.2);
+      color: var(--secondary);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 16px;
+      border-radius: 50px;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    .lesson-title {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #ffffff, var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .lesson-duration {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-dim);
+      font-size: 15px;
+    }
+
+    .lesson-duration i {
+      color: var(--secondary);
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      position: relative;
+      padding-bottom: 12px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+      border-radius: 3px;
+    }
+
+    .section-subtitle {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 30px 0 15px;
+      color: var(--text-soft);
+    }
+
+    /* ===== TEXTE ===== */
+    .lead-text {
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      color: var(--text-soft);
+      border-left: 4px solid var(--secondary);
+      padding-left: 20px;
+      background: rgba(255, 77, 148, 0.02);
+      padding: 20px;
+      border-radius: 0 16px 16px 0;
+    }
+
+    .paragraph {
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 25px;
+      color: var(--text-dim);
+    }
+
+    .paragraph strong {
+      color: var(--secondary);
+      font-weight: 600;
+    }
+
+    /* ===== CARTES SPÉCIALES ===== */
+    .highlight-card {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 77, 148, 0.2);
+      border-radius: 24px;
+      padding: 30px 25px;
+      margin: 40px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .highlight-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--secondary), var(--accent));
+    }
+
+    .highlight-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .highlight-title i {
+      font-size: 28px;
+    }
+
+    .quote {
+      font-style: italic;
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--text-soft);
+      text-align: center;
+      margin: 40px 0;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .quote::before {
+      content: '"';
+      font-size: 60px;
+      color: var(--secondary);
+      opacity: 0.3;
+      position: absolute;
+      top: -20px;
+      left: 0;
+    }
+
+    .quote::after {
+      content: '"';
+      font-size: 60px;
+      color: var(--secondary);
+      opacity: 0.3;
+      position: absolute;
+      bottom: -40px;
+      right: 0;
+    }
+
+    .fact-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 30px 0;
+    }
+
+    .fact-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--warning);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ===== LISTES ===== */
+    .list-item {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .list-number {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: black;
+      flex-shrink: 0;
+    }
+
+    .list-content {
+      flex: 1;
+    }
+
+    .list-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: var(--text-light);
+    }
+
+    .list-text {
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    /* ===== GRILLE DES RÉSEAUX SOCIAUX ===== */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .social-card {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 20px 15px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: var(--transition);
+    }
+
+    .social-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--secondary);
+    }
+
+    .social-icon {
+      font-size: 36px;
+      margin-bottom: 12px;
+    }
+
+    .facebook { color: var(--facebook); }
+    .instagram { color: var(--instagram); }
+    .twitter { color: var(--twitter); }
+    .linkedin { color: var(--linkedin); }
+    .tiktok { color: var(--tiktok); }
+    .youtube { color: var(--youtube); }
+
+    .social-name {
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .social-users {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* ===== TABLEAU COMPARAISON ===== */
+    .comparison-table {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 20px;
+      margin: 30px 0;
+      overflow-x: auto;
+    }
+
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .comparison-table th {
+      text-align: left;
+      padding: 12px 8px;
+      color: var(--secondary);
+      font-weight: 600;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .comparison-table td {
+      padding: 12px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      color: var(--text-dim);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .comparison-table td:first-child {
+      font-weight: 600;
+      color: var(--text-soft);
+    }
+
+    /* ===== STATISTIQUES ===== */
+    .stats-mini {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin: 30px 0;
+    }
+
+    .stat-mini {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stat-mini-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 5px;
+    }
+
+    .stat-mini-label {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    /* ===== SÉPARATEUR ===== */
+    .separator {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+      margin: 50px 0;
+      opacity: 0.3;
+    }
+
+    /* ===== BOUTONS DE NAVIGATION ===== */
+    .navigation-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 60px;
+    }
+
+    .prev-btn, .next-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 20px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-light);
+      text-decoration: none;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 16px;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+    }
+
+    .prev-btn:hover {
+      border-color: var(--secondary);
+      background: rgba(255, 77, 148, 0.05);
+    }
+
+    .next-btn {
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      color: black;
+      border: none;
+      box-shadow: 0 10px 30px rgba(255, 77, 148, 0.3);
+    }
+
+    .next-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 40px rgba(255, 77, 148, 0.5);
+    }
+
+    .next-btn i {
+      transition: transform 0.3s;
+    }
+
+    .next-btn:hover i {
+      transform: translateX(5px);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 480px) {
+      .lesson-title {
+        font-size: 32px;
+      }
+      
+      .lead-text {
+        font-size: 18px;
+      }
+      
+      .paragraph {
+        font-size: 16px;
+      }
+      
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .stats-mini {
+        grid-template-columns: 1fr;
+      }
+      
+      .navigation-buttons {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== BACKGROUND ===== -->
+  <div class="gradient-bg"></div>
+  <div class="noise"></div>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      Retour à la formation
+    </a>
+    <div class="lesson-info">
+      Leçon <span>4</span>/10
+    </div>
+  </header>
+
+  <!-- ===== CONTENU PRINCIPAL ===== -->
+  <div class="container">
+    
+    <!-- ===== EN-TÊTE ===== -->
+    <div class="lesson-header">
+      <span class="lesson-tag">RÉSEAUX SOCIAUX</span>
+      <h1 class="lesson-title">Réseaux sociaux pour débutants</h1>
+      <div class="lesson-duration">
+        <i class="fas fa-clock"></i>
+        <span>20 minutes de lecture</span>
+      </div>
+    </div>
+
+    <!-- ===== INTRODUCTION ===== -->
+    <div class="section">
+      <h2 class="section-title">Introduction</h2>
+      
+      <p class="lead-text">
+        Les réseaux sociaux sont devenus incontournables pour toute stratégie marketing. Avec plus de 4,8 milliards d'utilisateurs actifs dans le monde, ils offrent une opportunité unique de toucher votre audience là où elle passe déjà son temps.
+      </p>
+      
+      <p class="paragraph">
+        Dans cette leçon, nous allons découvrir les principaux réseaux sociaux, leurs spécificités, et comment les utiliser efficacement pour développer votre activité ou votre marque personnelle. Vous apprendrez à choisir les bonnes plateformes et à créer du contenu adapté à chacune.
+      </p>
+    </div>
+
+    <!-- ===== STATISTIQUES MONDIALES ===== -->
+    <div class="stats-mini">
+      <div class="stat-mini">
+        <div class="stat-mini-value">4,8 Md</div>
+        <div class="stat-mini-label">Utilisateurs de réseaux sociaux</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-mini-value">2h 24min</div>
+        <div class="stat-mini-label">Temps passé par jour en moyenne</div>
+      </div>
+    </div>
+
+    <!-- ===== POURQUOI LES RÉSEAUX SOCIAUX ===== -->
+    <div class="section">
+      <h2 class="section-title">Pourquoi les réseaux sociaux sont essentiels</h2>
+      
+      <div class="list-item">
+        <div class="list-number">1</div>
+        <div class="list-content">
+          <div class="list-title">Visibilité et notoriété</div>
+          <div class="list-text">Les réseaux sociaux vous permettent de toucher des milliers de personnes sans budget publicitaire, grâce à la portée organique et au partage.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">2</div>
+        <div class="list-content">
+          <div class="list-title">Engagement et relation client</div>
+          <div class="list-text">Vous pouvez interagir directement avec votre audience, répondre à ses questions et créer une communauté fidèle autour de votre marque.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">3</div>
+        <div class="list-content">
+          <div class="list-title">Génération de trafic et de ventes</div>
+          <div class="list-text">Les réseaux sociaux sont d'excellents canaux pour diriger les utilisateurs vers votre site web ou votre boutique en ligne.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">4</div>
+        <div class="list-content">
+          <div class="list-title">Insights sur votre audience</div>
+          <div class="list-text">Les plateformes fournissent des données précieuses sur votre public : âge, centres d'intérêt, comportements, etc.</div>
+        </div>
+      </div>
+      
+      <div class="fact-box">
+        <div class="fact-title">
+          <i class="fas fa-chart-line"></i>
+          Le saviez-vous ?
+        </div>
+        <p class="paragraph" style="margin-bottom: 0;">
+          73% des marketeurs estiment que leurs efforts sur les réseaux sociaux ont été "plutôt efficaces" ou "très efficaces" pour leur entreprise. Les réseaux sociaux génèrent 2x plus de leads que les salons professionnels, le télémarketing ou les mailings.
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <div class="separator"></div>
+
+    <!-- ===== LES PRINCIPAUX RÉSEAUX SOCIAUX ===== -->
+    <div class="section">
+      <h2 class="section-title">Les principaux réseaux sociaux</h2>
+      
+      <p class="paragraph">
+        Chaque réseau social a ses propres caractéristiques, son audience et son format de contenu privilégié. Voici les plateformes incontournables :
+      </p>
+      
+      <div class="social-grid">
+        <div class="social-card">
+          <div class="social-icon facebook">
+            <i class="fab fa-facebook"></i>
+          </div>
+          <div class="social-name">Facebook</div>
+          <div class="social-users">2,9 Md d'utilisateurs</div>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-icon instagram">
+            <i class="fab fa-instagram"></i>
+          </div>
+          <div class="social-name">Instagram</div>
+          <div class="social-users">2 Md d'utilisateurs</div>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-icon twitter">
+            <i class="fab fa-twitter"></i>
+          </div>
+          <div class="social-name">Twitter (X)</div>
+          <div class="social-users">450 M d'utilisateurs</div>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-icon linkedin">
+            <i class="fab fa-linkedin"></i>
+          </div>
+          <div class="social-name">LinkedIn</div>
+          <div class="social-users">900 M d'utilisateurs</div>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-icon tiktok">
+            <i class="fab fa-tiktok"></i>
+          </div>
+          <div class="social-name">TikTok</div>
+          <div class="social-users">1 Md d'utilisateurs</div>
+        </div>
+        
+        <div class="social-card">
+          <div class="social-icon youtube">
+            <i class="fab fa-youtube"></i>
+          </div>
+          <div class="social-name">YouTube</div>
+          <div class="social-users">2,5 Md d'utilisateurs</div>
+        </div>
+      </div>
+      
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Plateforme</th>
+              <th>Format principal</th>
+              <th>Audience typique</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Facebook</td>
+              <td>Texte, images, vidéos</td>
+              <td>25-65 ans, large</td>
+            </tr>
+            <tr>
+              <td>Instagram</td>
+              <td>Images, stories, Reels</td>
+              <td>18-45 ans, visuel</td>
+            </tr>
+            <tr>
+              <td>Twitter/X</td>
+              <td>Texte court, actualité</td>
+              <td>25-55 ans, professionnels</td>
+            </tr>
+            <tr>
+              <td>LinkedIn</td>
+              <td>Articles, posts pro</td>
+              <td>30-65 ans, B2B</td>
+            </tr>
+            <tr>
+               <td>TikTok</td>
+              <td>Vidéos courtes</td>
+              <td>16-30 ans, Gen Z</td>
+            </tr>
+            <tr>
+              <td>YouTube</td>
+              <td>Vidéos longues</td>
+              <td>Toutes, recherche</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="highlight-card">
+        <div class="highlight-title">
+          <i class="fas fa-lightbulb"></i>
+          Comment choisir ?
+        </div>
+        <p class="paragraph" style="margin-bottom: 10px;">
+          <strong>Ne soyez pas partout à la fois !</strong> Il vaut mieux exceller sur 1 ou 2 réseaux que d'être médiocre sur 5.
+        </p>
+        <p class="paragraph" style="margin-bottom: 0;">
+          Pour choisir, demandez-vous : Où se trouve mon audience cible ? Quel format de contenu suis-je capable de produire régulièrement ? Quels sont mes objectifs (notoriété, ventes, communauté) ?
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <div class="separator"></div>
+
+    <!-- ===== STRATÉGIES PAR PLATEFORME ===== -->
+    <div class="section">
+      <h2 class="section-title">Stratégies par plateforme</h2>
+      
+      <h3 class="section-subtitle">Facebook</h3>
+      <p class="paragraph">
+        Idéal pour créer une communauté via des groupes, partager des actualités et des offres. Utilisez les publications variées (texte, images, vidéos) et interagissez avec les commentaires. Les groupes Facebook sont particulièrement efficaces pour fédérer une communauté engagée.
+      </p>
+      
+      <h3 class="section-subtitle">Instagram</h3>
+      <p class="paragraph">
+        Le réseau du visuel. Soignez votre feed avec une identité visuelle cohérente. Utilisez les stories pour du contenu éphémère et les Reels pour toucher une nouvelle audience. Les collaborations avec des influenceurs peuvent booster votre visibilité.
+      </p>
+      
+      <h3 class="section-subtitle">LinkedIn</h3>
+      <p class="paragraph">
+        Le réseau professionnel par excellence. Publiez du contenu à valeur ajoutée sur votre secteur d'activité, partagez votre expertise et participez aux discussions. C'est l'endroit idéal pour le B2B et le personal branding.
+      </p>
+      
+      <h3 class="section-subtitle">TikTok</h3>
+      <p class="paragraph">
+        Le phénomène du moment. Misez sur la créativité, l'authenticité et les tendances. Les vidéos courtes et divertissantes fonctionnent le mieux. N'ayez pas peur de montrer les coulisses de votre activité.
+      </p>
+      
+      <div class="fact-box">
+        <div class="fact-title">
+          <i class="fas fa-calendar-alt"></i>
+          Fréquence de publication recommandée
+        </div>
+        <p class="paragraph" style="margin-bottom: 0;">
+          • Facebook : 1 à 2 fois par jour<br>
+          • Instagram : 1 à 3 posts par semaine + stories quotidiennes<br>
+          • Twitter/X : 3 à 5 tweets par jour<br>
+          • LinkedIn : 1 à 2 posts par jour (semaine)<br>
+          • TikTok : 1 à 3 vidéos par jour
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <div class="separator"></div>
+
+    <!-- ===== CONTENU ET ENGAGEMENT ===== -->
+    <div class="section">
+      <h2 class="section-title">Créer du contenu qui engage</h2>
+      
+      <div class="list-item">
+        <div class="list-number">1</div>
+        <div class="list-content">
+          <div class="list-title">Variez les formats</div>
+          <div class="list-text">Alternez entre images, vidéos, carrousels, sondages, questions, etc. pour maintenir l'intérêt.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">2</div>
+        <div class="list-content">
+          <div class="list-title">Soyez authentique</div>
+          <div class="list-text">Les utilisateurs préfèrent le contenu authentique au contenu trop "corporate". Montrez les coulisses, les erreurs, l'humain derrière la marque.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">3</div>
+        <div class="list-content">
+          <div class="list-title">Posez des questions</div>
+          <div class="list-text">C'est le moyen le plus simple de générer des commentaires et de l'interaction.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">4</div>
+        <div class="list-content">
+          <div class="list-title">Répondez aux commentaires</div>
+          <div class="list-text">L'engagement est une conversation. Plus vous répondez, plus votre communauté se sent valorisée.</div>
+        </div>
+      </div>
+      
+      <div class="highlight-card">
+        <div class="highlight-title">
+          <i class="fas fa-chart-simple"></i>
+          Les indicateurs à suivre
+        </div>
+        <p class="paragraph" style="margin-bottom: 5px;">
+          • <strong>Portée</strong> : nombre de personnes qui voient votre contenu
+        </p>
+        <p class="paragraph" style="margin-bottom: 5px;">
+          • <strong>Engagement</strong> : likes, commentaires, partages
+        </p>
+        <p class="paragraph" style="margin-bottom: 5px;">
+          • <strong>Taux de clic (CTR)</strong> : proportion de personnes qui cliquent sur vos liens
+        </p>
+        <p class="paragraph" style="margin-bottom: 0;">
+          • <strong>Conversions</strong> : inscriptions, achats, téléchargements
+        </p>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <div class="separator"></div>
+
+    <!-- ===== ERREURS À ÉVITER ===== -->
+    <div class="section">
+      <h2 class="section-title">Erreurs courantes à éviter</h2>
+      
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Acheter des followers</div>
+          <div class="list-text">Des followers fantômes n'interagiront jamais avec votre contenu et nuisent à votre crédibilité.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Être trop promotionnel</div>
+          <div class="list-text">La règle 80/20 : 80% de contenu à valeur ajoutée, 20% de contenu promotionnel.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Ignorer les commentaires</div>
+          <div class="list-text">Ne pas répondre donne l'impression que vous vous moquez de votre communauté.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Publier sans stratégie</div>
+          <div class="list-text">Publier au hasard sans objectif ni cohérence ne donnera pas de résultats.</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">⚠️</div>
+        <div class="list-content">
+          <div class="list-title">Négliger l'analyse</div>
+          <div class="list-text">Si vous ne mesurez pas, vous ne pouvez pas améliorer vos performances.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SÉPARATEUR ===== -->
+    <div class="separator"></div>
+
+    <!-- ===== OUTILS UTILES ===== -->
+    <div class="section">
+      <h2 class="section-title">Outils pour gérer vos réseaux</h2>
+      
+      <div class="list-item">
+        <div class="list-number">📱</div>
+        <div class="list-content">
+          <div class="list-title">Planification</div>
+          <div class="list-text">Buffer, Hootsuite, Later, Meta Business Suite</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">🎨</div>
+        <div class="list-content">
+          <div class="list-title">Création visuelle</div>
+          <div class="list-text">Canva, Adobe Express, CapCut (vidéo)</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">📊</div>
+        <div class="list-content">
+          <div class="list-title">Analytique</div>
+          <div class="list-text">Google Analytics, les outils natifs des plateformes, Sprout Social</div>
+        </div>
+      </div>
+      
+      <div class="list-item">
+        <div class="list-number">🔍</div>
+        <div class="list-content">
+          <div class="list-title">Veille et inspiration</div>
+          <div class="list-text">Feedly, BuzzSumo, les tendances du moment sur chaque plateforme</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== CONCLUSION ===== -->
+    <div class="section">
+      <h2 class="section-title">Prêt à vous lancer ?</h2>
+      
+      <p class="paragraph">
+        Les réseaux sociaux sont un canal puissant pour développer votre présence en ligne. Commencez par choisir 1 ou 2 plateformes où se trouve votre audience, puis concentrez-vous sur la création de contenu de qualité et l'engagement.
+      </p>
+      
+      <p class="paragraph">
+        <strong>Rappelez-vous :</strong> La clé du succès sur les réseaux sociaux est la régularité et l'authenticité. Ne cherchez pas la perfection, cherchez la connexion avec votre communauté.
+      </p>
+      
+      <div class="quote">
+        "Les réseaux sociaux ne sont pas une stratégie marketing. Ils sont un moyen d'être humain avec votre public."
+      </div>
+    </div>
+
+    <!-- ===== BOUTONS DE NAVIGATION ===== -->
+    <div class="navigation-buttons">
+      <a href="marketing-lecon5.html" class="next-btn">
+        Leçon 5 
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+
+  <script>
+    // ============================================
+    // MARQUER LA LEÇON COMME TERMINÉE
+    // ============================================
+    const COURSE_ID = 'marketing-debutant';
+    const LESSON_ID = 'marketing4';
+    let userData, userId;
+
+    function loadUserData() {
+      userId = localStorage.getItem('earnzone_current_user');
+      if (!userId) {
+        // Rediriger vers login si nécessaire
+        // window.location.href = '../../login.html';
+        return;
+      }
+      
+      const userDataStr = localStorage.getItem(`earnzone_user_${userId}`);
+      if (userDataStr) {
+        userData = JSON.parse(userDataStr);
+      }
+    }
+
+    function markLessonAsCompleted() {
+      if (!userData) return;
+      if (!userData.courseProgress) userData.courseProgress = {};
+      if (!userData.courseProgress[COURSE_ID]) {
+        userData.courseProgress[COURSE_ID] = { completedLessons: [] };
+      }
+      
+      const completed = userData.courseProgress[COURSE_ID].completedLessons;
+      if (!completed.includes(LESSON_ID)) {
+        completed.push(LESSON_ID);
+        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        console.log('✅ Leçon 4 marquée comme terminée');
+      }
+    }
+
+    // Marquer automatiquement quand on quitte la page
+    window.addEventListener('beforeunload', function() {
+      markLessonAsCompleted();
+    });
+
+    // Charger les données
+    document.addEventListener('DOMContentLoaded', loadUserData);
+  </script>
+
+</body>
+</html>
