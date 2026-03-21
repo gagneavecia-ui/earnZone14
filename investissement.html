@@ -840,6 +840,7 @@
     </div>
   </div>
 
+   
    <!-- ===== HEADER ===== -->
   <header class="header">
     <a href="index.html" class="back-btn">
@@ -1180,11 +1181,94 @@
     };
     
     // ============================================
+    // FONCTION POUR METTRE À JOUR LE STORAGE ET SYNCHRONISER
+    // ============================================
+    function updateUserDataAndSync() {
+      if (!userData || !userId) return;
+      
+      // Sauvegarder les données utilisateur
+      localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+      
+      // Déclencher un événement storage pour synchroniser les autres onglets/pages
+      localStorage.setItem('earnzone_sync_timestamp', Date.now().toString());
+      
+      // Mettre à jour l'affichage
+      updateBalanceDisplay();
+    }
+    
+    // ============================================
+    // CALCULER LES PAIEMENTS MANQUÉS (AUTOMATIQUE À LA CONNEXION)
+    // ============================================
+    function calculateMissedPayments() {
+      if (!userData || !investments.active.length) return;
+      
+      const now = new Date().getTime();
+      let totalGains = 0;
+      let updatedInvestments = [];
+      
+      investments.active.forEach(inv => {
+        const lastPayoutTime = new Date(inv.lastPayout).getTime();
+        const hoursSinceLastPayout = (now - lastPayoutTime) / (1000 * 60 * 60);
+        
+        // Nombre de paiements manqués
+        const missedPayments = Math.floor(hoursSinceLastPayout / 24);
+        
+        if (missedPayments > 0) {
+          const remainingDays = inv.totalDays - inv.currentDay + 1;
+          const daysToPay = Math.min(missedPayments, remainingDays);
+          
+          if (daysToPay > 0) {
+            const gainAmount = inv.dailyReturn * daysToPay;
+            totalGains += gainAmount;
+            
+            inv.currentDay += daysToPay;
+            inv.totalEarned += gainAmount;
+            inv.lastPayout = new Date(now).toISOString();
+            
+            if (inv.currentDay > inv.totalDays) {
+              inv.status = 'completed';
+              const completedInv = {...inv};
+              investments.completed.unshift(completedInv);
+              inv._toRemove = true;
+            }
+          }
+        }
+        
+        if (!inv._toRemove) {
+          updatedInvestments.push(inv);
+        }
+      });
+      
+      // Filtrer les investissements terminés
+      const removedCount = investments.active.length - updatedInvestments.length;
+      investments.active = updatedInvestments;
+      
+      // Créditer tous les gains manqués
+      if (totalGains > 0) {
+        userData.balance += totalGains;
+        userData.totalEarned = (userData.totalEarned || 0) + totalGains;
+        
+        updateUserDataAndSync();
+        saveInvestments();
+        
+        showNotification(
+          '💰 Paiement automatique !', 
+          `${formatCurrency(totalGains)} FCFA crédités pour ${removedCount > 0 ? 'investissements terminés et ' : ''}les jours manqués`,
+          'success'
+        );
+      }
+    }
+    
+    // ============================================
     // INITIALISATION
     // ============================================
     function init() {
       loadUserData();
       loadInvestments();
+      
+      // Calculer les paiements manqués immédiatement
+      calculateMissedPayments();
+      
       setupEventListeners();
       startInvestmentChecker();
       setupSync();
@@ -1228,11 +1312,16 @@
       renderHistory();
     }
     
-    // ============================================
+  // ============================================
     // SAUVEGARDER LES INVESTISSEMENTS
     // ============================================
     function saveInvestments() {
       localStorage.setItem(`investments_${userId}`, JSON.stringify(investments));
+      // Synchroniser avec userData.investments
+      if (userData) {
+        userData.investments = [...investments.active, ...investments.completed];
+        updateUserDataAndSync();
+      }
     }
     
     // ============================================
@@ -1347,11 +1436,6 @@
         return;
       }
       
-      if (!canInvestToday()) {
-        showNotification('⏰ Limite atteinte', 'Un investissement par jour maximum', 'warning');
-        return;
-      }
-      
       const pack = packs[packKey];
       const balance = userData.balance || 0;
       
@@ -1372,17 +1456,9 @@
         function() {
           // Débiter le solde
           userData.balance -= pack.price;
-          localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
           
           // Traiter le premier paiement (parrainage)
           processFirstPayment();
-          
-          // Recharger les données
-          const updatedData = localStorage.getItem(`earnzone_user_${userId}`);
-          if (updatedData) {
-            userData = JSON.parse(updatedData);
-            updateBalanceDisplay();
-          }
           
           // Enregistrer la date
           recordInvestment();
@@ -1393,33 +1469,32 @@
           endDate.setDate(endDate.getDate() + pack.totalDays);
           
           const investment = {
-  id: 'inv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
-  pack: packKey,
-  packName: pack.name,
-  amount: pack.price,
-  dailyReturn: pack.dailyReturn,
-  startDate: now.toISOString(),
-  endDate: endDate.toISOString(),
-  endTimestamp: endDate.getTime(),
-  currentDay: 1,
-  totalDays: pack.totalDays,
-  totalEarned: 0,
-  lastPayout: now.toISOString(),
-  status: 'active'
-};
-
-investments.active.push(investment);
-
-// ===== AJOUTER DANS userData.investments =====
-if (!userData.investments) {
-  userData.investments = [];
-}
-userData.investments.push(investment);
-
-// Sauvegarder userData
-localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
-
-saveInvestments();
+            id: 'inv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+            pack: packKey,
+            packName: pack.name,
+            amount: pack.price,
+            dailyReturn: pack.dailyReturn,
+            startDate: now.toISOString(),
+            endDate: endDate.toISOString(),
+            endTimestamp: endDate.getTime(),
+            currentDay: 1,
+            totalDays: pack.totalDays,
+            totalEarned: 0,
+            lastPayout: now.toISOString(),
+            status: 'active'
+          };
+          
+          investments.active.push(investment);
+          
+          // Ajouter dans userData.investments
+          if (!userData.investments) {
+            userData.investments = [];
+          }
+          userData.investments.push(investment);
+          
+          // Sauvegarder tout
+          updateUserDataAndSync();
+          saveInvestments();
           
           updateBalanceDisplay();
           renderInvestments();
@@ -1444,7 +1519,7 @@ saveInvestments();
     };
     
     // ============================================
-    // VÉRIFIER LES PAIEMENTS QUOTIDIENS
+    // VÉRIFIER LES PAIEMENTS QUOTIDIENS (AMÉLIORÉ)
     // ============================================
     function checkDailyPayouts() {
       if (!userData) return;
@@ -1453,52 +1528,60 @@ saveInvestments();
       const now = new Date().getTime();
       
       investments.active.forEach((inv, index) => {
-  if (inv.status !== 'active') return;
-  
-  const lastPayout = new Date(inv.lastPayout).getTime();
-  const hoursSinceLastPayout = (now - lastPayout) / (1000 * 60 * 60);
-  
-  if (hoursSinceLastPayout >= 24) {
-    const gain = inv.dailyReturn;
-    userData.balance += gain;
-    inv.totalEarned += gain;
-    inv.currentDay++;
-    inv.lastPayout = new Date().toISOString();
-    
-    // ===== METTRE À JOUR DANS userData.investments =====
-    const userInvIndex = userData.investments.findIndex(i => i.id === inv.id);
-    if (userInvIndex !== -1) {
-      userData.investments[userInvIndex] = {...inv};
-    }
-    // ==================================================
-    
-    if (inv.currentDay > inv.totalDays) {
-      inv.status = 'completed';
-      const completedInv = {...inv};
-      investments.completed.unshift(completedInv);
-      investments.active.splice(index, 1);
-      
-      // ===== METTRE À JOUR LE STATUT DANS userData =====
-      if (userInvIndex !== -1) {
-        userData.investments[userInvIndex].status = 'completed';
-      }
-      // =================================================
-      
-      showNotification('💰 Investissement terminé !', `Pack ${inv.packName} : +${formatCurrency(inv.totalEarned)} FCFA`, 'success');
-    }
-    
-    updated = true;
-    
-    // ===== SAUVEGARDER userData =====
-    localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
-    // =================================
-    
-    showNotification('📈 Gain quotidien', `+${formatCurrency(gain)} FCFA - ${inv.packName}`, 'success');
-  }
-});
+        if (inv.status !== 'active') return;
+        
+        const lastPayout = new Date(inv.lastPayout).getTime();
+        const hoursSinceLastPayout = (now - lastPayout) / (1000 * 60 * 60);
+        
+        // Gérer les paiements multiples
+        if (hoursSinceLastPayout >= 24) {
+          const daysToPay = Math.floor(hoursSinceLastPayout / 24);
+          const remainingDays = inv.totalDays - inv.currentDay + 1;
+          const actualDaysToPay = Math.min(daysToPay, remainingDays);
+          
+          if (actualDaysToPay > 0) {
+            const gain = inv.dailyReturn * actualDaysToPay;
+            userData.balance += gain;
+            inv.totalEarned += gain;
+            inv.currentDay += actualDaysToPay;
+            inv.lastPayout = new Date().toISOString();
+            
+            // Mettre à jour dans userData.investments
+            const userInvIndex = userData.investments.findIndex(i => i.id === inv.id);
+            if (userInvIndex !== -1) {
+              userData.investments[userInvIndex] = {...inv};
+            }
+            
+            if (inv.currentDay > inv.totalDays) {
+              inv.status = 'completed';
+              const completedInv = {...inv};
+              investments.completed.unshift(completedInv);
+              investments.active.splice(index, 1);
+              
+              if (userInvIndex !== -1) {
+                userData.investments[userInvIndex].status = 'completed';
+              }
+              
+              showNotification('💰 Investissement terminé !', 
+                `Pack ${inv.packName} : +${formatCurrency(inv.totalEarned)} FCFA`, 
+                'success');
+            } else if (actualDaysToPay > 1) {
+              showNotification('📈 Gains automatiques', 
+                `+${formatCurrency(gain)} FCFA (${actualDaysToPay} jours) - ${inv.packName}`, 
+                'success');
+            } else {
+              showNotification('📈 Gain quotidien', 
+                `+${formatCurrency(gain)} FCFA - ${inv.packName}`, 
+                'success');
+            }
+            
+            updated = true;
+          }
+        }
+      });
       
       if (updated) {
-        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        updateUserDataAndSync();
         saveInvestments();
         updateBalanceDisplay();
         renderInvestments();
@@ -1515,7 +1598,7 @@ saveInvestments();
       
       investments.active.forEach((inv, index) => {
         const endTime = inv.endTimestamp || new Date(inv.endDate).getTime();
-        if (endTime - now <= 0) {
+        if (endTime - now <= 0 && inv.status === 'active') {
           inv.status = 'completed';
           investments.completed.unshift({...inv});
           investments.active.splice(index, 1);
@@ -1754,6 +1837,25 @@ saveInvestments();
     // SYNCHRONISATION EN TEMPS RÉEL
     // ============================================
     function setupSync() {
+      // Écouter les changements dans le localStorage pour synchroniser avec index.html
+      window.addEventListener('storage', function(e) {
+        if (e.key === `earnzone_user_${userId}`) {
+          const newData = JSON.parse(e.newValue);
+          if (newData && userData.balance !== newData.balance) {
+            userData = newData;
+            updateBalanceDisplay();
+            showNotification('🔄 Synchronisation', 'Solde mis à jour', 'success');
+          }
+        }
+        
+        if (e.key === `investments_${userId}` && e.newValue) {
+          investments = JSON.parse(e.newValue);
+          renderInvestments();
+          renderHistory();
+        }
+      });
+      
+      // Vérifier régulièrement les changements
       setInterval(function() {
         const savedData = localStorage.getItem(`earnzone_user_${userId}`);
         if (savedData) {
@@ -1763,7 +1865,17 @@ saveInvestments();
             updateBalanceDisplay();
           }
         }
-      }, 3000);
+        
+        const savedInvestments = localStorage.getItem(`investments_${userId}`);
+        if (savedInvestments) {
+          const freshInvestments = JSON.parse(savedInvestments);
+          if (JSON.stringify(investments) !== JSON.stringify(freshInvestments)) {
+            investments = freshInvestments;
+            renderInvestments();
+            renderHistory();
+          }
+        }
+      }, 2000);
     }
     
     // ============================================

@@ -9,8 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#000000">
-<link rel="icon" type="image/png" href="icon.png">
+  <link rel="icon" type="image/png" href="icon.png">
   
   <style>
     /* ===== VARIABLES GLOBALES ===== */
@@ -873,7 +872,7 @@
       font-size: 18px;
     }
 
-    .notification-content h4 {
+       .notification-content h4 {
       font-size: 14px;
       margin-bottom: 4px;
     }
@@ -885,28 +884,6 @@
   </style>
 </head>
 <body>
-
-  <!-- ===== SCRIPT DE PROTECTION ===== -->
-  <script>
-    // ============================================
-    // PROTECTION DE LA PAGE D'ACCUEIL
-    // ============================================
-    (function() {
-      const userId = localStorage.getItem('earnzone_current_user');
-      
-      if (!userId) {
-        window.location.href = 'login.html';
-        return;
-      }
-      
-      const userData = localStorage.getItem(`earnzone_user_${userId}`);
-      if (!userData) {
-        localStorage.removeItem('earnzone_current_user');
-        window.location.href = 'login.html';
-        return;
-      }
-    })();
-  </script>
 
   <!-- ===== BACKGROUND ===== -->
   <div class="gradient-bg"></div>
@@ -1058,6 +1035,19 @@
           <div class="feature-badge">+40%</div>
         </a>
         
+        <a href="calendrier.html" class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-plus"></i>
+          </div>
+          <h3 class="feature-title">Activités quotidienne</h3>
+          <p class="feature-description">
+            Gagnez jusqu'à 400 FCFA par jour !
+          </p>
+          <span class="feature-link">
+            Découvrir <i class="fas fa-arrow-right"></i>
+          </span>
+          <div class="feature-badge">+2000F</div>
+        </a>
       </div>
     </section>
 
@@ -1093,27 +1083,25 @@
             </span>
           </div>
         </a>
-
-                        <!-- Formation 3 - Marketing Digital -->
-      <a href="formation1.html" class="formation-card" id="course4">
-        <img src="https://images.pexels.com/photos/7654128/pexels-photo-7654128.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Marketing" class="formation-image" loading="lazy">
-        <div class="formation-content">
-          <span class="formation-category">Marketing</span>
-          <h3 class="formation-title">Marketing Digital pour débutants</h3>
-          <p class="formation-description">
-            Maîtrisez les bases du marketing en ligne et des réseaux sociaux.
-          </p>
-          <div class="formation-meta">
-            <span><i class="far fa-clock"></i> 6h00</span>
-            <span><i class="fas fa-signal"></i> 4.7 (68)</span>
-          </div>
-          <div class="formation-price free">Gratuit</div>
-          <span class="formation-btn">
-            <i class="fas fa-play"></i> Commencer
-          </span>
-        </div>
-      </a>
         
+        <a href="formation1.html" class="formation-card" id="course4">
+          <img src="https://images.pexels.com/photos/7654128/pexels-photo-7654128.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Marketing" class="formation-image" loading="lazy">
+          <div class="formation-content">
+            <span class="formation-category">Marketing</span>
+            <h3 class="formation-title">Marketing Digital pour débutants</h3>
+            <p class="formation-description">
+              Maîtrisez les bases du marketing en ligne et des réseaux sociaux.
+            </p>
+            <div class="formation-meta">
+              <span><i class="far fa-clock"></i> 6h00</span>
+              <span><i class="fas fa-signal"></i> 4.7 (68)</span>
+            </div>
+            <div class="formation-price free">Gratuit</div>
+            <span class="formation-btn free">
+              <i class="fas fa-play"></i> Commencer
+            </span>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -1195,7 +1183,7 @@
           </div>
         </div>
         
-           <div class="footer-links">
+        <div class="footer-links">
           <h4 class="footer-title">Liens rapides</h4>
           <ul>
             <li><a href="investissement.html">Investissement</a></li>
@@ -1225,44 +1213,152 @@
     // ============================================
     // VARIABLES UTILISATEUR
     // ============================================
-    let userData = {
-      balance: 0,
-      investments: 0,
-      courses: 0,
-      daysActive: 0,
-      name: "Utilisateur"
+    let userData = null;
+    let userId = null;
+    
+    // Configuration des packs pour référence
+    const packs = {
+      bronze: { name: 'Bronze', price: 2500, dailyReturn: 500, totalDays: 50, totalReturn: 25000 },
+      silver: { name: 'Argent', price: 5000, dailyReturn: 1000, totalDays: 14, totalReturn: 14000 },
+      gold: { name: 'Or', price: 10000, dailyReturn: 2000, totalDays: 7, totalReturn: 14000 },
+      platinum: { name: 'Platine', price: 20000, dailyReturn: 6000, totalDays: 5, totalReturn: 30000 },
+      diamond: { name: 'Diamant', price: 50000, dailyReturn: 20000, totalDays: 3, totalReturn: 60000 }
     };
-
+    
+    // ============================================
+    // FORMATER UNE VALEUR MONÉTAIRE
+    // ============================================
+    function formatCurrency(amount) {
+      if (!amount && amount !== 0) return "0";
+      return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    }
+    
+    // ============================================
+    // CALCULER LES PAIEMENTS MANQUÉS (AUTOMATIQUE)
+    // ============================================
+    function calculateMissedPayments() {
+      if (!userData || !userData.investments) return;
+      
+      const activeInvestments = userData.investments.filter(inv => inv.status === 'active');
+      if (activeInvestments.length === 0) return;
+      
+      const now = new Date().getTime();
+      let totalGains = 0;
+      let updated = false;
+      
+      activeInvestments.forEach(inv => {
+        const lastPayoutTime = new Date(inv.lastPayout).getTime();
+        const hoursSinceLastPayout = (now - lastPayoutTime) / (1000 * 60 * 60);
+        const missedPayments = Math.floor(hoursSinceLastPayout / 24);
+        
+        if (missedPayments > 0) {
+          const remainingDays = inv.totalDays - inv.currentDay + 1;
+          const daysToPay = Math.min(missedPayments, remainingDays);
+          
+          if (daysToPay > 0) {
+            const gainAmount = inv.dailyReturn * daysToPay;
+            totalGains += gainAmount;
+            
+            inv.currentDay += daysToPay;
+            inv.totalEarned += gainAmount;
+            inv.lastPayout = new Date(now).toISOString();
+            
+            if (inv.currentDay > inv.totalDays) {
+              inv.status = 'completed';
+            }
+            
+            updated = true;
+          }
+        }
+      });
+      
+      if (totalGains > 0) {
+        userData.balance += totalGains;
+        userData.totalEarned = (userData.totalEarned || 0) + totalGains;
+        
+        // Sauvegarder
+        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        
+        // Sauvegarder les investissements séparément
+        const investmentsData = {
+          active: userData.investments.filter(inv => inv.status === 'active'),
+          completed: userData.investments.filter(inv => inv.status === 'completed')
+        };
+        localStorage.setItem(`investments_${userId}`, JSON.stringify(investmentsData));
+        
+        showNotification('💰 Paiement automatique !', `${formatCurrency(totalGains)} FCFA crédités`, 'success');
+        updateUI();
+      }
+    }
+    
     // ============================================
     // INITIALISATION
     // ============================================
     function init() {
       loadUserData();
-      updateUI();
-      showWelcomeNotification();
+      if (userData) {
+        calculateMissedPayments();
+        updateUI();
+        showWelcomeNotification();
+        setupSync();
+      }
     }
-
+    
+    // ============================================
+    // CHARGER LES DONNÉES UTILISATEUR
+    // ============================================
     function loadUserData() {
-      const userId = localStorage.getItem('earnzone_current_user');
-      if (userId) {
-        const savedData = localStorage.getItem(`earnzone_user_${userId}`);
-        if (savedData) {
-          userData = JSON.parse(savedData);
-        }
+      userId = localStorage.getItem('earnzone_current_user');
+      
+      if (!userId) {
+        window.location.href = 'login.html';
+        return false;
       }
       
-      document.getElementById('userName').textContent = userData.name || 'Utilisateur';
-      document.getElementById('userAvatar').textContent = (userData.name || 'U').charAt(0).toUpperCase();
+       const userDataStr = localStorage.getItem(`earnzone_user_${userId}`);
+      
+      if (userDataStr) {
+        userData = JSON.parse(userDataStr);
+        
+        // S'assurer que les investissements sont chargés
+        if (!userData.investments) {
+          const investmentsStr = localStorage.getItem(`investments_${userId}`);
+          if (investmentsStr) {
+            const investmentsData = JSON.parse(investmentsStr);
+            userData.investments = [...investmentsData.active, ...investmentsData.completed];
+          } else {
+            userData.investments = [];
+          }
+        }
+        
+        // Mettre à jour l'affichage du profil
+        document.getElementById('userName').textContent = userData.name || 'Utilisateur';
+        document.getElementById('userAvatar').textContent = (userData.name || 'U').charAt(0).toUpperCase();
+        
+        return true;
+      } else {
+        localStorage.removeItem('earnzone_current_user');
+        window.location.href = 'login.html';
+        return false;
+      }
     }
-
+    
+    // ============================================
+    // METTRE À JOUR L'INTERFACE
+    // ============================================
     function updateUI() {
-      document.getElementById('statBalance').textContent = (userData.balance || 0).toLocaleString('fr-FR') + ' FCFA';
+      if (!userData) return;
+      
+      const balance = userData.balance || 0;
+      document.getElementById('statBalance').textContent = formatCurrency(balance) + ' FCFA';
       
       // Compter les investissements actifs
       const activeInvestments = (userData.investments || []).filter(inv => inv.status === 'active').length;
       document.getElementById('statInvestments').textContent = activeInvestments;
       
-      document.getElementById('statCourses').textContent = (userData.courses?.length || 0);
+      // Compter les formations achetées
+      const coursesCount = (userData.courses?.length || 0);
+      document.getElementById('statCourses').textContent = coursesCount;
       
       // Calculer les jours depuis l'inscription
       if (userData.registrationDate) {
@@ -1270,35 +1366,112 @@
         document.getElementById('statDays').textContent = days;
       }
     }
-
+    
+    // ============================================
+    // AFFICHER LA NOTIFICATION DE BIENVENUE
+    // ============================================
     function showWelcomeNotification() {
       setTimeout(() => {
-        document.getElementById('notification').classList.add('show');
-        setTimeout(() => {
-          document.getElementById('notification').classList.remove('show');
-        }, 4000);
+        const notification = document.getElementById('notification');
+        if (notification) {
+          notification.classList.add('show');
+          setTimeout(() => {
+            notification.classList.remove('show');
+          }, 4000);
+        }
       }, 1000);
     }
-
+    
     // ============================================
-    // SYNCHRONISATION
+    // AFFICHER UNE NOTIFICATION PERSONNALISÉE
     // ============================================
-    setInterval(function() {
-      const userId = localStorage.getItem('earnzone_current_user');
-      if (userId) {
+    function showNotification(title, message, type = 'success') {
+      const notification = document.getElementById('notification');
+      const titleEl = notification.querySelector('h4');
+      const messageEl = notification.querySelector('p');
+      
+      titleEl.textContent = title;
+      messageEl.textContent = message;
+      
+      notification.classList.add('show');
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+        // Réinitialiser le message par défaut
+        titleEl.textContent = 'Bienvenue sur EarnZone';
+        messageEl.textContent = 'Investissez et apprenez dès maintenant';
+      }, 4000);
+    }
+    
+    // ============================================
+    // SYNCHRONISATION EN TEMPS RÉEL AVEC INVESTISSEMENT.HTML
+    // ============================================
+    function setupSync() {
+      // Écouter les changements dans le localStorage
+      window.addEventListener('storage', function(e) {
+        if (e.key === `earnzone_user_${userId}` && e.newValue) {
+          const newData = JSON.parse(e.newValue);
+          if (newData && userData && userData.balance !== newData.balance) {
+            userData = newData;
+            updateUI();
+            showNotification('🔄 Mise à jour', 'Votre solde a été mis à jour', 'success');
+          }
+        }
+        
+        if (e.key === `investments_${userId}` && e.newValue) {
+          const investmentsData = JSON.parse(e.newValue);
+          if (userData) {
+            userData.investments = [...investmentsData.active, ...investmentsData.completed];
+            updateUI();
+          }
+        }
+      });
+      
+      // Vérifier régulièrement les changements (toutes les 2 secondes)
+      setInterval(function() {
         const savedData = localStorage.getItem(`earnzone_user_${userId}`);
         if (savedData) {
           const freshData = JSON.parse(savedData);
-          if (JSON.stringify(userData) !== JSON.stringify(freshData)) {
+          if (userData && userData.balance !== freshData.balance) {
             userData = freshData;
             updateUI();
           }
         }
-      }
-    }, 3000);
-
+        
+        // Vérifier les investissements
+        const savedInvestments = localStorage.getItem(`investments_${userId}`);
+        if (savedInvestments) {
+          const freshInvestments = JSON.parse(savedInvestments);
+          if (userData && userData.investments) {
+            const currentActiveCount = userData.investments.filter(inv => inv.status === 'active').length;
+            const newActiveCount = freshInvestments.active.length;
+            if (currentActiveCount !== newActiveCount) {
+              userData.investments = [...freshInvestments.active, ...freshInvestments.completed];
+              updateUI();
+            }
+          }
+        }
+      }, 2000);
+    }
+    
     // ============================================
-    // DÉMARRER
+    // SAUVEGARDER LES DONNÉES (SI NÉCESSAIRE)
+    // ============================================
+    function saveUserData() {
+      if (userData && userId) {
+        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+        
+        // Sauvegarder les investissements séparément
+        const investmentsData = {
+          active: (userData.investments || []).filter(inv => inv.status === 'active'),
+          completed: (userData.investments || []).filter(inv => inv.status === 'completed')
+        };
+        localStorage.setItem(`investments_${userId}`, JSON.stringify(investmentsData));
+      }
+    }
+    
+    // ============================================
+    // DÉMARRER L'APPLICATION
     // ============================================
     document.addEventListener('DOMContentLoaded', init);
   </script>
