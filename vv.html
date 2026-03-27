@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>EarnZone - Vendredi : Activité au choix</title>
+  <title>EarnZone - Cadeau du Juma</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,8 @@
       --success: #4cff4c;
       --warning: #ffcc00;
       --danger: #ff4757;
+      --islamic-green: #2ecc71;
+      --islamic-gold: #f1c40f;
       --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
       --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
     }
@@ -51,8 +53,8 @@
       width: 100%;
       height: 100%;
       z-index: -2;
-      background: radial-gradient(circle at 20% 30%, rgba(255, 77, 148, 0.05) 0%, transparent 40%),
-                  radial-gradient(circle at 80% 70%, rgba(0, 255, 204, 0.05) 0%, transparent 40%);
+      background: radial-gradient(circle at 20% 30%, rgba(46, 204, 113, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(241, 196, 15, 0.08) 0%, transparent 40%);
     }
 
     /* ===== HEADER ===== */
@@ -114,224 +116,301 @@
       padding: 20px 16px;
     }
 
-    /* ===== EN-TÊTE ===== */
-    .friday-header {
-      background: linear-gradient(135deg, rgba(255, 77, 148, 0.1), rgba(0, 255, 204, 0.1));
-      border-radius: 24px;
-      padding: 25px;
-      margin-bottom: 25px;
-      text-align: center;
-      border: 1px solid var(--card-border);
-    }
-
-    .friday-header h1 {
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .friday-header p {
-      color: var(--text-dim);
-      margin-bottom: 20px;
-    }
-
-    .week-badge {
-      display: inline-block;
-      background: rgba(255, 77, 148, 0.1);
-      border: 1px solid rgba(255, 77, 148, 0.3);
+    /* ===== CARTE PRINCIPALE ===== */
+    .gift-card {
+      background: linear-gradient(135deg, rgba(46, 204, 113, 0.15), rgba(241, 196, 15, 0.1));
       border-radius: 30px;
-      padding: 8px 20px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--secondary);
-      margin-bottom: 15px;
-    }
-
-    /* ===== PROGRESSION ===== */
-    .progress-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 20px;
+      padding: 35px 25px;
       margin-bottom: 25px;
-    }
-
-    .progress-header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 15px;
-    }
-
-    .progress-title {
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--primary);
-    }
-
-    .progress-stats {
-      font-size: 14px;
-      color: var(--text-dim);
-    }
-
-    .progress-bar {
-      height: 10px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 5px;
-      overflow: hidden;
-      margin-bottom: 10px;
-    }
-
-    .progress-fill {
-      height: 100%;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
-      width: 0%;
-      transition: width 0.5s;
-    }
-
-    .progress-earnings {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-
-    .earned-amount {
-      color: var(--primary);
-      font-weight: 600;
-    }
-
-    /* ===== GRILLE DES ACTIVITÉS ===== */
-    .activities-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .activity-card {
-      background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--card-border);
-      border-radius: 20px;
-      padding: 25px 20px;
       text-align: center;
-      cursor: pointer;
-      transition: var(--transition);
+      border: 1px solid rgba(255, 215, 0, 0.3);
       position: relative;
       overflow: hidden;
+      animation: fadeInUp 0.8s ease;
     }
 
-    .activity-card::before {
+    .gift-card::before {
       content: '';
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, var(--secondary), var(--primary));
+      height: 100%;
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23f1c40f" opacity="0.05"><path d="M12,2C6.48,2,2,6.48,2,12s4.48,10,10,10s10-4.48,10-10S17.52,2,12,2z M12,20c-4.41,0-8-3.59-8-8s3.59-8,8-8s8,3.59,8,8 S16.41,20,12,20z M12,8c-2.21,0-4,1.79-4,4s1.79,4,4,4s4-1.79,4-4S14.21,8,12,8z"/></svg>');
+      background-repeat: repeat;
+      opacity: 0.1;
+      pointer-events: none;
     }
 
-    .activity-card:hover:not(.disabled) {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: 0 15px 30px rgba(0, 255, 204, 0.2);
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .activity-card.completed {
-      opacity: 0.6;
-      cursor: default;
-      border-color: var(--success);
-    }
-
-    .activity-card.disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
-
-    .activity-icon {
+    .moon-star {
       font-size: 48px;
+      color: #f1c40f;
       margin-bottom: 15px;
-    }
-
-    .activity-icon.quiz-icon { color: var(--accent); }
-    .activity-icon.video-icon { color: #ff0000; }
-    .activity-icon.game-icon { color: var(--primary); }
-    .activity-icon.bonus-icon { color: var(--warning); }
-
-    .activity-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .activity-desc {
-      font-size: 13px;
-      color: var(--text-dim);
-      margin-bottom: 15px;
-    }
-
-    .activity-reward {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 10px;
-    }
-
-    .activity-status {
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 20px;
       display: inline-block;
+      animation: float 3s ease-in-out infinite;
     }
 
-    .status-available {
-      background: rgba(0, 255, 204, 0.1);
-      border: 1px solid rgba(0, 255, 204, 0.2);
-      color: var(--primary);
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    .status-completed {
-      background: rgba(76, 255, 76, 0.1);
-      border: 1px solid rgba(76, 255, 76, 0.2);
-      color: var(--success);
+    .gift-title {
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #f1c40f, #2ecc71);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
 
-    .status-locked {
-      background: rgba(255, 71, 87, 0.1);
-      border: 1px solid rgba(255, 71, 87, 0.2);
-      color: var(--danger);
+    .gift-subtitle {
+      color: var(--text-dim);
+      margin-bottom: 25px;
+      line-height: 1.6;
     }
 
-    /* ===== INFO ===== */
-    .info-card {
-      background: rgba(255, 77, 148, 0.05);
-      border: 1px solid rgba(255, 77, 148, 0.1);
-      border-radius: 20px;
-      padding: 20px;
+    .gift-amount {
+      font-size: 64px;
+      font-weight: 800;
+      color: #f1c40f;
+      margin: 20px 0;
+      text-shadow: 0 0 30px rgba(241, 196, 15, 0.5);
+    }
+
+    .gift-amount small {
+      font-size: 20px;
+      color: var(--text-dim);
+    }
+
+    .bismillah {
+      font-size: 20px;
+      font-family: 'Amiri', serif;
+      color: #f1c40f;
+      margin: 20px 0;
+      letter-spacing: 2px;
+    }
+
+    /* ===== DOU'A ===== */
+    .doua-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(241, 196, 15, 0.3);
+      border-radius: 24px;
+      padding: 25px;
       margin-bottom: 25px;
       text-align: center;
     }
 
-    .info-card i {
-      color: var(--secondary);
-      font-size: 24px;
-      margin-bottom: 10px;
-    }
-
-    .info-card h3 {
+    .doua-title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      color: #f1c40f;
+      margin-bottom: 15px;
       font-size: 18px;
+      font-weight: 600;
+    }
+
+    .doua-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--text-dim);
+      font-style: italic;
+      margin-bottom: 15px;
+    }
+
+    .doua-translation {
+      font-size: 14px;
+      color: var(--text-dim);
+      border-top: 1px solid rgba(255, 215, 0, 0.2);
+      padding-top: 15px;
+    }
+
+    /* =awan ===== STATUT ===== */
+    .status-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 25px;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .status-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .status-icon.available {
+      color: var(--success);
+    }
+
+    .status-icon.claimed {
+      color: var(--warning);
+    }
+
+    .status-icon.locked {
+      color: var(--danger);
+    }
+
+    .status-title {
+      font-size: 24px;
+      font-weight: 700;
       margin-bottom: 10px;
     }
 
-    .info-card p {
-      font-size: 13px;
+    .status-message {
       color: var(--text-dim);
+      margin-bottom: 20px;
       line-height: 1.6;
+    }
+
+    .countdown {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 16px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    .countdown-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      margin-bottom: 5px;
+    }
+
+    .countdown-time {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: monospace;
+    }
+
+    /* ===== BOUTON ===== */
+    .claim-btn {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #f1c40f, #2ecc71);
+      color: black;
+      border: none;
+      border-radius: 16px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .claim-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px rgba(241, 196, 15, 0.4);
+    }
+
+    .claim-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      width: 100%;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      color: var(--text-light);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin: 10px 0;
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--primary);
+      background: rgba(0, 255, 204, 0.05);
+    }
+
+    /* ===== TABLEAU DES GAINS HEBDOMADAIRES ===== */
+    .weekly-summary {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 24px;
+      padding: 20px;
+      margin-top: 25px;
+    }
+
+    .summary-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: var(--primary);
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      text-align: center;
+    }
+
+    .summary-day {
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 12px;
+    }
+
+    .summary-day.completed {
+      background: rgba(76, 255, 76, 0.1);
+      border: 1px solid rgba(76, 255, 76, 0.3);
+    }
+
+    .summary-day.today {
+      border: 1px solid #f1c40f;
+    }
+
+    .day-name {
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .day-status {
+      font-size: 18px;
+    }
+
+    .day-status.completed {
+      color: var(--success);
+    }
+
+    .day-status.pending {
+      color: var(--text-dim);
+    }
+
+    .day-amount {
+      font-size: 10px;
+      color: var(--text-dim);
     }
 
     /* ===== NOTIFICATION ===== */
@@ -362,22 +441,12 @@
     .notification-icon {
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
+      background: linear-gradient(135deg, #f1c40f, #2ecc71);
       border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: black;
-    }
-
-    .notification-content h4 {
-      font-size: 14px;
-      margin-bottom: 4px;
-    }
-
-    .notification-content p {
-      font-size: 12px;
-      color: var(--text-dim);
     }
 
     /* ===== BOUTON RETOUR ===== */
@@ -386,7 +455,7 @@
       bottom: 20px;
       left: 20px;
       right: 20px;
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: linear-gradient(135deg, #f1c40f, #2ecc71);
       color: black;
       padding: 16px;
       border-radius: 12px;
@@ -394,7 +463,7 @@
       font-weight: 700;
       font-size: 16px;
       text-align: center;
-      box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+      box-shadow: 0 5px 20px rgba(241, 196, 15, 0.3);
       z-index: 99;
       max-width: 500px;
       margin: 0 auto;
@@ -410,8 +479,8 @@
       <i class="fas fa-gift"></i>
     </div>
     <div class="notification-content">
-      <h4 id="notificationTitle">Vendredi</h4>
-      <p id="notificationMessage">Choisissez votre activité</p>
+      <h4 id="notificationTitle">Cadeau</h4>
+      <p id="notificationMessage">Bénédiction</p>
     </div>
   </div>
 
@@ -420,7 +489,7 @@
       <i class="fas fa-arrow-left"></i> Calendrier
     </a>
     <div class="page-title">
-      <i class="fas fa-calendar-day"></i> Vendredi
+      <i class="fas fa-mosque"></i> Cadeau
     </div>
     <div class="balance-display">
       <i class="fas fa-coins"></i>
@@ -430,87 +499,50 @@
 
   <div class="container">
     
-    <!-- En-tête -->
-    <div class="friday-header">
-      <h1>VENDREDI</h1>
-      <p>Choisissez votre activité préférée de la semaine !</p>
-      <div class="week-badge" id="weekBadge">
-        <i class="fas fa-calendar-week"></i> <span id="weekNumber">Semaine 1</span>
+    <!-- Carte principale -->
+    <div class="gift-card">
+      <div class="moon-star">
+        <i class="fas fa-star-and-crescent"></i>
       </div>
-    </div>
-
-    <!-- Progression -->
-    <div class="progress-card">
-      <div class="progress-header">
-        <span class="progress-title">Votre progression</span>
-        <span class="progress-stats" id="progressStats">Activité non choisie</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <div class="progress-earnings">
-        <span>Gain disponible</span>
-        <span class="earned-amount" id="earnedAmount">0 FCFA</span>
-      </div>
-    </div>
-
-    <!-- Activités disponibles -->
-    <div class="activities-grid" id="activitiesGrid">
-      <!-- Quiz -->
-      <div class="activity-card" data-activity="quiz" onclick="selectActivity('quiz')">
-        <div class="activity-icon quiz-icon">
-          <i class="fas fa-question-circle"></i>
-        </div>
-        <div class="activity-title">QUIZ EXPRESS</div>
-        <div class="activity-desc">8 questions • Culture générale</div>
-        <div class="activity-reward">400 FCFA</div>
-        <span class="activity-status status-available" id="quizStatus">Disponible</span>
-      </div>
-
-      <!-- Jeu 2048 -->
-      <div class="activity-card" data-activity="game" onclick="selectActivity('game')">
-        <div class="activity-icon game-icon">
-          <i class="fas fa-gamepad"></i>
-        </div>
-        <div class="activity-title">2048 CHALLENGE</div>
-        <div class="activity-desc">Atteignez 3208 points</div>
-        <div class="activity-reward">400 FCFA</div>
-        <span class="activity-status status-available" id="gameStatus">Disponible</span>
-      </div>
-
-      <!-- Vidéos -->
-      <div class="activity-card" data-activity="video" onclick="selectActivity('video')">
-        <div class="activity-icon video-icon">
-          <i class="fab fa-youtube"></i>
-        </div>
-        <div class="activity-title">VIDÉOS DU JOUR</div>
-        <div class="activity-desc">5 vidéos • 80 FCFA chacune</div>
-        <div class="activity-reward">400 FCFA</div>
-        <span class="activity-status status-available" id="videoStatus">Disponible</span>
-      </div>
-
-      <!-- Bonus aléatoire -->
-      <div class="activity-card" data-activity="bonus" onclick="selectActivity('bonus')">
-        <div class="activity-icon bonus-icon">
-          <i class="fas fa-gift"></i>
-        </div>
-        <div class="activity-title">BONUS MYSTÈRE</div>
-        <div class="activity-desc">Tentez votre chance</div>
-        <div class="activity-reward">400 FCFA</div>
-        <span class="activity-status status-available" id="bonusStatus">Disponible</span>
-      </div>
-    </div>
-
-    <!-- Info -->
-    <div class="info-card">
-      <i class="fas fa-info-circle"></i>
-      <h3>Comment ça marche ?</h3>
-      <p>
-        Choisissez une activité parmi les 4 proposées.<br>
-        Une seule activité par semaine !<br>
-        Gagnez jusqu'à 400 FCFA.<br>
-        Une fois choisie, l'activité est verrouillée jusqu'à vendredi prochain.
+      <h1 class="gift-title">Cadeau du Juma</h1>
+      <p class="gift-subtitle">
+        Vendredi, jour sacré de la prière et des bénédictions<br>
+        EarnZone vous offre ce cadeau spécial
       </p>
+      <div class="bismillah">
+        بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ
+      </div>
+      <div class="gift-amount">
+        400 <small>FCFA</small>
+      </div>
+      <p style="color: var(--text-dim); font-size: 13px;">
+        Juma'a Mubarak ! Que cette journée vous soit bénie.
+      </p>
+    </div>
+
+    <!-- Dou'a -->
+    <div class="doua-card">
+      <div class="doua-title">
+        <i class="fas fa-hands-praying"></i>
+        <span>Dou'a du vendredi</span>
+      </div>
+      <div class="doua-text">
+        اللَّهُمَّ اجْعَلْ هَذَا الْيَوْمَ يَوْمَ خَيْرٍ وَبَرَكَةٍ وَرَحْمَةٍ
+      </div>
+      <div class="doua-translation">
+        "Ô Allah, fais de ce jour un jour de bien, de bénédiction et de miséricorde"
+      </div>
+    </div>
+
+    <!-- Statut et réclamation -->
+    <div class="status-card" id="statusCard">
+      <div id="statusContent">
+        <!-- Contenu dynamique -->
+      </div>
+    </div>
+
+      <!-- Affichage dynamique -->
+      </div>
     </div>
 
   </div>
@@ -521,24 +553,28 @@
 
   <script>
     // ============================================
-    // VARIABLES
+    // DONNÉES
     // ============================================
     let userData = null;
     let userId = null;
-    let currentWeek = 1;
-    let selectedActivity = null;
-    let activityCompleted = false;
+    const JUMA_REWARD = 400;
+
+    // Jours de la semaine
+    const weekDays = [
+      { name: 'Lun', key: 'monday', fullName: 'Lundi', gain: 400, type: 'game' },
+      { name: 'Mar', key: 'tuesday', fullName: 'Mardi', gain: 400, type: 'quiz' },
+      { name: 'Mer', key: 'wednesday', fullName: 'Mercredi', gain: 400, type: 'video' },
+      { name: 'Jeu', key: 'thursday', fullName: 'Jeudi', gain: 400, type: 'wheel' },
+      { name: 'Ven', key: 'friday', fullName: 'Vendredi', gain: 400, type: 'gift' }
+    ];
 
     // ============================================
     // INITIALISATION
     // ============================================
     function init() {
       loadUserData();
-      determineCurrentWeek();
       checkFridayStatus();
-      loadSelectedActivity();
-      updateWeekDisplay();
-      updateProgress();
+      updateWeeklySummary();
     }
 
     // ============================================
@@ -561,246 +597,259 @@
     }
 
     // ============================================
-    // DÉTERMINER LA SEMAINE EN COURS
-    // ============================================
-    function determineCurrentWeek() {
-      const startDate = new Date('2024-01-01');
-      const today = new Date();
-      const diffTime = Math.abs(today - startDate);
-      const diffWeeks = Math.floor(diffTime / (1000 * 60 * 60 * 24 * 7));
-      currentWeek = diffWeeks + 1;
-    }
-
-    // ============================================
     // VÉRIFIER LE STATUT DU VENDREDI
     // ============================================
     function checkFridayStatus() {
       const today = new Date().getDay(); // 5 = Vendredi
-      const fridayWeekKey = `friday_week_${userId}`;
-      const selectedKey = `friday_selected_${userId}`;
-      const completedKey = `friday_completed_${userId}`;
+      const fridayClaimKey = `friday_claim_${userId}`;
+      const lastClaim = localStorage.getItem(fridayClaimKey);
+      const todayStr = new Date().toDateString();
       
-      const savedWeek = localStorage.getItem(fridayWeekKey);
-      const savedSelected = localStorage.getItem(selectedKey);
-      const completed = localStorage.getItem(completedKey) === 'true';
+      const isFriday = (today === 5);
+      const alreadyClaimed = (lastClaim === todayStr);
       
-      if (savedWeek != currentWeek) {
-        // Nouvelle semaine, réinitialiser
-        localStorage.setItem(fridayWeekKey, currentWeek);
-        localStorage.removeItem(selectedKey);
-        localStorage.removeItem(completedKey);
-        selectedActivity = null;
-        activityCompleted = false;
-      } else {
-        // Même semaine
-        selectedActivity = savedSelected;
-        activityCompleted = completed;
+      const statusCard = document.getElementById('statusCard');
+      
+      if (!isFriday) {
+        // Pas vendredi
+        statusCard.innerHTML = `
+          <div class="status-icon locked">
+            <i class="fas fa-lock"></i>
+          </div>
+          <div class="status-title">Non disponible</div>
+          <div class="status-message">
+            Le cadeau du Jumma n'est disponible que le vendredi.<br>
+            Revenez vendredi prochain in sha Allah.
+          </div>
+          <div class="countdown" id="countdownContainer">
+            <div class="countdown-label">Prochain vendredi dans</div>
+            <div class="countdown-time" id="countdown">Calcul...</div>
+          </div>
+        `;
+        startCountdown();
+        return;
       }
       
-      // Vérifier si c'est vendredi
-      if (today !== 5) {
-        disableAllActivities();
-        showNotification('⏰ Pas encore vendredi', 'Revenez vendredi pour choisir votre activité', 'warning');
+      if (alreadyClaimed) {
+        // Déjà réclamé
+        statusCard.innerHTML = `
+          <div class="status-icon claimed">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="status-title">Déjà réclamé</div>
+          <div class="status-message">
+            Vous avez déjà reçu votre cadeau du Juma cette semaine.<br>
+            Revenez vendredi prochain pour une nouvelle bénédiction.
+          </div>
+          <div class="countdown">
+            <div class="countdown-label">Prochain cadeau dans</div>
+            <div class="countdown-time" id="nextFridayCountdown">Calcul...</div>
+          </div>
+        `;
+        startNextFridayCountdown();
+        return;
       }
       
-      // Mettre à jour l'affichage des statuts
-      updateActivityStatus();
+      // Disponible
+      statusCard.innerHTML = `
+        <div class="status-icon available">
+          <i class="fas fa-gift"></i>
+        </div>
+        <div class="status-title">Cadeau disponible !</div>
+        <div class="status-message">
+          Que la paix et les bénédictions d'Allah soient sur vous.<br>
+          Cliquez ci-dessous pour recevoir votre cadeau du Juma.
+        </div>
+        <button class="claim-btn" onclick="claimGift()">
+          <i class="fas fa-hands-praying"></i>
+          RECEVOIR LE CADEAU (400 FCFA)
+        </button>
+      `;
+      
+      // Démarrer le timer de fin de journée
+      startEndOfDayTimer();
     }
 
     // ============================================
-    // CHARGER L'ACTIVITÉ SÉLECTIONNÉE
+    // RÉCLAMER LE CADEAU
     // ============================================
-    function loadSelectedActivity() {
-      if (selectedActivity) {
-        const activityCard = document.querySelector(`.activity-card[data-activity="${selectedActivity}"]`);
-        if (activityCard) {
-          activityCard.classList.add('completed');
-          activityCard.style.opacity = '0.6';
-          activityCard.style.pointerEvents = 'none';
-        }
-        
-        if (activityCompleted) {
-          const statusSpan = document.getElementById(`${selectedActivity}Status`);
-          if (statusSpan) {
-            statusSpan.className = 'activity-status status-completed';
-            statusSpan.innerHTML = '<i class="fas fa-check-circle"></i> Terminé';
-          }
-        }
-      }
-    }
-
-    // ============================================
-    // METTRE À JOUR LES STATUTS DES ACTIVITÉS
-    // ============================================
-    function updateActivityStatus() {
+    function claimGift() {
+      if (!userData) return;
+      
       const today = new Date().getDay();
-      const isFriday = today === 5;
-      
-      const activities = ['quiz', 'game', 'video', 'bonus'];
-      
-      activities.forEach(act => {
-        const statusSpan = document.getElementById(`${act}Status`);
-        const card = document.querySelector(`.activity-card[data-activity="${act}"]`);
-        
-        if (!isFriday) {
-          statusSpan.className = 'activity-status status-locked';
-          statusSpan.innerHTML = '<i class="fas fa-lock"></i> Non disponible';
-          card.classList.add('disabled');
-        } else if (selectedActivity === act) {
-          if (activityCompleted) {
-            statusSpan.className = 'activity-status status-completed';
-            statusSpan.innerHTML = '<i class="fas fa-check-circle"></i> Terminé';
-          } else {
-            statusSpan.className = 'activity-status status-available';
-            statusSpan.innerHTML = 'En cours';
-          }
-        } else if (selectedActivity && selectedActivity !== act) {
-          statusSpan.className = 'activity-status status-locked';
-          statusSpan.innerHTML = '<i class="fas fa-lock"></i> Déjà choisi';
-          card.classList.add('disabled');
-        } else {
-          statusSpan.className = 'activity-status status-available';
-          statusSpan.innerHTML = 'Disponible';
-          card.classList.remove('disabled');
-        }
-      });
-    }
-
-    // ============================================
-    // DÉSACTIVER TOUTES LES ACTIVITÉS
-    // ============================================
-    function disableAllActivities() {
-      const cards = document.querySelectorAll('.activity-card');
-      cards.forEach(card => {
-        card.classList.add('disabled');
-      });
-    }
-
-        // ============================================
-    // SÉLECTIONNER UNE ACTIVITÉ
-    // ============================================
-    function selectActivity(activity) {
-      const today = new Date().getDay();
+      const todayStr = new Date().toDateString();
       
       if (today !== 5) {
-        showNotification('⏰ Pas encore vendredi', 'Revenez vendredi pour choisir votre activité', 'warning');
+        showNotification('❌ Non disponible', 'Ce cadeau n\'est disponible que le vendredi', 'error');
         return;
       }
       
-      if (selectedActivity) {
-        showNotification('⚠️ Déjà choisi', 'Vous avez déjà sélectionné une activité cette semaine', 'warning');
+      const alreadyClaimed = localStorage.getItem(`friday_claim_${userId}`) === todayStr;
+      if (alreadyClaimed) {
+        showNotification('⏰ Déjà réclamé', 'Vous avez déjà reçu votre cadeau cette semaine', 'warning');
         return;
       }
-      
-      if (activityCompleted) {
-        showNotification('✅ Déjà fait', 'Vous avez déjà complété cette activité', 'info');
-        return;
-      }
-      
-      // Sauvegarder le choix
-      selectedActivity = activity;
-      localStorage.setItem(`friday_selected_${userId}`, activity);
-      
-      // Marquer la carte comme sélectionnée
-      const card = document.querySelector(`.activity-card[data-activity="${activity}"]`);
-      card.classList.add('completed');
-      card.style.opacity = '0.6';
-      card.style.pointerEvents = 'none';
-      
-      // Mettre à jour l'affichage des statuts
-      updateActivityStatus();
-      
-      // Rediriger vers l'activité choisie
-      setTimeout(() => {
-        switch(activity) {
-          case 'quiz':
-            window.location.href = 'q.html';
-            break;
-          case 'game':
-            window.location.href = 'b.html';
-            break;
-          case 'video':
-            window.location.href = 'v.html';
-            break;
-          case 'bonus':
-            window.location.href = 'r.html';
-            break;
-          default:
-            break;
-        }
-      }, 500);
-      
-      showNotification('🎯 Activité choisie !', `Redirection vers ${getActivityName(activity)}`, 'success');
-    }
-
-    // ============================================
-    // COMPLÉTER UNE ACTIVITÉ (appelé depuis les pages)
-    // ============================================
-    function completeActivity(amount) {
-      if (!selectedActivity || activityCompleted) return;
-      
-      activityCompleted = true;
-      localStorage.setItem(`friday_completed_${userId}`, 'true');
       
       // Ajouter les gains
-      if (userData && amount > 0) {
-        userData.balance += amount;
-        userData.totalEarned += amount;
-        localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
-        document.getElementById('currentBalance').textContent = 
-          (userData.balance || 0).toLocaleString('fr-FR') + ' FCFA';
-      }
+      userData.balance += JUMA_REWARD;
+      userData.totalEarned += JUMA_REWARD;
+      localStorage.setItem(`earnzone_user_${userId}`, JSON.stringify(userData));
+      
+      // Marquer comme réclamé
+      localStorage.setItem(`friday_claim_${userId}`, todayStr);
       
       // Mettre à jour l'affichage
-      updateProgress();
-      updateActivityStatus();
+      document.getElementById('currentBalance').textContent = 
+        (userData.balance || 0).toLocaleString('fr-FR') + ' FCFA';
       
       // Marquer dans le calendrier
       if (window.opener && window.opener.completeActivity) {
-        window.opener.completeActivity(5, amount);
+        window.opener.completeActivity(5, JUMA_REWARD);
       }
       
-      showNotification('🎉 Félicitations !', `Vous avez gagné ${amount} FCFA`, 'success');
+      // Afficher la notification
+      showNotification('🎁 Cadeau reçu !', `+${JUMA_REWARD} FCFA - Juma'a Mubarak`, 'success');
+      
+      // Recharger la page
+      setTimeout(() => {
+        location.reload();
+      }, 2000);
     }
 
+        // ============================================
+    // METTRE À JOUR LE RÉCAPITULATIF DE LA SEMAINE
     // ============================================
-    // METTRE À JOUR LA PROGRESSION
-    // ============================================
-    function updateProgress() {
-      if (activityCompleted) {
-        const earned = 400;
-        document.getElementById('progressStats').textContent = 'Activité complétée';
-        document.getElementById('progressFill').style.width = '100%';
-        document.getElementById('earnedAmount').textContent = `${earned} FCFA / 400 FCFA`;
-      } else if (selectedActivity) {
-        document.getElementById('progressStats').textContent = 'Activité en cours';
-        document.getElementById('progressFill').style.width = '50%';
-        document.getElementById('earnedAmount').textContent = '0 FCFA / 400 FCFA';
-      } else {
-        document.getElementById('progressStats').textContent = 'Activité non choisie';
-        document.getElementById('progressFill').style.width = '0%';
-        document.getElementById('earnedAmount').textContent = '0 FCFA / 400 FCFA';
-      }
-    }
-
-    // ============================================
-    // OBTENIR LE NOM DE L'ACTIVITÉ
-    // ============================================
-    function getActivityName(activity) {
-      const names = {
-        quiz: 'Quiz Express',
-        game: '2048 Challenge',
-        video: 'Vidéos du jour',
-        bonus: 'Bonus Mystère'
+    function updateWeeklySummary() {
+      const container = document.getElementById('weeklySummary');
+      const today = new Date().getDay();
+      const todayStr = new Date().toDateString();
+      
+      // Récupérer les statuts des activités
+      const completedDays = {
+        monday: localStorage.getItem(`monday_claim_${userId}`) === todayStr,
+        tuesday: localStorage.getItem(`tuesday_claim_${userId}`) === todayStr,
+        wednesday: localStorage.getItem(`wednesday_claim_${userId}`) === todayStr,
+        thursday: localStorage.getItem(`thursday_claim_${userId}`) === todayStr,
+        friday: localStorage.getItem(`friday_claim_${userId}`) === todayStr
       };
-      return names[activity] || 'Activité';
+      
+      let html = '';
+      weekDays.forEach((day, index) => {
+        const dayNumber = index + 1;
+        const isToday = (today === dayNumber);
+        const isCompleted = completedDays[day.key];
+        
+        html += `
+          <div class="summary-day ${isCompleted ? 'completed' : ''} ${isToday ? 'today' : ''}">
+            <div class="day-name">${day.name}</div>
+            <div class="day-status ${isCompleted ? 'completed' : 'pending'}">
+              ${isCompleted ? '✓' : '○'}
+            </div>
+            <div class="day-amount">${day.gain}</div>
+          </div>
+        `;
+      });
+      
+      container.innerHTML = html;
     }
 
     // ============================================
-    // METTRE À JOUR L'AFFICHAGE DE LA SEMAINE
+    // COMPTE À REBOURS JUSQU'À VENDREDI
     // ============================================
-    function updateWeekDisplay() {
-      document.getElementById('weekNumber').textContent = `Semaine ${currentWeek}`;
+    function startCountdown() {
+      const countdownEl = document.getElementById('countdown');
+      if (!countdownEl) return;
+      
+      function update() {
+        const now = new Date();
+        const currentDay = now.getDay();
+        let daysUntilFriday = 5 - currentDay;
+        if (daysUntilFriday <= 0) daysUntilFriday += 7;
+        
+        const nextFriday = new Date(now);
+        nextFriday.setDate(now.getDate() + daysUntilFriday);
+        nextFriday.setHours(0, 0, 0, 0);
+        
+        const diff = nextFriday - now;
+        const hours = Math.floor(diff / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        
+        countdownEl.textContent = `${hours}h ${minutes}m`;
+      }
+      
+      update();
+      setInterval(update, 60000);
+    }
+
+    // ============================================
+    // COMPTE À REBOURS PROCHAIN VENDREDI
+    // ============================================
+    function startNextFridayCountdown() {
+      const countdownEl = document.getElementById('nextFridayCountdown');
+      if (!countdownEl) return;
+      
+      function update() {
+        const now = new Date();
+        const currentDay = now.getDay();
+        let daysUntilFriday = 5 - currentDay;
+        if (daysUntilFriday <= 0) daysUntilFriday += 7;
+        
+        const nextFriday = new Date(now);
+        nextFriday.setDate(now.getDate() + daysUntilFriday);
+        nextFriday.setHours(0, 0, 0, 0);
+        
+        const diff = nextFriday - now;
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        
+        countdownEl.textContent = `${days}j ${hours}h`;
+      }
+      
+      update();
+      setInterval(update, 60000);
+    }
+
+    // ============================================
+    // TIMER FIN DE JOURNÉE
+    // ============================================
+    function startEndOfDayTimer() {
+      const timerContainer = document.getElementById('countdownContainer');
+      if (!timerContainer) return;
+      
+      const now = new Date();
+      const endOfDay = new Date(now);
+      endOfDay.setHours(23, 59, 59, 999);
+      
+      const diff = endOfDay - now;
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      
+      timerContainer.innerHTML = `
+        <div class="countdown-label">Le cadeau expire dans</div>
+        <div class="countdown-time">${hours}h ${minutes}m</div>
+      `;
+      
+      setInterval(() => {
+        const now2 = new Date();
+        const endOfDay2 = new Date(now2);
+        endOfDay2.setHours(23, 59, 59, 999);
+        const diff2 = endOfDay2 - now2;
+        
+        if (diff2 <= 0) {
+          location.reload();
+          return;
+        }
+        
+        const hours2 = Math.floor(diff2 / (1000 * 60 * 60));
+        const minutes2 = Math.floor((diff2 % (1000 * 60 * 60)) / (1000 * 60));
+        
+        if (timerContainer) {
+          timerContainer.innerHTML = `
+            <div class="countdown-label">Le cadeau expire dans</div>
+            <div class="countdown-time">${hours2}h ${minutes2}m</div>
+          `;
+        }
+      }, 60000);
     }
 
     // ============================================
