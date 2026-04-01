@@ -349,37 +349,29 @@
 
     .video-player {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
+      height: 220px;
+      display: block;
+      background: #000;
     }
 
     .player-controls {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(transparent, rgba(0,0,0,0.8));
-      padding: 15px;
+      padding: 12px 15px;
+      background: rgba(0,0,0,0.85);
       display: flex;
       justify-content: center;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .video-player-container:hover .player-controls {
-      opacity: 1;
     }
 
     .validate-btn {
-      padding: 8px 20px;
+      padding: 12px 28px;
       background: linear-gradient(135deg, var(--primary), var(--primary-dark));
       color: black;
       border: none;
       border-radius: 20px;
       font-size: 14px;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
       transition: var(--transition);
+      width: 100%;
     }
 
     .validate-btn:hover:not(:disabled) {
@@ -388,8 +380,31 @@
     }
 
     .validate-btn:disabled {
-      opacity: 0.5;
+      opacity: 0.4;
       cursor: not-allowed;
+      background: #333;
+      color: #666;
+    }
+
+    .timer-bar {
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 0;
+    }
+
+    .timer-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      width: 0%;
+      transition: width 0.5s linear;
+    }
+
+    .watching-label {
+      font-size: 12px;
+      color: var(--text-dim);
+      text-align: center;
+      padding: 6px;
+      background: rgba(0,0,0,0.6);
     }
 
     /* ===== NOTIFICATION ===== */
@@ -535,7 +550,7 @@
           duration: "0:15",
           seconds: 15,
           thumbnail: "https://images.pexels.com/photos/47261/pexels-photo-47261.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+          videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
           reward: 80
         },
         {
@@ -544,7 +559,7 @@
           duration: "0:20",
           seconds: 20,
           thumbnail: "https://images.pexels.com/photos/4391470/pexels-photo-4391470.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+          videoUrl: "https://www.w3schools.com/html/movie.mp4",
           reward: 80
         },
         {
@@ -553,7 +568,7 @@
           duration: "0:18",
           seconds: 18,
           thumbnail: "https://images.pexels.com/photos/3945317/pexels-photo-3945317.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+          videoUrl: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
           reward: 80
         },
         {
@@ -562,7 +577,7 @@
           duration: "0:22",
           seconds: 22,
           thumbnail: "https://images.pexels.com/photos/1268101/pexels-photo-1268101.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+          videoUrl: "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
           reward: 80
         },
         {
@@ -571,7 +586,7 @@
           duration: "0:25",
           seconds: 25,
           thumbnail: "https://images.pexels.com/photos/386025/pexels-photo-386025.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+          videoUrl: "https://samplelib.com/lib/preview/mp4/sample-15s.mp4",
           reward: 80
         }
       ],
@@ -582,7 +597,7 @@
           duration: "0:19",
           seconds: 19,
           thumbnail: "https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+          videoUrl: "https://samplelib.com/lib/preview/mp4/sample-20s.mp4",
           reward: 80
         },
         {
@@ -591,7 +606,7 @@
           duration: "0:16",
           seconds: 16,
           thumbnail: "https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+          videoUrl: "https://www.w3schools.com/html/mov_bbb.mp4",
           reward: 80
         },
         {
@@ -600,7 +615,7 @@
           duration: "0:21",
           seconds: 21,
           thumbnail: "https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+          videoUrl: "https://www.w3schools.com/html/movie.mp4",
           reward: 80
         },
         {
@@ -609,7 +624,7 @@
           duration: "0:23",
           seconds: 23,
           thumbnail: "https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+          videoUrl: "https://samplelib.com/lib/preview/mp4/sample-5s.mp4",
           reward: 80
         },
         {
@@ -618,7 +633,7 @@
           duration: "0:17",
           seconds: 17,
           thumbnail: "https://images.pexels.com/photos/259200/pexels-photo-259200.jpeg?auto=compress&cs=tinysrgb&w=400",
-          videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+          videoUrl: "https://samplelib.com/lib/preview/mp4/sample-10s.mp4",
           reward: 80
         }
       ]
@@ -709,7 +724,7 @@
       updateProgress();
     }
 
-        // ============================================
+    // ============================================
     // AFFICHER LES VIDÉOS
     // ============================================
     function renderVideos() {
@@ -721,53 +736,52 @@
         const isPlaying = currentlyPlaying === video.id;
         
         if (isPlaying) {
-          // Afficher le lecteur vidéo
           html += `
             <div class="video-card" data-id="${video.id}">
               <div class="video-player-container">
-                <video class="video-player" id="player-${video.id}" controls autoplay>
+                <video class="video-player" id="player-${video.id}"
+                  controls autoplay playsinline webkit-playsinline
+                  preload="auto"
+                  crossorigin="anonymous"
+                  style="width:100%;height:220px;background:#000;display:block;">
                   <source src="${video.videoUrl}" type="video/mp4">
-                  Votre navigateur ne supporte pas les vidéos.
                 </video>
+                <div class="timer-bar">
+                  <div class="timer-fill" id="timerFill-${video.id}"></div>
+                </div>
+                <div class="watching-label" id="watchLabel-${video.id}">
+                  <i class="fas fa-eye"></i> Regardez jusqu'à la fin pour valider…
+                </div>
                 <div class="player-controls">
                   <button class="validate-btn" id="validate-${video.id}" onclick="validateVideo(${video.id})" disabled>
-                    VALIDER (+80 FCFA)
+                    <i class="fas fa-lock"></i> VALIDER (+80 FCFA)
                   </button>
                 </div>
               </div>
               <div class="video-info">
                 <div class="video-title">${video.title}</div>
                 <div class="video-meta">
-                  <span class="video-duration">
-                    <i class="far fa-clock"></i> ${video.duration}
-                  </span>
+                  <span class="video-duration"><i class="far fa-clock"></i> ${video.duration}</span>
                   <span class="video-reward">+${video.reward} FCFA</span>
                 </div>
               </div>
             </div>
           `;
         } else {
-          // Afficher la miniature
           html += `
             <div class="video-card ${isWatched ? 'watched' : ''}" data-id="${video.id}" onclick="${!isWatched ? `playVideo(${video.id})` : ''}">
               <div class="video-thumbnail">
                 <img src="${video.thumbnail}" alt="${video.title}" class="thumbnail-img" loading="lazy">
                 ${isWatched ? '<div class="watched-badge"><i class="fas fa-check"></i> VU</div>' : ''}
                 <div class="play-overlay">
-                  <div class="play-icon">
-                    <i class="fas fa-play"></i>
-                  </div>
+                  <div class="play-icon"><i class="fas fa-play"></i></div>
                 </div>
-                <div class="duration-badge">
-                  <i class="far fa-clock"></i> ${video.duration}
-                </div>
+                <div class="duration-badge"><i class="far fa-clock"></i> ${video.duration}</div>
               </div>
               <div class="video-info">
                 <div class="video-title">${video.title}</div>
                 <div class="video-meta">
-                  <span class="video-duration">
-                    <i class="far fa-clock"></i> ${video.duration}
-                  </span>
+                  <span class="video-duration"><i class="far fa-clock"></i> ${video.duration}</span>
                   <span class="video-reward">+${video.reward} FCFA</span>
                 </div>
               </div>
@@ -778,21 +792,92 @@
       
       container.innerHTML = html;
       
-      // Configurer les événements pour les vidéos en cours
+      // Setup player si une vidéo est en cours
       if (currentlyPlaying) {
-        const video = document.getElementById(`player-${currentlyPlaying}`);
-        if (video) {
-          video.addEventListener('timeupdate', function() {
-            const progress = (video.currentTime / video.duration) * 100;
-            if (video.currentTime / video.duration > 0.95) {
-              document.getElementById(`validate-${currentlyPlaying}`).disabled = false;
+        setupPlayer(currentlyPlaying);
+      }
+    }
+
+    // ============================================
+    // CONFIGURER LE PLAYER AVEC TIMER FIABLE
+    // ============================================
+    function setupPlayer(videoId) {
+      const videoEl = document.getElementById(`player-${videoId}`);
+      const validateBtn = document.getElementById(`validate-${videoId}`);
+      const timerFill = document.getElementById(`timerFill-${videoId}`);
+      const watchLabel = document.getElementById(`watchLabel-${videoId}`);
+      if (!videoEl) return;
+
+      const video = currentVideos.find(v => v.id === videoId);
+      const requiredSeconds = video ? video.seconds : 10;
+
+      let elapsed = 0;
+      let timerInterval = null;
+      let unlocked = false;
+
+      // Démarrer le timer dès que la vidéo joue
+      videoEl.addEventListener('play', function() {
+        if (timerInterval) return;
+        timerInterval = setInterval(function() {
+          if (!videoEl.paused && !videoEl.ended) {
+            elapsed++;
+            const pct = Math.min((elapsed / requiredSeconds) * 100, 100);
+            timerFill.style.width = pct + '%';
+
+            if (elapsed >= requiredSeconds && !unlocked) {
+              unlocked = true;
+              validateBtn.disabled = false;
+              validateBtn.innerHTML = '<i class="fas fa-check-circle"></i> VALIDER (+80 FCFA)';
+              validateBtn.style.background = 'linear-gradient(135deg, #4cff4c, #00cc44)';
+              watchLabel.innerHTML = '<i class="fas fa-check" style="color:var(--success)"></i> Vidéo complète — cliquez pour valider !';
             }
-          });
-          
-          video.addEventListener('ended', function() {
-            validateVideo(currentlyPlaying);
-          });
+          }
+        }, 1000);
+      });
+
+      // Si la vidéo ne charge pas, fallback timer
+      videoEl.addEventListener('error', function() {
+        watchLabel.textContent = '⚠️ Chargement… patientez ou réessayez';
+        // Lancer quand même le timer de fallback après 2s
+        setTimeout(function() {
+          if (timerInterval) return;
+          timerInterval = setInterval(function() {
+            elapsed++;
+            const pct = Math.min((elapsed / requiredSeconds) * 100, 100);
+            timerFill.style.width = pct + '%';
+            if (elapsed >= requiredSeconds && !unlocked) {
+              unlocked = true;
+              validateBtn.disabled = false;
+              validateBtn.innerHTML = '<i class="fas fa-check-circle"></i> VALIDER (+80 FCFA)';
+              validateBtn.style.background = 'linear-gradient(135deg, #4cff4c, #00cc44)';
+              watchLabel.innerHTML = '<i class="fas fa-check" style="color:var(--success)"></i> Terminé — cliquez pour valider !';
+            }
+          }, 1000);
+        }, 2000);
+      });
+
+      // Auto valider à la fin
+      videoEl.addEventListener('ended', function() {
+        if (!unlocked) {
+          unlocked = true;
+          elapsed = requiredSeconds;
+          timerFill.style.width = '100%';
+          validateBtn.disabled = false;
+          validateBtn.innerHTML = '<i class="fas fa-check-circle"></i> VALIDER (+80 FCFA)';
+          validateBtn.style.background = 'linear-gradient(135deg, #4cff4c, #00cc44)';
         }
+        validateVideo(videoId);
+        if (timerInterval) clearInterval(timerInterval);
+      });
+
+      // Essayer de lancer la vidéo
+      videoEl.load();
+      const playPromise = videoEl.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(function() {
+          // Autoplay bloqué sur mobile — l'utilisateur doit appuyer play manuellement
+          watchLabel.textContent = '▶️ Appuyez sur play pour lancer la vidéo';
+        });
       }
     }
 
