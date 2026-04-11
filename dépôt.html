@@ -122,51 +122,6 @@
       margin-bottom: 30px;
     }
 
-    /* Alerte limite quotidienne */
-    .daily-limit-alert {
-      background: linear-gradient(135deg, rgba(255, 77, 148, 0.1), rgba(255, 71, 87, 0.1));
-      border: 1px solid rgba(255, 71, 87, 0.3);
-      border-radius: 16px;
-      padding: 12px 16px;
-      margin-bottom: 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .daily-limit-alert i {
-      color: #ff4757;
-      font-size: 20px;
-    }
-
-    .daily-limit-alert-content {
-      flex: 1;
-    }
-
-    .daily-limit-alert-title {
-      font-size: 14px;
-      font-weight: 600;
-      color: #ff4757;
-    }
-
-    .daily-limit-alert-text {
-      font-size: 12px;
-      color: #94a3b8;
-    }
-
-    .daily-limit-alert.countdown {
-      background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(157, 78, 221, 0.1));
-      border-color: rgba(0, 255, 204, 0.3);
-    }
-
-    .daily-limit-alert.countdown i {
-      color: #00ffcc;
-    }
-
-    .daily-limit-alert.countdown .daily-limit-alert-title {
-      color: #00ffcc;
-    }
-
     /* Balance Card */
     .balance-card {
       background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(157, 78, 221, 0.1));
@@ -314,6 +269,25 @@
       align-items: center;
       justify-content: center;
       gap: 5px;
+    }
+
+    /* Timer sur les cartes */
+    .pack-timer {
+      background: rgba(255, 71, 87, 0.2);
+      border-radius: 10px;
+      padding: 6px 8px;
+      margin-top: 10px;
+      font-size: 10px;
+      color: #ff4757;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .pack-timer.available {
+      background: rgba(0, 255, 204, 0.2);
+      color: #00ffcc;
     }
 
     /* Password section */
@@ -554,15 +528,6 @@
   <h1 class="page-title">Dépôt d'argent</h1>
   <p class="page-subtitle">Choisissez un montant et entrez le code sécurisé</p>
 
-  <!-- Alerte limite quotidienne -->
-  <div id="dailyLimitAlert" class="daily-limit-alert" style="display: none;">
-    <i class="fas fa-clock"></i>
-    <div class="daily-limit-alert-content">
-      <div class="daily-limit-alert-title" id="alertTitle">Limite quotidienne atteinte</div>
-      <div class="daily-limit-alert-text" id="alertText">Vous avez déjà effectué un dépôt aujourd'hui</div>
-    </div>
-  </div>
-
   <div class="balance-card">
     <div class="balance-label">Solde actuel</div>
     <div class="balance-amount" id="currentBalance">0 FCFA</div>
@@ -579,8 +544,8 @@
   -->
   
   <div class="amounts-grid">
-    <!-- Carte 8000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
-    <div class="amount-card" data-amount="2500" data-code="2111">
+    <!-- Carte 2500 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
+    <div class="amount-card" data-amount="2500" data-code="2111" data-pack-id="pack_2500">
       <div class="amount-icon">
         <i class="fas fa-coins"></i>
       </div>
@@ -589,10 +554,11 @@
       <div class="code-info">
         <i class="fas fa-lock"></i> Code requis
       </div>
+      <div class="pack-timer" id="timer_2500"></div>
     </div>
     
-    <!-- Carte 8000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
-    <div class="amount-card" data-amount="5000" data-code="2111">
+    <!-- Carte 5000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
+    <div class="amount-card" data-amount="5000" data-code="2111" data-pack-id="pack_5000">
       <div class="amount-icon">
         <i class="fas fa-coins"></i>
       </div>
@@ -601,10 +567,11 @@
       <div class="code-info">
         <i class="fas fa-lock"></i> Code requis
       </div>
+      <div class="pack-timer" id="timer_5000"></div>
     </div>
 
-    <!-- Carte 15000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
-    <div class="amount-card" data-amount="10000" data-code="2222">
+    <!-- Carte 10000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
+    <div class="amount-card" data-amount="10000" data-code="2222" data-pack-id="pack_10000">
       <div class="amount-icon">
         <i class="fas fa-gem"></i>
       </div>
@@ -613,10 +580,11 @@
       <div class="code-info">
         <i class="fas fa-lock"></i> Code requis
       </div>
+      <div class="pack-timer" id="timer_10000"></div>
     </div>
 
-    <!-- Carte 30000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
-    <div class="amount-card" data-amount="20000" data-code="3333">
+    <!-- Carte 20000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
+    <div class="amount-card" data-amount="20000" data-code="3333" data-pack-id="pack_20000">
       <div class="amount-icon">
         <i class="fas fa-crown"></i>
       </div>
@@ -625,10 +593,11 @@
       <div class="code-info">
         <i class="fas fa-lock"></i> Code requis
       </div>
+      <div class="pack-timer" id="timer_20000"></div>
     </div>
 
-    <!-- Carte 70000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
-    <div class="amount-card" data-amount="50000" data-code="4444">
+    <!-- Carte 50000 FCFA - MODIFIER LE CODE ICI (data-code="XXXX") -->
+    <div class="amount-card" data-amount="50000" data-code="4444" data-pack-id="pack_50000">
       <div class="amount-icon">
         <i class="fas fa-star-of-life"></i>
       </div>
@@ -637,6 +606,7 @@
       <div class="code-info">
         <i class="fas fa-lock"></i> Code requis
       </div>
+      <div class="pack-timer" id="timer_50000"></div>
     </div>
   </div>
 
@@ -685,14 +655,6 @@
   // ============================================
   // Pour modifier les codes, éditez ce fichier et changez les attributs data-code
   // des cartes dans la section "amounts-grid"
-  //
-  // Exemple :
-  // data-code="1111" pour 8000 FCFA
-  // data-code="2222" pour 15000 FCFA
-  // data-code="3333" pour 30000 FCFA
-  // data-code="4444" pour 70000 FCFA
-  //
-  // Remplacez par vos codes personnalisés (4 chiffres)
   // ============================================
 
   // ============================================
@@ -717,96 +679,119 @@
   // ============================================
   let selectedAmount = null;
   let selectedCode = null;
+  let selectedPackId = null;
   let currentUserData = null;
   let currentUserId = null;
-  let canDepositToday = true;
-  let countdownInterval = null;
+  
+  // Stockage des timers par pack
+  let countdownIntervals = {};
 
   const amountCards = document.querySelectorAll('.amount-card');
   const passwordInput = document.getElementById('passwordInput');
   const depositBtn = document.getElementById('depositBtn');
   const currentBalanceSpan = document.getElementById('currentBalance');
-  const dailyLimitAlert = document.getElementById('dailyLimitAlert');
-  const alertTitle = document.getElementById('alertTitle');
-  const alertText = document.getElementById('alertText');
 
-    // ============================================
-  // GESTION DE LA LIMITE QUOTIDIENNE
   // ============================================
-  function checkDailyLimit() {
-    const today = new Date().toDateString();
-    const storedDate = localStorage.getItem(`earnzone_last_deposit_${currentUserId}`);
+  // GESTION DE LA LIMITE PAR PACK (24h)
+  // ============================================
+  
+  // Vérifier si un pack spécifique est bloqué
+  function isPackLocked(packId) {
+    const lockData = localStorage.getItem(`earnzone_pack_lock_${currentUserId}_${packId}`);
+    if (!lockData) return false;
     
-    if (storedDate === today) {
-      canDepositToday = false;
+    try {
+      const lock = JSON.parse(lockData);
+      const lockTime = new Date(lock.lockUntil);
+      const now = new Date();
+      
+      if (now >= lockTime) {
+        localStorage.removeItem(`earnzone_pack_lock_${currentUserId}_${packId}`);
+        return false;
+      }
+      return true;
+    } catch(e) {
       return false;
     }
-    
-    canDepositToday = true;
-    return true;
   }
-
-  function updateDailyLimitUI() {
-    if (!canDepositToday) {
-      dailyLimitAlert.style.display = 'flex';
-      dailyLimitAlert.classList.remove('countdown');
-      alertTitle.textContent = '❌ Limite quotidienne atteinte';
-      alertText.textContent = 'Vous avez déjà effectué un dépôt aujourd\'hui. Revenez demain !';
-      
-      amountCards.forEach(card => {
-        card.classList.add('disabled');
-      });
-      passwordInput.disabled = true;
-      depositBtn.disabled = true;
-      
-      startCountdown();
-    } else {
-      dailyLimitAlert.style.display = 'none';
-      amountCards.forEach(card => {
-        card.classList.remove('disabled');
-      });
-      passwordInput.disabled = false;
-      depositBtn.disabled = false;
-    }
-  }
-
-  function startCountdown() {
-    if (countdownInterval) clearInterval(countdownInterval);
+  
+  // Obtenir le temps restant pour un pack (en millisecondes)
+  function getRemainingTime(packId) {
+    const lockData = localStorage.getItem(`earnzone_pack_lock_${currentUserId}_${packId}`);
+    if (!lockData) return 0;
     
-    function updateCountdown() {
+    try {
+      const lock = JSON.parse(lockData);
+      const lockUntil = new Date(lock.lockUntil);
       const now = new Date();
-      const tomorrow = new Date(now);
-      tomorrow.setDate(tomorrow.getDate() + 1);
-      tomorrow.setHours(0, 0, 0, 0);
-      
-      const diff = tomorrow - now;
-      
-      if (diff <= 0) {
-        localStorage.removeItem(`earnzone_last_deposit_${currentUserId}`);
-        canDepositToday = true;
-        updateDailyLimitUI();
-        if (countdownInterval) clearInterval(countdownInterval);
-        return;
-      }
-      
-      const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      alertTitle.textContent = '⏰ Réinitialisation dans';
-      alertText.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
-      dailyLimitAlert.classList.add('countdown');
+      const remaining = lockUntil - now;
+      return remaining > 0 ? remaining : 0;
+    } catch(e) {
+      return 0;
     }
-    
-    updateCountdown();
-    countdownInterval = setInterval(updateCountdown, 1000);
   }
-
-  function recordDeposit() {
-    const today = new Date().toDateString();
-    localStorage.setItem(`earnzone_last_deposit_${currentUserId}`, today);
-    checkDailyLimit();
-    updateDailyLimitUI();
+  
+  // Bloquer un pack pour 24h
+  function lockPack(packId) {
+    const lockUntil = new Date();
+    lockUntil.setHours(lockUntil.getHours() + 24);
+    
+    const lockData = {
+      lockUntil: lockUntil.toISOString(),
+      lockedAt: new Date().toISOString()
+    };
+    
+    localStorage.setItem(`earnzone_pack_lock_${currentUserId}_${packId}`, JSON.stringify(lockData));
+  }
+  
+  // Formater le temps restant (HH:MM:SS)
+  function formatRemainingTime(ms) {
+    if (ms <= 0) return "Disponible";
+    const hours = Math.floor(ms / (1000 * 60 * 60));
+    const minutes = Math.floor((ms % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((ms % (1000 * 60)) / 1000);
+    return `${hours}h ${minutes}m ${seconds}s`;
+  }
+  
+    // Mettre à jour l'affichage du timer pour une carte
+  function updatePackTimerUI(card, packId) {
+    const timerDiv = card.querySelector('.pack-timer');
+    if (!timerDiv) return;
+    
+    const remainingMs = getRemainingTime(packId);
+    const isLocked = remainingMs > 0;
+    
+    if (isLocked) {
+      timerDiv.innerHTML = `<i class="fas fa-hourglass-half"></i> ${formatRemainingTime(remainingMs)}`;
+      timerDiv.className = 'pack-timer';
+      card.classList.add('disabled');
+    } else {
+      timerDiv.innerHTML = `<i class="fas fa-check-circle"></i> Disponible maintenant`;
+      timerDiv.className = 'pack-timer available';
+      card.classList.remove('disabled');
+    }
+  }
+  
+  // Démarrer le compte à rebours pour tous les packs
+  function startAllCountdowns() {
+    Object.values(countdownIntervals).forEach(interval => {
+      if (interval) clearInterval(interval);
+    });
+    countdownIntervals = {};
+    
+    amountCards.forEach(card => {
+      const packId = card.getAttribute('data-pack-id');
+      if (!packId) return;
+      
+      const updateTimer = () => {
+        updatePackTimerUI(card, packId);
+      };
+      
+      updateTimer();
+      
+      if (countdownIntervals[packId]) clearInterval(countdownIntervals[packId]);
+      countdownIntervals[packId] = setInterval(updateTimer, 1000);
+    });
   }
 
   // ============================================
@@ -822,8 +807,7 @@
       }
     }
     
-    checkDailyLimit();
-    updateDailyLimitUI();
+    startAllCountdowns();
   }
 
   function updateBalanceDisplay() {
@@ -843,7 +827,12 @@
   // ============================================
   amountCards.forEach(card => {
     card.addEventListener('click', () => {
-      if (!canDepositToday) return;
+      const packId = card.getAttribute('data-pack-id');
+      
+      if (isPackLocked(packId)) {
+        showNotification('Pack indisponible', 'Vous devez attendre 24h avant de racheter ce pack', false);
+        return;
+      }
       
       amountCards.forEach(c => {
         c.classList.remove('selected');
@@ -859,6 +848,7 @@
       
       selectedAmount = parseInt(card.getAttribute('data-amount'));
       selectedCode = card.getAttribute('data-code');
+      selectedPackId = packId;
       
       passwordInput.value = '';
       passwordInput.focus();
@@ -927,13 +917,13 @@
   // VALIDATION DU DÉPÔT
   // ============================================
   function validateDeposit() {
-    if (!canDepositToday) {
-      showModal('Limite quotidienne atteinte', 'Vous avez déjà effectué un dépôt aujourd\'hui. Revenez demain !', true);
+    if (!selectedAmount) {
+      showNotification('Erreur', 'Veuillez sélectionner un pack', false);
       return false;
     }
     
-    if (!selectedAmount) {
-      showNotification('Erreur', 'Veuillez sélectionner un pack', false);
+    if (isPackLocked(selectedPackId)) {
+      showNotification('Pack indisponible', 'Vous devez attendre 24h avant de racheter ce pack', false);
       return false;
     }
     
@@ -966,6 +956,7 @@
       id: Date.now(),
       type: 'deposit',
       amount: selectedAmount,
+      packId: selectedPackId,
       date: new Date().toISOString(),
       status: 'completed'
     };
@@ -974,15 +965,21 @@
     saveUserData();
     updateBalanceDisplay();
     
-    recordDeposit();
+    lockPack(selectedPackId);
+    
+    const selectedCard = document.querySelector(`.amount-card[data-pack-id="${selectedPackId}"]`);
+    if (selectedCard) {
+      updatePackTimerUI(selectedCard, selectedPackId);
+    }
     
     showModal(
       'Dépôt réussi ! 🎉',
-      `${selectedAmount.toLocaleString('fr-FR')} FCFA ont été ajoutés à votre compte.\n\nNouveau solde : ${newBalance.toLocaleString('fr-FR')} FCFA`
+      `${selectedAmount.toLocaleString('fr-FR')} FCFA ont été ajoutés à votre compte.\n\nNouveau solde : ${newBalance.toLocaleString('fr-FR')} FCFA\n\nCe pack sera à nouveau disponible dans 24h.`
     );
     
     selectedAmount = null;
     selectedCode = null;
+    selectedPackId = null;
     passwordInput.value = '';
     amountCards.forEach(c => {
       c.classList.remove('selected');
