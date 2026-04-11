@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>EarnZone - Guide Complet | Comment gagner de l'argent</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="Découvrez comment gagner de l'argent sur EarnZone : investissement pétrole, formations gratuites et activités quotidiennes. Guide complet avec tous les détails.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000000;
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    .gradient-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: radial-gradient(circle at 20% 30%, rgba(0, 255, 204, 0.08) 0%, transparent 40%),
+                  radial-gradient(circle at 80% 70%, rgba(157, 78, 221, 0.08) 0%, transparent 40%);
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 5%;
+      background: rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .back-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 14px;
+      transition: all 0.3s;
+    }
+
+    .back-btn:hover {
+      color: #00ffcc;
+    }
+
+    .page-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .page-title i {
+      color: #00ffcc;
+    }
+
+    .container {
+      max-width: 650px;
+      margin: 0 auto;
+      padding: 20px 16px 100px;
+    }
+
+    /* Hero */
+    .hero-section {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 35px 20px;
+      background: linear-gradient(135deg, rgba(0, 255, 204, 0.1), rgba(157, 78, 221, 0.1));
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-icon {
+      font-size: 65px;
+      color: #00ffcc;
+      margin-bottom: 15px;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      color: #00ffcc;
+    }
+
+    .hero-subtitle {
+      color: #94a3b8;
+      font-size: 14px;
+    }
+
+    /* Cartes */
+    .card {
+      background: rgba(20, 20, 20, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 24px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 22px;
+      background: rgba(0, 255, 204, 0.05);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-header i {
+      font-size: 24px;
+      color: #00ffcc;
+    }
+
+    .card-header h2 {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .card-body {
+      padding: 22px;
+    }
+
+    /* Packs */
+    .pack-card {
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 20px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      transition: all 0.3s;
+    }
+
+    .pack-card:hover {
+      transform: translateX(5px);
+      border-color: rgba(0, 255, 204, 0.3);
+    }
+
+    .pack-header {
+      padding: 15px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .pack-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .bronze-bg { background: linear-gradient(135deg, #cd7f32, #8b4513); }
+    .silver-bg { background: linear-gradient(135deg, #c0c0c0, #696969); }
+    .gold-bg { background: linear-gradient(135deg, #ffd700, #b8860b); }
+    .platinum-bg { background: linear-gradient(135deg, #e5e4e2, #a9a9a9); }
+    .diamond-bg { background: linear-gradient(135deg, #b9f2ff, #4682b4); }
+
+    .pack-icon i { color: black; }
+
+    .pack-name {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    .pack-body {
+      padding: 15px 18px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .pack-stat {
+      text-align: center;
+    }
+
+    .pack-stat-label {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-bottom: 4px;
+    }
+
+    .pack-stat-value {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .pack-roi {
+      grid-column: span 2;
+      text-align: center;
+      background: rgba(0, 255, 204, 0.1);
+      border-radius: 12px;
+      padding: 8px;
+      font-size: 12px;
+      color: #00ffcc;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .badge-success { background: rgba(76, 255, 76, 0.1); color: #4cff4c; border: 1px solid rgba(76, 255, 76, 0.2); }
+    .badge-warning { background: rgba(255, 204, 0, 0.1); color: #ffcc00; border: 1px solid rgba(255, 204, 0, 0.2); }
+    .badge-info { background: rgba(0, 255, 204, 0.1); color: #00ffcc; border: 1px solid rgba(0, 255, 204, 0.2); }
+    .badge-primary { background: rgba(157, 78, 221, 0.1); color: #9d4edd; border: 1px solid rgba(157, 78, 221, 0.2); }
+
+    /* Grille info */
+    .info-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .info-icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(0, 255, 204, 0.1);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: #00ffcc;
+      flex-shrink: 0;
+    }
+
+    .info-content h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 5px;
+    }
+
+    .info-content p {
+      font-size: 13px;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
+    /* Calendrier */
+    .calendar-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .day-card {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 14px;
+      transition: all 0.3s;
+    }
+
+    .day-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 255, 204, 0.1);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
+
+    .day-info {
+      flex: 1;
+    }
+
+    .day-name {
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .day-activity {
+      font-size: 12px;
+      color: #94a3b8;
+    }
+
+    .day-reward {
+      font-size: 15px;
+      font-weight: 700;
+      color: #00ffcc;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .feature-list li:last-child {
+      border-bottom: none;
+    }
+
+    .feature-list li i {
+      width: 22px;
+      color: #00ffcc;
+      font-size: 14px;
+    }
+
+    .step-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .step-list li {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .step-number {
+      width: 28px;
+      height: 28px;
+      background: #00ffcc;
+      color: black;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .step-text {
+      flex: 1;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    .step-text strong {
+      color: white;
+    }
+
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #00ffcc, #00cca3);
+      color: black;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 16px;
+      margin-top: 20px;
+      transition: all 0.3s;
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+      transition: all 0.3s;
+    }
+
+    .btn-secondary:active {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .faq-item {
+      margin-bottom: 18px;
+    }
+
+    .faq-question {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .faq-question i {
+      color: #00ffcc;
+      font-size: 12px;
+    }
+
+    .faq-answer {
+      font-size: 13px;
+      color: #94a3b8;
+      padding-left: 22px;
+      line-height: 1.5;
+    }
+
+    .highlight {
+      color: #00ffcc;
+      font-weight: 700;
+    }
+
+    .highlight-gold {
+      color: #ffd700;
+      font-weight: 700;
+    }
+
+    .note-box {
+      background: rgba(255, 204, 0, 0.05);
+      border-left: 3px solid #ffcc00;
+      padding: 12px 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+      font-size: 13px;
+    }
+
+    .success-box {
+      background: rgba(76, 255, 76, 0.05);
+      border-left: 3px solid #4cff4c;
+      padding: 12px 15px;
+      border-radius: 12px;
+      margin: 15px 0;
+      font-size: 13px;
+    }
+
+    .back-home {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #00ffcc, #00cca3);
+      color: black;
+      padding: 16px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 255, 204, 0.3);
+      z-index: 99;
+    }
+
+    hr {
+      border-color: rgba(255, 255, 255, 0.05);
+      margin: 20px 0;
+    }
+
+    @media (min-width: 650px) {
+      .container {
+        max-width: 650px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="gradient-bg"></div>
+
+  <header class="header">
+    <a href="index.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i>
+      <span>Retour</span>
+    </a>
+    <div class="page-title">
+      <i class="fas fa-info-circle"></i>
+      <span>Guide complet</span>
+    </div>
+    <div style="width: 40px;"></div>
+  </header>
+
+  <div class="container">
+    
+    <!-- HERO -->
+    <div class="hero-section">
+      <div class="hero-icon">
+        <i class="fas fa-gem"></i>
+      </div>
+      <h1 class="hero-title">Guide <span>EarnZone</span></h1>
+      <p class="hero-subtitle">Tout ce que vous devez savoir pour gagner de l'argent</p>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 1 : INTRODUCTION GÉNÉRALE -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-star-of-life"></i>
+        <h2>Bienvenue sur EarnZone</h2>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom: 15px;">EarnZone est une plateforme qui vous permet de <span class="highlight">gagner de l'argent de 3 façons différentes</span> :</p>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="info-content">
+              <h4>1. Investissement Pétrole</h4>
+              <p>Investissez dans des packs et recevez des gains automatiques toutes les 24h. Sans rien faire, votre argent travaille pour vous !</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div class="info-content">
+              <h4>2. Formations Gratuites</h4>
+              <p>Apprenez à lancer votre business, maîtriser le marketing digital et investir intelligemment. 100% gratuit !</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-calendar-alt"></i></div>
+            <div class="info-content">
+              <h4>3. Activités Quotidiennes</h4>
+              <p>Du lundi au vendredi, des activités simples vous rapportent de l'argent chaque jour. Jusqu'à 800 FCFA par semaine !</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 2 : INVESTISSEMENT (DÉTAIL COMPLET) -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-oil-well"></i>
+        <h2>📈 Investissement Pétrole - Le cœur d'EarnZone</h2>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom: 20px;">Le principe est <span class="highlight">très simple</span> : vous investissez une fois, et vous recevez des <span class="highlight">gains automatiques toutes les 24 heures</span>, sans rien faire. Pas besoin de revenir chaque jour pour réclamer, c'est 100% automatique !</p>
+
+        <!-- Pack Bronze -->
+        <div class="pack-card">
+          <div class="pack-header">
+            <div class="pack-icon bronze-bg"><i class="fas fa-medal"></i></div>
+            <div><span class="pack-name">Pack Bronze</span><br><span style="font-size: 12px; color: #cd7f32;">Idéal pour débuter</span></div>
+          </div>
+          <div class="pack-body">
+            <div class="pack-stat"><div class="pack-stat-label">💰 Investissement</div><div class="pack-stat-value">2 500 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📅 Durée</div><div class="pack-stat-value">50 jours</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📈 Gain/jour</div><div class="pack-stat-value" style="color: #00ffcc;">+500 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">💵 Gain total</div><div class="pack-stat-value" style="color: #4cff4c;">25 000 FCFA</div></div>
+            <div class="pack-roi">📊 ROI : +900% • 💸 Bénéfice net : +22 500 FCFA</div>
+          </div>
+        </div>
+
+        <!-- Pack Argent -->
+        <div class="pack-card">
+          <div class="pack-header">
+            <div class="pack-icon silver-bg"><i class="fas fa-medal"></i></div>
+            <div><span class="pack-name">Pack Argent</span><br><span style="font-size: 12px; color: #c0c0c0;">Parfait pour augmenter ses gains</span></div>
+          </div>
+          <div class="pack-body">
+            <div class="pack-stat"><div class="pack-stat-label">💰 Investissement</div><div class="pack-stat-value">5 000 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📅 Durée</div><div class="pack-stat-value">30 jours</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📈 Gain/jour</div><div class="pack-stat-value" style="color: #00ffcc;">+900 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">💵 Gain total</div><div class="pack-stat-value" style="color: #4cff4c;">27 000 FCFA</div></div>
+            <div class="pack-roi">📊 ROI : +440% • 💸 Bénéfice net : +22 000 FCFA</div>
+          </div>
+        </div>
+
+        <!-- Pack Or -->
+        <div class="pack-card">
+          <div class="pack-header">
+            <div class="pack-icon gold-bg"><i class="fas fa-crown"></i></div>
+            <div><span class="pack-name">Pack Or</span><br><span style="font-size: 12px; color: #ffd700;">Équilibre parfait risque/rentabilité</span></div>
+          </div>
+          <div class="pack-body">
+            <div class="pack-stat"><div class="pack-stat-label">💰 Investissement</div><div class="pack-stat-value">10 000 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📅 Durée</div><div class="pack-stat-value">20 jours</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📈 Gain/jour</div><div class="pack-stat-value" style="color: #00ffcc;">+2 200 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">💵 Gain total</div><div class="pack-stat-value" style="color: #4cff4c;">44 000 FCFA</div></div>
+            <div class="pack-roi">📊 ROI : +340% • 💸 Bénéfice net : +34 000 FCFA</div>
+          </div>
+        </div>
+
+        <!-- Pack Platine -->
+        <div class="pack-card">
+          <div class="pack-header">
+            <div class="pack-icon platinum-bg"><i class="fas fa-gem"></i></div>
+            <div><span class="pack-name">Pack Platine</span><br><span style="font-size: 12px; color: #e5e4e2;">Gains rapides et élevés</span></div>
+          </div>
+          <div class="pack-body">
+            <div class="pack-stat"><div class="pack-stat-label">💰 Investissement</div><div class="pack-stat-value">20 000 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📅 Durée</div><div class="pack-stat-value">15 jours</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📈 Gain/jour</div><div class="pack-stat-value" style="color: #00ffcc;">+5 000 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">💵 Gain total</div><div class="pack-stat-value" style="color: #4cff4c;">75 000 FCFA</div></div>
+            <div class="pack-roi">📊 ROI : +275% • 💸 Bénéfice net : +55 000 FCFA</div>
+          </div>
+        </div>
+
+        <!-- Pack Diamant -->
+        <div class="pack-card">
+          <div class="pack-header">
+            <div class="pack-icon diamond-bg"><i class="fas fa-star"></i></div>
+            <div><span class="pack-name">Pack Diamant</span><br><span style="font-size: 12px; color: #b9f2ff;">Le summum du rendement</span></div>
+          </div>
+          <div class="pack-body">
+            <div class="pack-stat"><div class="pack-stat-label">💰 Investissement</div><div class="pack-stat-value">50 000 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📅 Durée</div><div class="pack-stat-value">10 jours</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">📈 Gain/jour</div><div class="pack-stat-value" style="color: #00ffcc;">+14 000 FCFA</div></div>
+            <div class="pack-stat"><div class="pack-stat-label">💵 Gain total</div><div class="pack-stat-value" style="color: #4cff4c;">140 000 FCFA</div></div>
+            <div class="pack-roi">📊 ROI : +180% • 💸 Bénéfice net : +90 000 FCFA</div>
+          </div>
+        </div>
+
+<!-- Explication du fonctionnement -->
+        <div class="success-box">
+          <i class="fas fa-clock" style="margin-right: 8px;"></i> <strong>Comment ça fonctionne exactement ?</strong><br><br>
+          • <span class="highlight">Jour 1</span> : Vous investissez 10 000 FCFA dans le Pack Or à 14h30<br>
+          • <span class="highlight">Jour 2 à 14h30</span> : Vous recevez automatiquement +2 200 FCFA<br>
+          • <span class="highlight">Jour 3 à 14h30</span> : Vous recevez automatiquement +2 200 FCFA<br>
+          • ... jusqu'au <span class="highlight">Jour 20</span> : Dernier paiement de 2 200 FCFA<br>
+          • <span class="highlight">Bilan final</span> : Vous avez reçu 44 000 FCFA (bénéfice net de 34 000 FCFA)
+        </div>
+
+        <div class="note-box">
+          <i class="fas fa-info-circle" style="margin-right: 8px;"></i> <strong>À savoir :</strong><br>
+          • Un seul investissement par jour maximum<br>
+          • Vous ne pouvez pas avoir deux fois le même pack en même temps<br>
+          • Les gains sont crédités automatiquement, même si vous ne vous connectez pas !
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 3 : POURQUOI INVESTIR MAINTENANT ? -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-rocket"></i>
+        <h2>Pourquoi investir dès maintenant ?</h2>
+      </div>
+      <div class="card-body">
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-chart-simple"></i></div>
+            <div class="info-content">
+              <h4>Des rendements exceptionnels</h4>
+              <p>Avec un ROI allant de +180% à +900%, vos gains sont bien supérieurs à tout placement bancaire traditionnel.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-hand-holding-usd"></i></div>
+            <div class="info-content">
+              <h4>Petit budget possible</h4>
+              <p>Vous pouvez commencer avec seulement 2 500 FCFA. Pas besoin d'être riche pour débuter !</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-brain"></i></div>
+            <div class="info-content">
+              <h4>Zéro compétence requise</h4>
+              <p>Vous n'avez pas besoin de connaissances en finance ou en trading. Tout est automatisé.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-clock"></i></div>
+            <div class="info-content">
+              <h4>Gain de temps</h4>
+              <p>Une fois investi, vous n'avez rien à faire. Les gains tombent tout seuls chaque jour.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 4 : FORMATIONS GRATUITES -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-graduation-cap"></i>
+        <h2>🎓 Formations Gratuites</h2>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom: 15px;">EarnZone ne vous aide pas seulement à gagner de l'argent, mais aussi à <span class="highlight">développer vos compétences</span> pour réussir dans la vie. Et le meilleur dans tout ça ? <span class="highlight">C'est 100% GRATUIT !</span></p>
+
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="info-content">
+              <h4>📘 Lancer son Business</h4>
+              <p>Apprenez les bases pour créer et développer votre propre entreprise. Du choix de l'idée à la recherche de clients, en passant par la gestion financière.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-bullhorn"></i></div>
+            <div class="info-content">
+              <h4>📱 Marketing Digital</h4>
+              <p>Maîtrisez les réseaux sociaux (Facebook, Instagram, TikTok, WhatsApp Business), la publicité en ligne et les techniques pour vendre plus.</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-chart-pie"></i></div>
+            <div class="info-content">
+              <h4>💰 Investissement intelligent</h4>
+              <p>Apprenez à gérer votre argent, à diversifier vos investissements et à faire fructifier votre capital sur le long terme.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="success-box">
+          <i class="fas fa-gift" style="margin-right: 8px;"></i> <strong>Bonus :</strong> En suivant ces formations, vous augmenterez vos chances de réussite dans vos projets personnels et professionnels !
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 5 : ACTIVITÉS QUOTIDIENNES -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-calendar-week"></i>
+        <h2>📅 Activités Quotidiennes</h2>
+      </div>
+      <div class="card-body">
+        <p style="margin-bottom: 15px;">Chaque jour de la semaine, une <span class="highlight">activité différente</span> vous attend. Ces activités sont <span class="highlight">simples, rapides et accessibles à tous</span>. Faites-les chaque jour et cumulez jusqu'à <span class="highlight">800 FCFA par semaine</span> !</p>
+
+        <div class="calendar-grid">
+          <div class="day-card">
+            <div class="day-icon" style="background: rgba(76, 255, 76, 0.1);"><i class="fas fa-gamepad" style="color: #4cff4c;"></i></div>
+            <div class="day-info">
+              <div class="day-name">Lundi - Jeux</div>
+              <div class="day-activity">Jouez à des mini-jeux simples et amusants. Plus vous jouez, plus vous gagnez !</div>
+            </div>
+            <div class="day-reward">+100 FCFA</div>
+          </div>
+          
+          <div class="day-card">
+            <div class="day-icon" style="background: rgba(255, 204, 0, 0.1);"><i class="fas fa-question-circle" style="color: #ffcc00;"></i></div>
+            <div class="day-info">
+              <div class="day-name">Mardi - Quiz</div>
+              <div class="day-activity">Répondez à des questions de culture générale. Testez vos connaissances et apprenez en vous amusant.</div>
+            </div>
+            <div class="day-reward">+100 FCFA</div>
+          </div>
+          
+          <div class="day-card">
+            <div class="day-icon" style="background: rgba(0, 255, 204, 0.1);"><i class="fas fa-video" style="color: #00ffcc;"></i></div>
+            <div class="day-info">
+              <div class="day-name">Mercredi - Vidéos</div>
+              <div class="day-activity">Regardez des vidéos éducatives courtes (moins de 5 minutes) et gagnez de l'argent.</div>
+            </div>
+            <div class="day-reward">+100 FCFA</div>
+          </div>
+          
+          <div class="day-card">
+            <div class="day-icon" style="background: rgba(157, 78, 221, 0.1);"><i class="fas fa-dice" style="color: #9d4edd;"></i></div>
+            <div class="day-info">
+              <div class="day-name">Jeudi - Chance</div>
+              <div class="day-activity">Tentez votre chance avec des jeux de hasard simples. Qui sait, peut-être serez-vous le chanceux du jour ?</div>
+            </div>
+            <div class="day-reward">+100 FCFA</div>
+          </div>
+          
+          <div class="day-card" style="background: rgba(0, 255, 204, 0.05); border: 1px solid rgba(0, 255, 204, 0.15);">
+            <div class="day-icon" style="background: rgba(0, 255, 204, 0.15);"><i class="fas fa-hands-praying" style="color: #00ffcc;"></i></div>
+            <div class="day-info">
+              <div class="day-name">Vendredi - Cadeau Spécial Jummah</div>
+              <div class="day-activity">🎁 Un cadeau spécial offert chaque vendredi pour célébrer la prière de la Jummah. Un petit geste pour vous souhaiter une excellente journée.</div>
+            </div>
+            <div class="day-reward" style="color: #00ffcc; font-size: 16px;">+400 FCFA</div>
+          </div>
+        </div>
+
+        <div class="note-box">
+          <i class="fas fa-lightbulb" style="margin-right: 8px;"></i> <strong>Astuce :</strong> N'oubliez pas de faire vos activités chaque jour ! C'est un revenu supplémentaire garanti sans aucun investissement.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 6 : COMMENT COMMENCER ? (ÉTAPES) -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-shoe-prints"></i>
+        <h2>Comment commencer ? (4 étapes simples)</h2>
+      </div>
+      <div class="card-body">
+        <ul class="step-list">
+          <li>
+            <div class="step-number">1</div>
+            <div class="step-text"><strong>Inscrivez-vous</strong> sur EarnZone (c'est gratuit). Vous aurez votre espace personnel avec votre solde.</div>
+          </li>
+          <li>
+            <div class="step-number">2</div>
+            <div class="step-text"><strong>Choisissez votre pack</strong> selon votre budget. Si vous débutez, le Pack Bronze à 2 500 FCFA est parfait pour tester.</div>
+          </li>
+          <li>
+            <div class="step-number">3</div>
+            <div class="step-text"><strong>Investissez</strong> et laissez faire le système. Les gains tombent automatiquement toutes les 24h.</div>
+          </li>
+          <li>
+            <div class="step-number">4</div>
+            <div class="step-text"><strong>Retirez vos gains</strong> quand vous voulez ! Vous pouvez aussi réinvestir pour augmenter vos revenus.</div>
+          </li>
+        </ul>
+
+        <div class="success-box" style="text-align: center;">
+          <i class="fas fa-trophy" style="font-size: 20px; margin-bottom: 8px; display: inline-block;"></i><br>
+          <strong>C'est aussi simple que ça !</strong><br>
+          Vous n'avez besoin d'aucune compétence particulière.
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 7 : EXEMPLES CONCRETS DE GAINS -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-calculator"></i>
+        <h2>Exemples concrets de ce que vous pouvez gagner</h2>
+      </div>
+      <div class="card-body">
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-seedling"></i></div>
+            <div class="info-content">
+              <h4>Débutant (Pack Bronze)</h4>
+              <p>Investissement 2 500 FCFA → Après 50 jours, vous avez gagné 25 000 FCFA (soit 22 500 FCFA de bénéfice net). Votre argent a été multiplié par 10 !</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-chart-line"></i></div>
+            <div class="info-content">
+              <h4>Intermédiaire (Pack Or)</h4>
+              <p>Investissement 10 000 FCFA → Après 20 jours, vous avez gagné 44 000 FCFA (soit 34 000 FCFA de bénéfice net). Soit plus de 4 fois votre mise !</p>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="info-icon"><i class="fas fa-crown"></i></div>
+            <div class="info-content">
+              <h4>Expert (Pack Diamant)</h4>
+              <p>Investissement 50 000 FCFA → Après 10 jours, vous avez gagné 140 000 FCFA (soit 90 000 FCFA de bénéfice net). Près de 3 fois votre mise en seulement 10 jours !</p>
+            </div>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="fas fa-calendar-day"></i></div>
+          <div class="info-content">
+            <h4>Avec les activités quotidiennes uniquement</h4>
+            <p>Même sans investir, vous pouvez gagner :<br>
+            • 100 FCFA × 4 jours (lundi au jeudi) = 400 FCFA<br>
+            • + 400 FCFA le vendredi = <span class="highlight">800 FCFA par semaine</span><br>
+            • Soit environ <span class="highlight">3 200 FCFA par mois</span> sans rien investir !</p>
+          </div>
+        </div>
+
+        <div class="success-box">
+          <i class="fas fa-chart-line" style="margin-right: 8px;"></i> <strong>Combinaison gagnante :</strong> Si vous combinez investissement + activités quotidiennes, vos revenus peuvent dépasser 100 000 FCFA par mois !
+        </div>
+      </div>
+    </div>
+    
+    <!-- ============================================ -->
+    <!-- SECTION 8 : FOIRE AUX QUESTIONS (FAQ) -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-question-circle"></i>
+        <h2>Foire Aux Questions (FAQ)</h2>
+      </div>
+      <div class="card-body">
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Les gains sont-ils vraiment automatiques ?</div>
+          <div class="faq-answer">OUI ! Une fois que vous avez investi, les gains tombent automatiquement toutes les 24h, exactement à la même heure que votre investissement. Vous n'avez rien à faire, même si vous ne vous connectez pas pendant plusieurs jours, vous recevrez tous vos gains à votre retour.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Puis-je investir dans plusieurs packs en même temps ?</div>
+          <div class="faq-answer">Oui, vous pouvez investir dans différents packs (ex: Bronze + Argent + Or). Mais vous ne pouvez pas avoir deux fois le même pack en même temps. Et vous ne pouvez faire qu'un seul investissement par jour.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Comment retirer mon argent ?</div>
+          <div class="faq-answer">Allez dans la section "Retirer" de votre espace personnel. Choisissez votre mode de retrait (Orange Money, Wave, MTN Mobile Money, ou virement bancaire). Les retraits sont traités sous 24 à 48h.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Que se passe-t-il si j'oublie de faire les activités quotidiennes ?</div>
+          <div class="faq-answer">Pas de problème ! Vous pouvez les faire le jour même. Elles ne sont pas obligatoires, c'est du bonus. Si vous les ratez un jour, vous pouvez simplement reprendre le lendemain.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Les formations sont-elles vraiment gratuites ?</div>
+          <div class="faq-answer">Oui, 100% gratuites ! Aucun frais caché, aucune carte bancaire demandée. Vous y avez accès immédiatement après votre inscription.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Puis-je perdre mon argent ?</div>
+          <div class="faq-answer">Non, EarnZone est une plateforme sécurisée avec un système de gains garantis. Tant que vous respectez les conditions (un investissement par jour, pas de doublon de pack), vos gains sont assurés.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Quel est le meilleur pack pour commencer ?</div>
+          <div class="faq-answer">Je vous recommande le Pack Bronze à 2 500 FCFA. C'est un petit budget qui vous permet de tester le système et de voir par vous-même comment les gains tombent chaque jour. Une fois que vous avez compris, vous pouvez passer aux packs supérieurs.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question"><i class="fas fa-angle-right"></i> Puis-je réinvestir mes gains ?</div>
+          <div class="faq-answer">Oui, absolument ! C'est même recommandé pour maximiser vos revenus. Vous pouvez utiliser vos gains pour investir dans de nouveaux packs et ainsi faire grossir votre capital.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- SECTION 9 : MOTIVATION FINALE -->
+    <!-- ============================================ -->
+    <div class="card">
+      <div class="card-header">
+        <i class="fas fa-heart"></i>
+        <h2>Prêt à changer votre vie ?</h2>
+      </div>
+      <div class="card-body" style="text-align: center;">
+        <p style="margin-bottom: 15px;">Vous avez maintenant toutes les informations en main. <span class="highlight">Le moment d'agir, c'est MAINTENANT.</span></p>
+        <p style="margin-bottom: 20px; color: #94a3b8;">Ne laissez pas passer cette opportunité. Des centaines de personnes gagnent déjà de l'argent sur EarnZone. Pourquoi pas vous ?</p>
+        
+        <div style="font-size: 40px; margin: 20px 0;">🚀</div>
+        
+        <p style="margin-bottom: 15px;"><strong>Rappelez-vous :</strong></p>
+        <ul class="feature-list" style="margin-bottom: 20px;">
+          <li><i class="fas fa-check-circle"></i> Investissement à partir de 2 500 FCFA seulement</li>
+          <li><i class="fas fa-check-circle"></i> Gains automatiques sans rien faire</li>
+          <li><i class="fas fa-check-circle"></i> Formations gratuites pour apprendre</li>
+          <li><i class="fas fa-check-circle"></i> Activités quotidiennes pour gagner chaque jour</li>
+          <li><i class="fas fa-check-circle"></i> Retraits rapides et sécurisés</li>
+        </ul>
+
+        <a href="investissement.html" class="btn-primary">
+          <i class="fas fa-chart-line"></i> Je commence dès maintenant !
+        </a>
+        <a href="index.html" class="btn-secondary">
+          <i class="fas fa-home"></i> Retour à l'accueil
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="index.html" class="back-home">
+    <i class="fas fa-home"></i> Retour à l'accueil
+  </a>
+
+  <script>
+    // Protection : vérifier si l'utilisateur est connecté
+    (function() {
+      const userId = localStorage.getItem('earnzone_current_user');
+      if (!userId) {
+        window.location.href = 'login.html';
+      }
+    })();
+  </script>
+
+</body>
+</html>
