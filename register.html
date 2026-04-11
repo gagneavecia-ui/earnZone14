@@ -389,7 +389,6 @@
           <span>Ce que vous recevez</span>
         </div>
         <ul class="benefits-list">
-          <li><i class="fas fa-check-circle"></i> 2 500 FCFA offerts à l'inscription</li>
           <li><i class="fas fa-check-circle"></i> Accès à toutes les formations</li>
           <li><i class="fas fa-check-circle"></i> Possibilité d'investir et de gagner</li>
         </ul>
@@ -533,8 +532,8 @@
         code: accessCode.toUpperCase(),
         referralCode: userReferralCode,
         referredBy: hasValidReferral ? parrainData.data.referralCode : null,
-        balance: 2500,
-        totalEarned: 2500,
+        balance: 0,
+        totalEarned: 0,
         totalWithdrawn: 0,
         investments: [],
         referrals: [],
@@ -626,7 +625,7 @@
           localStorage.setItem('earnzone_current_user', userId);
           
           // Message personnalisé
-          let message = `Bienvenue ${userName} ! 2 500 FCFA crédités.`;
+          let message = `Bienvenue ${userName} ! Déposez pour commencer.`;
           if (referralCode) {
             const parrain = findUserByReferralCode(referralCode);
             if (parrain) {
