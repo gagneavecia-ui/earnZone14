@@ -370,16 +370,28 @@
 
       <div class="form-group">
         <label class="form-label">
-          <i class="fas fa-key"></i>
-          Code d'accès
+          <i class="fas fa-taxi"></i>
+          Code taxi
         </label>
         <div class="input-wrapper">
           <i class="fas fa-lock input-icon"></i>
-          <input type="text" id="accessCode" class="form-input" 
-                 placeholder="Entrez votre code d'accès" required>
+          <input type="text" id="taxiCode" class="form-input" 
+                 placeholder="Créez votre code taxi" required>
         </div>
         <div class="input-info" style="margin-top: 5px; font-size: 11px; color: var(--text-dim);">
-          <i class="fas fa-info-circle"></i> Le code que vous avez acheté
+          <i class="fas fa-info-circle"></i> Choisissez un code personnel pour vous connecter
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">
+          <i class="fas fa-check-circle"></i>
+          Confirmation code taxi
+        </label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock input-icon"></i>
+          <input type="text" id="confirmTaxiCode" class="form-input" 
+                 placeholder="Confirmez votre code taxi" required>
         </div>
       </div>
 
@@ -410,11 +422,6 @@
 
   <script>
     // ============================================
-    // CODE D'ACCÈS UNIQUE POUR TOUS
-    // ============================================
-    const CODE_UNIVERSEL = "rn55"; // ← CHANGE CE CODE QUAND TU VEUX
-
-    // ============================================
     // FONCTIONS UTILITAIRES
     // ============================================
 
@@ -437,20 +444,6 @@
     }
 
     // ============================================
-    // FONCTIONS DE VÉRIFICATION DU CODE D'ACCÈS
-    // ============================================
-
-    function isValidCode(code) {
-      // Vérification simple (insensible à la casse)
-      return code.trim().toUpperCase() === CODE_UNIVERSEL.toUpperCase();
-    }
-
-    function useCode(code, userName) {
-      // On ne fait rien - le code peut être réutilisé à l'infini
-      console.log(`✅ ${userName} s'est inscrit avec le code ${code}`);
-    }
-
-    // ============================================
     // FONCTIONS DE VÉRIFICATION DU NOM
     // ============================================
 
@@ -470,33 +463,6 @@
     }
 
     // ============================================
-    // FONCTIONS DE PARRAINAGE
-    // ============================================
-
-    function findUserByReferralCode(code) {
-      if (!code) return null;
-      
-      const cleanCode = code.trim().toUpperCase();
-      console.log("🔍 Recherche du code parrain:", cleanCode);
-      
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key.startsWith('earnzone_user_')) {
-          try {
-            const user = JSON.parse(localStorage.getItem(key));
-            if (user && user.referralCode && user.referralCode.toUpperCase() === cleanCode) {
-              console.log("✅ Parrain trouvé:", user.name);
-              return { id: key.replace('earnzone_user_', ''), data: user };
-            }
-          } catch (e) {}
-        }
-      }
-      
-      console.log("❌ Aucun parrain trouvé");
-      return null;
-    }
-
-    // ============================================
     // FONCTIONS DE CRÉATION D'UTILISATEUR
     // ============================================
 
@@ -504,39 +470,17 @@
       return 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     }
 
-    function generateReferralCode(userId) {
-      const idPart = userId.replace('user_', '').slice(-8);
-      const letters = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
-      let randomLetters = '';
-      for (let i = 0; i < 4; i++) {
-        randomLetters += letters[Math.floor(Math.random() * letters.length)];
-      }
-      return `${idPart}${randomLetters}`.toUpperCase();
-    }
-
-    function createUser(userName, accessCode, referralCode) {
+    function createUser(userName, taxiCode) {
       const userId = generateUserId();
-      const userReferralCode = generateReferralCode(userId);
-      
-      let parrainData = null;
-      let hasValidReferral = false;
-      
-      if (referralCode) {
-        parrainData = findUserByReferralCode(referralCode);
-        hasValidReferral = !!parrainData;
-      }
       
       const userData = {
         id: userId,
         name: userName,
-        code: accessCode.toUpperCase(),
-        referralCode: userReferralCode,
-        referredBy: hasValidReferral ? parrainData.data.referralCode : null,
+        taxiCode: taxiCode,
         balance: 0,
         totalEarned: 0,
         totalWithdrawn: 0,
         investments: [],
-        referrals: [],
         hasPaid: false,
         firstPaymentDate: null,
         registrationDate: new Date().toISOString(),
@@ -561,8 +505,8 @@
       e.preventDefault();
       
       const userName = document.getElementById('userName').value.trim();
-      let accessCode = document.getElementById('accessCode').value.trim();
-      let referralCode = document.getElementById('referralCode')?.value.trim() || '';
+      const taxiCode = document.getElementById('taxiCode').value.trim();
+      const confirmTaxiCode = document.getElementById('confirmTaxiCode').value.trim();
       
       const registerBtn = document.getElementById('registerBtn');
       
@@ -577,8 +521,18 @@
         return;
       }
       
-      if (!accessCode) {
-        showNotification('❌ Erreur', 'Veuillez entrer votre code d\'accès', 'error');
+      if (!taxiCode) {
+        showNotification('❌ Erreur', 'Veuillez créer votre code taxi', 'error');
+        return;
+      }
+      
+      if (taxiCode.length < 3) {
+        showNotification('❌ Erreur', 'Le code taxi doit contenir au moins 3 caractères', 'error');
+        return;
+      }
+      
+      if (taxiCode !== confirmTaxiCode) {
+        showNotification('❌ Erreur', 'Les codes taxi ne correspondent pas', 'error');
         return;
       }
       
@@ -588,27 +542,6 @@
         return;
       }
       
-      // Vérifier si le code d'accès est valide
-      if (!isValidCode(accessCode)) {
-        showNotification('❌ Erreur', 'Code d\'accès invalide', 'error');
-        return;
-      }
-      
-      // Vérification du code parrain (si fourni)
-      if (referralCode) {
-        const parrain = findUserByReferralCode(referralCode);
-        
-        if (!parrain) {
-          showNotification('❌ Erreur', 'Code parrain invalide', 'error');
-          return;
-        }
-        
-        if (parrain.data.name.toLowerCase() === userName.toLowerCase()) {
-          showNotification('❌ Erreur', 'Vous ne pouvez pas être votre propre parrain', 'error');
-          return;
-        }
-      }
-      
       // Afficher le chargement
       setLoading(registerBtn, true);
       
@@ -616,24 +549,12 @@
       setTimeout(() => {
         try {
           // Créer l'utilisateur
-          const userId = createUser(userName, accessCode, referralCode);
-          
-          // Marquer le code comme utilisé (optionnel, juste pour log)
-          useCode(accessCode, userName);
+          const userId = createUser(userName, taxiCode);
           
           // Connecter l'utilisateur
           localStorage.setItem('earnzone_current_user', userId);
           
-          // Message personnalisé
-          let message = `Bienvenue ${userName} ! Déposez pour commencer.`;
-          if (referralCode) {
-            const parrain = findUserByReferralCode(referralCode);
-            if (parrain) {
-              message = `Bienvenue ${userName} ! Votre parrain ${parrain.data.name} recevra 500 FCFA à votre premier investissement.`;
-            }
-          }
-          
-          showNotification('✅ Succès', message, 'success');
+          showNotification('✅ Succès', `Bienvenue ${userName} ! Votre compte a été créé.`, 'success');
           
           // Redirection
           setTimeout(() => {

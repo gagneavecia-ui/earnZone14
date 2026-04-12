@@ -905,10 +905,10 @@
       </a>
     </div>
 
-    <!-- ===== LIMITE D'INVESTISSEMENT ===== -->
+    <!-- ===== SECTION INFO (limite supprimée) ===== -->
     <div class="limit-info" id="limitInfo">
-      <i class="fas fa-clock"></i>
-      <span id="investmentLimitText">Vous pouvez investir maintenant</span>
+      <i class="fas fa-infinity"></i>
+      <span id="investmentLimitText">Aucune limite d'investissement - Investissez autant que vous voulez !</span>
     </div>
 
     <!-- ===== PACKS D'INVESTISSEMENT ===== -->
@@ -1070,7 +1070,7 @@
         </div>
       </div>
     </div>
-
+    
     <!-- ===== MES INVESTISSEMENTS ACTIFS ===== -->
     <section class="investments-section">
       <h3 class="section-title">
@@ -1346,22 +1346,17 @@
     }
     
     // ============================================
-    // VÉRIFICATION DE LA LIMITE QUOTIDIENNE
+    // LIMITE SUPPRIMÉE - Fonction toujours active mais retourne toujours true
     // ============================================
     function canInvestToday() {
-      const today = new Date().toDateString();
-      const lastInvestmentDate = localStorage.getItem(`last_investment_date_${userId}`);
-      
-      if (!lastInvestmentDate) {
-        return true;
-      }
-      
-      return lastInvestmentDate !== today;
+      // Limite complètement supprimée : toujours autorisé
+      return true;
     }
 
     function recordInvestment() {
-      const today = new Date().toDateString();
-      localStorage.setItem(`last_investment_date_${userId}`, today);
+      // Fonction conservée mais ne fait plus rien (plus de limite journalière)
+      // Gardée pour compatibilité mais n'enregistre plus rien
+      return;
     }
     
     // ============================================
@@ -1421,9 +1416,9 @@
         }
       }
     }
-    
-    // ============================================
-    // ACHETER UN PACK
+  
+   // ============================================
+    // ACHETER UN PACK (SANS LIMITE QUOTIDIENNE)
     // ============================================
     window.buyPack = function(packKey) {
       if (!userData) {
@@ -1431,10 +1426,8 @@
         return;
       }
       
-      if (!canInvestToday()) {
-        showNotification('⏰ Limite atteinte', 'Un investissement par jour maximum', 'warning');
-        return;
-      }
+      // La vérification de la limite quotidienne a été supprimée
+      // Les utilisateurs peuvent investir autant qu'ils veulent
       
       const pack = packs[packKey];
       const balance = userData.balance || 0;
@@ -1459,9 +1452,6 @@
           
           // Traiter le premier paiement (parrainage)
           processFirstPayment();
-          
-          // Enregistrer la date
-          recordInvestment();
           
           // Créer l'investissement
           const now = new Date();
@@ -1807,8 +1797,7 @@
       cancelBtn.addEventListener('click', cancelHandler);
       okBtn.addEventListener('click', okHandler);
     }
-    
-    // ============================================
+  // ============================================
     // NOTIFICATION
     // ============================================
     function showNotification(title, message, type = 'success') {
